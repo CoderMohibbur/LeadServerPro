@@ -19,9 +19,9 @@
                     </p>
                 </div>
                 <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        Add Role
-                    </p>
+                    <a href="{{ route('roles.create') }}" class="inline-block px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 transition duration-200">
+                        Create New Sheet
+                    </a>
                 </div>
             </div>
 
