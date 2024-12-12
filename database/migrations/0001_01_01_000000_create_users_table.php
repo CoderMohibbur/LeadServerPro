@@ -18,6 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('country')->nullable(); // Country field
+            $table->string('company_name')->nullable(); // Company Name field
+            $table->string('phone_number')->nullable(); // Phone Number field
+            $table->string('linkedin_url')->nullable(); // LinkedIn URL field
+            $table->string('role')->nullable();
+            $table->string('user_type')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
@@ -47,5 +53,10 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+
+
     }
+
+
+
 };

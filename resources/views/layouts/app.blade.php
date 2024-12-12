@@ -50,11 +50,11 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
-      
+
         function applyTheme() {
           const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
           const savedTheme = localStorage.getItem('theme');
-          
+
           if (savedTheme) {
             document.documentElement.classList.toggle('dark', savedTheme === 'dark');
           } else if (systemDarkMode) {
@@ -62,7 +62,7 @@
           } else {
             document.documentElement.classList.remove('dark');
           }
-      
+
           if (document.documentElement.classList.contains('dark')) {
             darkIcon.classList.remove('hidden');
             lightIcon.classList.add('hidden');
@@ -71,7 +71,7 @@
             lightIcon.classList.remove('hidden');
           }
         }
-      
+
         themeToggleBtn.addEventListener('click', () => {
           const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
           if (currentTheme === 'dark') {
@@ -83,7 +83,7 @@
           }
           applyTheme();
         });
-      
+
         // Initialize theme on page load
         applyTheme();
       </script>
