@@ -13,6 +13,11 @@
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <!-- Form Title -->
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">Register</h1>
+            @if ($errors->has('error'))
+                <div class="bg-red-500 text-white p-4 rounded mb-4">
+                    {{ $errors->first('error') }}
+                </div>
+            @endif
 
             <!-- Registration Form -->
             <form method="POST" action="{{ route('User.store') }}" class="space-y-6">

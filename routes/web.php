@@ -5,6 +5,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SheetListController;
 
+use App\Http\Controllers\TicketController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,3 +30,31 @@ Route::get('/sheet-list', [SheetListController::class, 'index']);
 Route::get('/sheet-list/create', [SheetListController::class, 'create']);
 Route::post('/sheet-list', [SheetListController::class, 'store']);
 Route::resource('sheet-lists', SheetListController::class);
+
+
+
+//TicketController
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+    Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+    Route::resource('tickets', TicketController::class);
+    Route::get('tickets/{ticket}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
+    Route::put('tickets/{ticket}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
+    Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+    Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
+// TicketController Show
+Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+
+// Answer Store
+Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
+
+
+Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
+Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
+
+});
