@@ -60,11 +60,22 @@ class TicketController extends Controller
             'user_id' => Auth::id()
         ]);
 
+        $validated = $request->validate([
+            'ticket_id' => 'required|exists:tickets,id',
+            'message' => 'required|string',
+        ]);
+
+        Message::create([
+            'ticket_id' => $validated['ticket_id'],
+            'message' => $validated['message'],
+            'user_id' =>  Auth::id() // Ensure this field is handled correctly
+        ]);
         // Log the successful creation
         Log::info('Ticket created successfully with ID: ' . $ticket->id);
 
         return redirect()->route('tickets.index')->with('success', 'Ticket created successfully!');
     }
+
     public function edit($id)
     {
         // Debug: Log ticket editing

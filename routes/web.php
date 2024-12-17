@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SheetListController;
-
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\YourController; // Import the controller
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,4 +58,16 @@ Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index'
 Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
 Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
 
+
+
+
+Route::get('/export', [YourController::class, 'export'])->name('export');
+Route::get('/import', [YourController::class, 'import'])->name('import');
+Route::get('/all-sheets', [YourController::class, 'allSheets'])->name('all_sheets');
+Route::get('/reset', [YourController::class, 'reset'])->name('reset');
+Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
+
+
+
+Route::get('/data-table', [DataController::class, 'index'])->name('data.index');
 });
