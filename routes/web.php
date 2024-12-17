@@ -20,7 +20,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('User', UserController::class);
-
+    Route::get('/users/data', [UserController::class, 'getUsers'])->name('users.data');
 
     Route::resource('roles', RoleController::class);
 });

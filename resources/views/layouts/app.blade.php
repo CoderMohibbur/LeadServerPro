@@ -17,6 +17,7 @@
 
     <!-- Styles -->
     @livewireStyles
+
 </head>
 
 <body class="font-sans antialiased">
@@ -44,6 +45,9 @@
 
     @stack('modals')
 
+ 
+
+
     @livewireScripts
     <script>
         // JavaScript code for theme toggling here
@@ -52,41 +56,42 @@
         const lightIcon = document.getElementById('theme-toggle-light-icon');
 
         function applyTheme() {
-          const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const savedTheme = localStorage.getItem('theme');
+            const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
 
-          if (savedTheme) {
-            document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-          } else if (systemDarkMode) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
+            if (savedTheme) {
+                document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+            } else if (systemDarkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
 
-          if (document.documentElement.classList.contains('dark')) {
-            darkIcon.classList.remove('hidden');
-            lightIcon.classList.add('hidden');
-          } else {
-            darkIcon.classList.add('hidden');
-            lightIcon.classList.remove('hidden');
-          }
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            } else {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            }
         }
 
         themeToggleBtn.addEventListener('click', () => {
-          const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-          if (currentTheme === 'dark') {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-          } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-          }
-          applyTheme();
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            applyTheme();
         });
 
         // Initialize theme on page load
         applyTheme();
-      </script>
+    </script>
+
 </body>
 
 </html>
