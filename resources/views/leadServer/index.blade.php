@@ -164,10 +164,7 @@
                                             <th
                                                 class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Review</th>
-                                            <th
-                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
-                                                Sheets ID</th>
-                                            <th
+                                           
                                                 class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Created At</th>
                                             <th

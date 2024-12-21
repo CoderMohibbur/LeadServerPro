@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Lead;
+use App\Models\Sheet;
+use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
@@ -40,7 +41,8 @@ class DataController extends Controller
     // Show the form for creating a new lead
     public function create()
     {
-        return view('leadServer.create'); // Return create view for lead
+        $sheets = Sheet::all();
+        return view('leadServer.create',compact('sheets'));// Return create view for lead
     }
 
     // Store the newly created lead in the database
@@ -73,6 +75,20 @@ class DataController extends Controller
             'employee_range' => 'nullable|string|max:255',
             'company_website' => 'nullable|url',
             'company_description' => 'nullable|string|max:1000',
+            'company_linkedin_link' => 'nullable|url',
+            'company_hq_address' => 'nullable|string|max:255',
+            'industry' => 'nullable|string|max:255',
+            'revenue' => 'nullable|string|max:255',
+            'street' => 'nullable|string|max:255',
+            'zip_code' => 'nullable|string|max:20',
+            'rating' => 'nullable|integer|min:1|max:5',
+            'sheet_id' => 'nullable|integer|exists:sheets,id',
+            'sheet_name' => 'nullable|string|max:255',
+            'job_link' => 'nullable|url',
+            'job_role' => 'nullable|string|max:255',
+            'checked_by' => 'nullable|string|max:255',
+            'review' => 'nullable|string|max:1000',
+            'sheets_id' => 'nullable|integer|exists:sheets,id', // Foreign key validation
         ]);
 
         // Insert the new lead data into the database
@@ -102,6 +118,20 @@ class DataController extends Controller
             'employee_range' => $request->employee_range,
             'company_website' => $request->company_website,
             'company_description' => $request->company_description,
+            'company_linkedin_link'=>$request,
+            'company_hq_address'=>$request,
+            'industry'=>$request,
+            'revenue'=>$request,
+            'street'=>$request,
+            'zip_code'=>$request,
+            'rating'=>$request,
+            'sheet_id'=>$request,
+            'sheet_name'=>$request,
+            'job_link'=>$request,
+            'job_role'=>$request,
+            'checked_by'=>$request,
+            'review'=>$request,
+            'sheets_id'=>$request,
         ]);
 
         // Redirect with success message after saving
