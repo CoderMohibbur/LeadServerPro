@@ -48,131 +48,131 @@
                         <!-- Table Section -->
                         <div class="w-full bg-white p-5 shadow-md rounded-lg dark:bg-gray-700">
                             <div class="overflow-x-auto">
-                                <table id="dataTable">
+                                <table id="dataTable" class="table-auto w-full border-collapse dark:border-gray-700">
                                     <thead class="bg-gray-200">
                                         <tr>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                >
                                                 ID</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 LinkedIn Link</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Contact Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Name Prefix</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Full Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 First Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Last Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Email</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Title Position</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Person Location</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Full Address</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company Phone</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company Head Count</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Country</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 City</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 State</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Tag</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Source Link</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Middle Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Sur Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Gender</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Personal Phone</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Employee Range</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company Website</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company LinkedIn Link</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Company HQ Address</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Industry</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Revenue</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Street</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Zip Code</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Rating</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Sheet ID</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Sheet Name</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Job Link</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Job Role</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Checked By</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Review</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Sheets ID</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Created At</th>
                                             <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
+                                                class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
                                                 Updated At</th>
                                         </tr>
                                     </thead>

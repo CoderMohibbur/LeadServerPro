@@ -14,7 +14,7 @@
         </div>
 
         <!-- Data Table -->
-        <table id="dataTable" class="table-auto w-full border-collapse dark:border-gray-700">
+        <table id="sheetTable" class="table-auto w-full border-collapse dark:border-gray-700">
             <thead>
                 <tr>
                     <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">File</th>

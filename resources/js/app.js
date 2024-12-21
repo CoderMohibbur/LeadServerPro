@@ -80,10 +80,26 @@ $(document).on('click', '.delete-btn', function() {
     }
 });
 
+$('#sheetTable').DataTable({
+
+    responsive: true,
+    autoWidth: false,
+    scrollX: true,
+    layout: {
+        topEnd: ['search'],
+        topStart: {
+            pageLength: true, 
+            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+        }
+    }
+});
+
+
+
 $('#dataTable').DataTable({
 
         responsive: true,
-        autoWidth: false,
+        autoWidth: true,
         scrollX: true,
         layout: {
             topEnd: ['search'],
@@ -93,4 +109,3 @@ $('#dataTable').DataTable({
             }
         }
 });
-
