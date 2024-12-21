@@ -26,50 +26,10 @@ import 'datatables.net-buttons/js/buttons.colVis.min.js'; // Column visibility b
 // Import Flowbite (if needed)
 import 'flowbite';
 
-
-// $(document).ready(function () {
-    // Initialize the DataTable and store it in a variable
-    // $('#UserTable').DataTable({
-    //     processing: true,
-    //     serverSide: true,
-    //     ajax: {
-    //         url: '/users/data', // The route returning JSON data
-    //         type: 'GET'
-    //     },
-    //     // dom: 'Bfrtip', // Exclude B here (no buttons inline)
-    //     // buttons: [
-    //     //     'copy', 'csv', 'excel', 'pdf', 'print', 'colvis' // Include desired buttons
-    //     // ],
-    //     columns: [
-    //         { data: 'id', name: 'id' },
-    //         { data: 'name', name: 'name' },
-    //         { data: 'email', name: 'email' },
-    //         { data: 'created_at', name: 'created_at' }
-    //     ],
-    //     layout: {
-    //         topEnd: {
-    //         buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
-    //     },
-    //     topStart: ['pageLength', 'search'],
-    //     // topEnd: ['colvis', 'print'],
-    // }
-    // });
-
-// });
-
-
-// $('#UserTable').DataTable({
-//     layout: {
-//         topStart: {
-//             buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
-//         }
-//     }
-// });
-
-
 $('#UserTable').DataTable({
     processing: true,
     serverSide: true,
+    scrollX: true,
     ajax: {
         url: '/users/data',  // The route returning JSON data
         type: 'GET'
@@ -92,11 +52,12 @@ $('#UserTable').DataTable({
             searchable: false  // Disable searching for the action column
         }
     ],
-     layout: {
-        topEnd: {
+    layout: {
+        topEnd: ['search'],
+        topStart: {
+            pageLength: true,
             buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
-        },
-        topStart: ['pageLength', 'search'],
+        }
     }
 });
 
@@ -119,12 +80,11 @@ $(document).on('click', '.delete-btn', function() {
     }
 });
 
-
-
 $('#dataTable').DataTable({
 
         responsive: true,
         autoWidth: false,
+        scrollX: true,
         layout: {
             topEnd: ['search'],
                 // buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
@@ -134,6 +94,10 @@ $('#dataTable').DataTable({
             // topStart: {'pageLength',
             //     buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
             // },
+            topStart: {
+                pageLength: true,
+                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+            }
         }
 });
 

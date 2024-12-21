@@ -70,5 +70,6 @@ Route::get('/reset', [YourController::class, 'reset'])->name('reset');
 Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
 
 Route::resource('lead-Server', DataController::class);
+Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
 
 });
