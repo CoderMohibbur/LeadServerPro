@@ -34,7 +34,7 @@ class DataController extends Controller
         }
 
         $leads = $query->paginate(10);
-        return view('data.index', compact('leads'));
+        return view('leadServer.index', compact('leads'));
     }
 
 }
