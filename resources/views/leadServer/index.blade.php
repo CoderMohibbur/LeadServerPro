@@ -225,22 +225,20 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <!-- Pagination -->
-                            <div class="mt-6">
+                            <div class="mt-4">
                                 {{ $leads->links() }}
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    @livewireScripts
 </body>
 
 </html>
-
-
-
-<!-- Initialize DataTable -->
-
-  

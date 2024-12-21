@@ -55,7 +55,7 @@ $('#UserTable').DataTable({
     layout: {
         topEnd: ['search'],
         topStart: {
-            pageLength: true, 
+            pageLength: true,
             buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
         }
     }
@@ -103,8 +103,15 @@ $('#dataTable').DataTable({
         scrollX: true,
         layout: {
             topEnd: ['search'],
+                // buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+
+            // },
+            // topStart: ['pageLength', 'search'],
+            // topStart: {'pageLength',
+            //     buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+            // },
             topStart: {
-                pageLength: true, 
+                pageLength: true,
                 buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
             }
         }
