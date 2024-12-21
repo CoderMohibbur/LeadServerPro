@@ -26,6 +26,7 @@ import 'datatables.net-buttons/js/buttons.colVis.min.js'; // Column visibility b
 // Import Flowbite (if needed)
 import 'flowbite';
 
+
 // $(document).ready(function () {
     // Initialize the DataTable and store it in a variable
     // $('#UserTable').DataTable({
@@ -91,7 +92,7 @@ $('#UserTable').DataTable({
             searchable: false  // Disable searching for the action column
         }
     ],
-    layout: {
+     layout: {
         topEnd: {
             buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
         },
@@ -102,7 +103,7 @@ $('#UserTable').DataTable({
 // Handle Delete Button Clicks
 $(document).on('click', '.delete-btn', function() {
     var userId = $(this).data('id');
-    
+
     if (confirm('Are you sure you want to delete this user?')) {
         $.ajax({
             url: '/users/' + userId,
@@ -116,5 +117,23 @@ $(document).on('click', '.delete-btn', function() {
             }
         });
     }
+});
+
+
+
+$('#dataTable').DataTable({
+
+        responsive: true,
+        autoWidth: false,
+        layout: {
+            topEnd: ['search'],
+                // buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+
+            // },
+            // topStart: ['pageLength', 'search'],
+            topStart: {'pageLength';
+                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+            },
+        }
 });
 

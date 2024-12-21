@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SheetListController;
-use App\Http\Controllers\DataController;
+use App\Http\Controllers\SheetController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\YourController; // Import the controller
 
@@ -27,12 +27,14 @@ Route::middleware([
 });
 
 // routes/web.php
-Route::get('/sheet-list', [SheetListController::class, 'index']);
-Route::get('/sheet-list/create', [SheetListController::class, 'create']);
-Route::post('/sheet-list', [SheetListController::class, 'store']);
-Route::resource('sheet-lists', SheetListController::class);
+// Route::get('/sheet-list', [SheetListController::class, 'index']);
+// Route::get('/sheet-list/create', [SheetListController::class, 'create']);
+// Route::post('/sheet-list', [SheetListController::class, 'store']);
+// Route::resource('sheet-lists', SheetListController::class);
 
 
+
+Route::resource('sheets', SheetController::class);
 
 //TicketController
 
@@ -67,7 +69,6 @@ Route::get('/all-sheets', [YourController::class, 'allSheets'])->name('all_sheet
 Route::get('/reset', [YourController::class, 'reset'])->name('reset');
 Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
 
+Route::resource('lead-Server', DataController::class);
 
-
-Route::get('/data-table', [DataController::class, 'index'])->name('data.index');
 });
