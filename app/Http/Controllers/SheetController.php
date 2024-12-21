@@ -22,7 +22,7 @@ class SheetController extends Controller
     {
         // Validate the form data
         $request->validate([
-            'file' => 'required|mimes:pdf,docx,xlsx,png,jpg,jpeg', // Ensure valid file type
+            'file' => 'required|mimes:pdf,docx,xlsx,csv', // Ensure valid file type
             'sheet_name' => 'required|string|max:255',
             'sheet_working_date' => 'required|date',
             'user_id' => 'required|exists:users,id',

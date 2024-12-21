@@ -36,13 +36,13 @@
             <div class="p-4 sm:ml-64">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                     <div class="container mx-auto py-8">
-                        <form action="{{ route('leads.store') }}" method="POST">
+                        <form action="{{ route('lead-server.store') }}" method="POST">
                             @csrf
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label for="linkedin_link" class="block text-sm font-medium text-gray-700">LinkedIn Link</label>
-                                    <input type="url" id="linkedin_link" name="linkedin_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                    <input type="text" id="linkedin_link" name="linkedin_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
                                 </div>
                                 <div>
                                     <label for="company_name" class="block text-sm font-medium text-gray-700">Company Name</label>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div>
                                     <label for="source_link" class="block text-sm font-medium text-gray-700">Source Link</label>
-                                    <input type="url" id="source_link" name="source_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white">
+                                    <input type="text" id="source_link" name="source_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white">
                                 </div>
                                 <div>
                                     <label for="middle_name" class="block text-sm font-medium text-gray-700">Middle Name</label>
@@ -134,12 +134,12 @@
                                 </div>
                                 <div>
                                     <label for="company_website" class="block text-sm font-medium text-gray-700">Company Website</label>
-                                    <input type="url" id="company_website" name="company_website" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white">
+                                    <input type="text" id="company_website" name="company_website" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white">
                                 </div>
 
                                 <div>
                                     <label for="company_linkedin_link" class="block text-sm font-medium text-gray-700">Company LinkedIn Link</label>
-                                    <input type="url" id="company_linkedin_link" name="company_linkedin_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                    <input type="text" id="company_linkedin_link" name="company_linkedin_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
                                     @error('company_linkedin_link')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
@@ -211,7 +211,7 @@
 
                                 <div>
                                     <label for="job_link" class="block text-sm font-medium text-gray-700">Job Link</label>
-                                    <input type="url" id="job_link" name="job_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                    <input type="text" id="job_link" name="job_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
                                     @error('job_link')
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror

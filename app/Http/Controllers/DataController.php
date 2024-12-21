@@ -50,7 +50,7 @@ class DataController extends Controller
     {
         // Validate incoming request data
         $request->validate([
-            'linkedin_link' => 'nullable|url',
+            'linkedin_link' => 'nullable|string|max:1000',
             'company_name' => 'required|string|max:255',
             'contact_name' => 'nullable|string|max:255',
             'name_prefix' => 'nullable|string|max:50',
@@ -67,15 +67,15 @@ class DataController extends Controller
             'city' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
             'tag' => 'nullable|string|max:255',
-            'source_link' => 'nullable|url',
+            'source_link' => 'nullable|string|max:1000',
             'middle_name' => 'nullable|string|max:255',
             'sur_name' => 'nullable|string|max:255',
             'gender' => 'nullable|string|max:50',
             'personal_phone' => 'nullable|string|max:255',
             'employee_range' => 'nullable|string|max:255',
-            'company_website' => 'nullable|url',
+            'company_website' => 'nullable|string|max:1000',
             'company_description' => 'nullable|string|max:1000',
-            'company_linkedin_link' => 'nullable|url',
+            'company_linkedin_link' => 'nullable|string|max:1000',
             'company_hq_address' => 'nullable|string|max:255',
             'industry' => 'nullable|string|max:255',
             'revenue' => 'nullable|string|max:255',
@@ -84,12 +84,14 @@ class DataController extends Controller
             'rating' => 'nullable|integer|min:1|max:5',
             'sheet_id' => 'nullable|integer|exists:sheets,id',
             'sheet_name' => 'nullable|string|max:255',
-            'job_link' => 'nullable|url',
+            'job_link' => 'nullable|string|max:1000',
             'job_role' => 'nullable|string|max:255',
             'checked_by' => 'nullable|string|max:255',
             'review' => 'nullable|string|max:1000',
             'sheets_id' => 'nullable|integer|exists:sheets,id', // Foreign key validation
         ]);
+
+        // dd($request->all());
 
         // Insert the new lead data into the database
         Lead::create([
