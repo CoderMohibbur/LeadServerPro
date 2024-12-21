@@ -137,8 +137,78 @@
                                     <input type="url" id="company_website" name="company_website" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white">
                                 </div>
 
+                                <div>
+                                    <label for="linkedin_link" class="block text-sm font-medium text-gray-700">Company LinkedIn Link</label>
+                                    <input type="url" id="linkedin_link" name="linkedin_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
 
-                                
+                                <div>
+                                    <label for="company_hq_address" class="block text-sm font-medium text-gray-700">Company HQ Address</label>
+                                    <input type="text" id="company_hq_address" name="company_hq_address" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="industry" class="block text-sm font-medium text-gray-700">Industry</label>
+                                    <input type="text" id="industry" name="industry" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="revenue" class="block text-sm font-medium text-gray-700">Revenue</label>
+                                    <input type="text" id="revenue" name="revenue" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="street" class="block text-sm font-medium text-gray-700">Street</label>
+                                    <input type="text" id="street" name="street" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="zip_code" class="block text-sm font-medium text-gray-700">Zip Code</label>
+                                    <input type="text" id="zip_code" name="zip_code" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+                                    <input type="number" id="rating" name="rating" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="sheet_id" class="block text-sm font-medium text-gray-700">Sheet ID</label>
+                                    <input type="text" id="sheet_id" name="sheet_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="sheet_name" class="block text-sm font-medium text-gray-700">Sheet Name</label>
+                                    <input type="text" id="sheet_name" name="sheet_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="job_link" class="block text-sm font-medium text-gray-700">Job Link</label>
+                                    <input type="url" id="job_link" name="job_link" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="job_role" class="block text-sm font-medium text-gray-700">Job Role</label>
+                                    <input type="text" id="job_role" name="job_role" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="checked_by" class="block text-sm font-medium text-gray-700">Checked By</label>
+                                    <input type="text" id="checked_by" name="checked_by" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+                                <div>
+                                    <label for="review" class="block text-sm font-medium text-gray-700">Review</label>
+                                    <textarea id="review" name="review" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required></textarea>
+                                </div>
+
+                                <div>
+                                    <label for="sheets_id" class="block text-sm font-medium text-gray-700">Sheets ID</label>
+                                    <input type="text" id="sheets_id" name="sheets_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
+                                </div>
+
+
+
 
                                 <div>
                                     <label for="company_description" class="block text-sm font-medium text-gray-700">Company Description</label>
