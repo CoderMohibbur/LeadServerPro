@@ -18,7 +18,7 @@
         <!-- Filter Section -->
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
-            <div class="w-full md:w-2/2 bg-gray shadow-lg rounded-lg p-6 space-y-6">
+            <div class="w-full md:w-2/2 bg-gray shadow-lg rounded-lg space-y-6">
                 <form action="" method="GET">
                     @php
                         $filters = [
@@ -44,7 +44,7 @@
                     </div>
 
                     <button type="submit"
-                        class="bg-blue-500 text-white font-medium py-3 px-6 rounded-lg w-full shadow-md hover:bg-blue-600 transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-500">
+                        class="bg-blue-500 text-white font-medium py-3 px-6 mt-4 rounded-lg w-full shadow-md hover:bg-blue-600 transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-500">
                         Apply Filters
                     </button>
                 </form>
