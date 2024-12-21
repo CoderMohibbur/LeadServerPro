@@ -51,8 +51,7 @@
                                 <table id="dataTable" class="table-auto w-full border-collapse dark:border-gray-700">
                                     <thead class="bg-gray-200">
                                         <tr>
-                                            <th
-                                                >
+                                            <th>
                                                 ID</th>
                                             <th
                                                 class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">
@@ -239,6 +238,23 @@
     </div>
 
     @livewireScripts
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            $('#dataTable').DataTable({
+
+                responsive: true,
+                autoWidth: true,
+                scrollX: true,
+                layout: {
+                    topEnd: ['search'],
+                    topStart: {
+                        pageLength: true,
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -50,8 +50,21 @@
         </table>
     </div>
 
-
-
-    
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    $('#sheetTable').DataTable({
+        responsive: true,
+        autoWidth: false,
+        scrollX: true,
+        layout: {
+            topEnd: ['search'],
+            topStart: {
+                pageLength: true, 
+                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colVis', 'print']
+            }
+        }
+    });
+});
+</script>
 
 </x-app-layout>
