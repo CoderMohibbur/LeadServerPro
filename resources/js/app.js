@@ -131,9 +131,9 @@ $('#dataTable').DataTable({
 
             // },
             // topStart: ['pageLength', 'search'],
-            topStart: {'pageLength';
-                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
-            },
+            // topStart: {'pageLength',
+            //     buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+            // },
         }
 });
 

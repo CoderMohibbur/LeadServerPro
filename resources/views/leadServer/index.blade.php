@@ -48,132 +48,50 @@
                         <!-- Table Section -->
                         <div class="w-full bg-white p-5 shadow-md rounded-lg dark:bg-gray-700">
                             <div class="overflow-x-auto">
-                                <table id="dataTable">
-                                    <thead class="bg-gray-200">
+                                <table>
+                                    <thead class="bg-gray-700">
                                         <tr>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                ID</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                LinkedIn Link</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Contact Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Name Prefix</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Full Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                First Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Last Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Email</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Title Position</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Person Location</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Full Address</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company Phone</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company Head Count</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Country</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                City</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                State</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Tag</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Source Link</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Middle Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Sur Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Gender</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Personal Phone</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Employee Range</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company Website</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company LinkedIn Link</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Company HQ Address</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Industry</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Revenue</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Street</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Zip Code</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Rating</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Sheet ID</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Sheet Name</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Job Link</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Job Role</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Checked By</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Review</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Sheets ID</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Created At</th>
-                                            <th
-                                                class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">
-                                                Updated At</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">ID</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">LinkedIn Link</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Contact Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Name Prefix</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Full Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">First Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Last Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Email</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Title Position</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Person Location</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Full Address</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company Phone</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company Head Count</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Country</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">City</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">State</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Tag</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Source Link</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Middle Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Sur Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Gender</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Personal Phone</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Employee Range</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company Website</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company LinkedIn Link</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Company HQ Address</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Industry</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Revenue</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Street</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Zip Code</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Rating</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Sheet ID</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Sheet Name</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Job Link</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Job Role</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Checked By</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Review</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Sheets ID</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Created At</th>
+                                            <th class="border px-4 py-2 text-center text-sm font-medium text-gray-600 dark:text-white">Updated At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -225,22 +143,20 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <!-- Pagination -->
-                            <div class="mt-6">
+                            <div class="mt-4">
                                 {{ $leads->links() }}
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    @livewireScripts
 </body>
 
 </html>
-
-
-
-<!-- Initialize DataTable -->
-
-  
