@@ -23,7 +23,7 @@
 <body class="font-sans antialiased">
     {{-- <x-banner /> --}}
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-white dark:bg-gray-800">
         {{-- @livewire('navigation-menu') --}}
         @include('layouts.header')
         @include('layouts.sidebar')
