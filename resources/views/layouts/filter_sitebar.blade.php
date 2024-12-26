@@ -19,6 +19,16 @@
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
             <div class="w-full md:w-2/2 bg-gray shadow-lg rounded-lg space-y-6">
+                <div>
+                    <label for="linkedin">LinkedIn Link</label>
+                    <input type="text" id="linkedin" class="filter-input" data-field="linkedin_link" placeholder="Enter LinkedIn Link" />
+                    <div id="linkedin-dropdown" class="dropdown"></div>
+                </div>
+                <div>
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" class="filter-input" data-field="company_name" placeholder="Enter Company Name" />
+                    <div id="company-dropdown" class="dropdown"></div>
+                </div>
                 <form action="" method="GET">
                     @php
                         $filters = [
