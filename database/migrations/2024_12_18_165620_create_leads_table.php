@@ -44,7 +44,6 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('rating')->nullable();
-            $table->string('sheet_id')->nullable();
             $table->string('sheet_name')->nullable();
             $table->string('job_link')->nullable();
             $table->string('job_role')->nullable();

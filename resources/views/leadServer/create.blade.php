@@ -192,15 +192,6 @@
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                                 </div>
-
-                                <div>
-                                    <label for="sheet_id" class="block text-sm font-medium text-gray-700">Sheet ID</label>
-                                    <input type="text" id="sheet_id" name="sheet_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
-                                    @error('sheet_id')
-                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                                </div>
-
                                 <div>
                                     <label for="sheet_name" class="block text-sm font-medium text-gray-700">Sheet Name</label>
                                     <input type="text" id="sheet_name" name="sheet_name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:text-white" required>
