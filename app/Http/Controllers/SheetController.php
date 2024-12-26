@@ -48,100 +48,102 @@ class SheetController extends Controller
 
 
 
-public function store(Request $request)
-{
-    // Validate the form data
-    $request->validate([
-        'file' => 'required',
-        'sheet_name' => 'required|string|max:255',
-        'sheet_working_date' => 'required|date',
-        'user_id' => 'required|exists:users,id',
-    ]);
+    public function store(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'file' => 'required',
+            'sheet_name' => 'required|string|max:255',
+            'sheet_working_date' => 'required|date',
+            'user_id' => 'required|exists:users,id',
+        ]);
 
-    $filePath = null;
+        $filePath = null;
 
-    // Handle the file upload
-    if ($request->hasFile('file')) {
-        $filePath = $request->file('file')->store('sheets', 'public');
-    }
+        // Handle the file upload
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('sheets', 'public');
+        }
 
-    // Store the sheet details in the database
-    $sheet = new Sheet();
-    $sheet->file = $filePath;
-    $sheet->sheet_name = $request->sheet_name;
-    $sheet->sheet_working_date = $request->sheet_working_date;
-    $sheet->user_id = $request->user_id;
-    $sheet->save();
+        // Store the sheet details in the database
+        $sheet = new Sheet();
+        $sheet->file = $filePath;
+        $sheet->sheet_name = $request->sheet_name;
+        $sheet->sheet_working_date = $request->sheet_working_date;
+        $sheet->user_id = $request->user_id;
+        $sheet->save();
 
-    // If the file is a CSV, process its content
-    if ($request->file('file')->getClientOriginalExtension() === 'csv') {
-        // Get the full file path
-        $fullPath = Storage::disk('public')->path($filePath);
+        // If the file is a CSV, process its content
+        if ($request->file('file')->getClientOriginalExtension() === 'csv') {
+            // Get the full file path
+            $fullPath = Storage::disk('public')->path($filePath);
 
-        // Read the CSV file
-        $csv = Reader::createFromPath($fullPath, 'r');
-        $csv->setHeaderOffset(0); // Assuming the CSV has a header row
+            // Read the CSV file
+            $csv = Reader::createFromPath($fullPath, 'r');
+            $csv->setHeaderOffset(0); // Assuming the CSV has a header row
 
-        $data = []; // Initialize an empty array to hold the rows
+            $data = []; // Initialize an empty array to hold the rows
 
-        foreach ($csv->getRecords() as $record) {
-            // Map the CSV record to the `leads` table fields
-            $data[] = [
-                'linkedin_link' => $record['linkedin_link'] ?? null,
-                'company_name' => $record['company_name'] ?? null,
-                'contact_name' => $record['contact_name'] ?? null,
-                'name_prefix' => $record['name_prefix'] ?? null,
-                'full_name' => $record['full_name'] ?? null,
-                'first_name' => $record['first_name'] ?? null,
-                'last_name' => $record['last_name'] ?? null,
-                'email' => $record['email'] ?? null,
-                'title_position' => $record['title_position'] ?? null,
-                'person_location' => $record['person_location'] ?? null,
-                'full_address' => $record['full_address'] ?? null,
-                'company_phone' => $record['company_phone'] ?? null,
-                'company_head_count' => $record['company_head_count'] ?? null,
-                'country' => $record['country'] ?? null,
-                'city' => $record['city'] ?? null,
-                'state' => $record['state'] ?? null,
-                'tag' => $record['tag'] ?? null,
-                'source_link' => $record['source_link'] ?? null,
-                'middle_name' => $record['middle_name'] ?? null,
-                'sur_name' => $record['sur_name'] ?? null,
-                'gender' => $record['gender'] ?? null,
-                'personal_phone' => $record['personal_phone'] ?? null,
-                'employee_range' => $record['employee_range'] ?? null,
-                'company_website' => $record['company_website'] ?? null,
-                // 'company_description' => $record['company_description'] ?? null,
-                'company_linkedin_link' => $record['company_linkedin_link'] ?? null,
-                'company_hq_address' => $record['company_hq_address'] ?? null,
-                'industry' => $record['industry'] ?? null,
-                'revenue' => $record['revenue'] ?? null,
-                'street' => $record['street'] ?? null,
-                'zip_code' => $record['zip_code'] ?? null,
-                'rating' => $record['rating'] ?? null,
-                'sheet_name' => $record['sheet_name'] ?? null,
-                'job_link' => $record['job_link'] ?? null,
-                'job_role' => $record['job_role'] ?? null,
-                'checked_by' => $record['checked_by'] ?? null,
-                'review' => $record['review'] ?? null,
-                'sheets_id' => $sheet->id, // Link to the sheet entry
-            ];
+            foreach ($csv->getRecords() as $record) {
+                // Map the CSV record to the `leads` table fields
+                $data[] = [
+                    'linkedin_link' => $record['linkedin_link'] ?? null,
+                    'company_name' => $record['company_name'] ?? null,
+                    'contact_name' => $record['contact_name'] ?? null,
+                    'name_prefix' => $record['name_prefix'] ?? null,
+                    'full_name' => $record['full_name'] ?? null,
+                    'first_name' => $record['first_name'] ?? null,
+                    'last_name' => $record['last_name'] ?? null,
+                    'email' => $record['email'] ?? null,
+                    'title_position' => $record['title_position'] ?? null,
+                    'person_location' => $record['person_location'] ?? null,
+                    'full_address' => $record['full_address'] ?? null,
+                    'company_phone' => $record['company_phone'] ?? null,
+                    'company_head_count' => $record['company_head_count'] ?? null,
+                    'country' => $record['country'] ?? null,
+                    'city' => $record['city'] ?? null,
+                    'state' => $record['state'] ?? null,
+                    'tag' => $record['tag'] ?? null,
+                    'source_link' => $record['source_link'] ?? null,
+                    'middle_name' => $record['middle_name'] ?? null,
+                    'sur_name' => $record['sur_name'] ?? null,
+                    'gender' => $record['gender'] ?? null,
+                    'personal_phone' => $record['personal_phone'] ?? null,
+                    'employee_range' => $record['employee_range'] ?? null,
+                    'company_website' => $record['company_website'] ?? null,
+                    // 'company_description' => $record['company_description'] ?? null,
+                    'company_linkedin_link' => $record['company_linkedin_link'] ?? null,
+                    'company_hq_address' => $record['company_hq_address'] ?? null,
+                    'industry' => $record['industry'] ?? null,
+                    'revenue' => $record['revenue'] ?? null,
+                    'street' => $record['street'] ?? null,
+                    'zip_code' => $record['zip_code'] ?? null,
+                    'rating' => $record['rating'] ?? null,
+                    'sheet_name' => $record['sheet_name'] ?? null,
+                    'job_link' => $record['job_link'] ?? null,
+                    'job_role' => $record['job_role'] ?? null,
+                    'checked_by' => $record['checked_by'] ?? null,
+                    'review' => $record['review'] ?? null,
+                    'sheets_id' => $sheet->id, // Link to the sheet entry
+                    'created_at' => now(), // Add current timestamp
+                    'updated_at' => now(), // Add current timestamp
+                ];
 
-            // Batch insert when the array reaches a chunk size of 1000
-            if (count($data) === 1000) {
+                // Batch insert when the array reaches a chunk size of 1000
+                if (count($data) === 1000) {
+                    DB::table('leads')->insert($data);
+                    $data = []; // Clear the array after insertion
+                }
+            }
+
+            // Insert any remaining rows
+            if (!empty($data)) {
                 DB::table('leads')->insert($data);
-                $data = []; // Clear the array after insertion
             }
         }
 
-        // Insert any remaining rows
-        if (!empty($data)) {
-            DB::table('leads')->insert($data);
-        }
+        return redirect()->route('sheets.index')->with('success', 'Sheet created and CSV data processed successfully!');
     }
-
-    return redirect()->route('sheets.index')->with('success', 'Sheet created and CSV data processed successfully!');
-}
 
 
 

@@ -2,6 +2,10 @@
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 
+import moment from 'moment';
+window.moment = moment; // Optional: Make it globally available
+
+
 // Import Bootstrap and DataTables
 import './bootstrap';
 import 'datatables.net';

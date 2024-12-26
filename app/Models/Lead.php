@@ -42,7 +42,6 @@ class Lead extends Model
         'street',
         'zip_code',
         'rating',
-        'sheet_id',
         'sheet_name',
         'job_link',
         'job_role',

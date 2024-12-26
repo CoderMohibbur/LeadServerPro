@@ -22,6 +22,7 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('User', UserController::class);
     Route::get('/users/data', [UserController::class, 'getUsers'])->name('users.data');
+    Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
 
     Route::resource('roles', RoleController::class);
 });

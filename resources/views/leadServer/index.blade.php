@@ -33,7 +33,7 @@
         <!-- Page Heading -->
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-                                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Lead Lists') }}
                 </h2>
             </div>
@@ -49,57 +49,50 @@
                         <!-- Table Section -->
                         <div class="w-full bg-white p-5 shadow-md rounded-lg dark:bg-gray-700">
                             <div class="overflow-x-auto">
-                                <table id="dataTable" class="table-auto w-full border-collapse dark:border-gray-700">
-                                    <thead class="bg-gray-200">
+                                <table id="dataTable" class="dataTable table-auto border-collapse w-full">
+                                    <thead>
                                         <tr>
-                                            <th> ID</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> LinkedIn Link</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Contact Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Name Prefix</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Full Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> First Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Last Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Email</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Title Position</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Person Location</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Full Address</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company Phone</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company Head Count</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Country</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> City</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> State</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Tag</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Source Link</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Middle Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Sur Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Gender</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Personal Phone</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Employee Range</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company Website</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company LinkedIn Link</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Company HQ Address</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Industry</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Revenue</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Street</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Zip Code</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Rating</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Sheet Name</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Job Link</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Job Role</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Checked By</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Checked By</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Review</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Created At</th>
-                                            <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center"> Updated At</th>
+                                            <th>ID</th>
+                                            <th>LinkedIn Link</th>
+                                            <th>Company Name</th>
+                                            <th>Contact Name</th>
+                                            <th>Name Prefix</th>
+                                            <th>Full Name</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Title Position</th>
+                                            <th>Person Location</th>
+                                            <th>Full Address</th>
+                                            <th>Company Phone</th>
+                                            <th>Company Head Count</th>
+                                            <th>Country</th>
+                                            <th>City</th>
+                                            <th>State</th>
+                                            <th>Tag</th>
+                                            <th>Source Link</th>
+                                            <th>Middle Name</th>
+                                            <th>Sur Name</th>
+                                            <th>Gender</th>
+                                            <th>Personal Phone</th>
+                                            <th>Employee Range</th>
+                                            <th>Company Website</th>
+                                            <th>Company LinkedIn Link</th>
+                                            <th>Company HQ Address</th>
+                                            <th>Industry</th>
+                                            <th>Revenue</th>
+                                            <th>Street</th>
+                                            <th>Zip Code</th>
+                                            <th>Rating</th>
+                                            <th>Sheet Name</th>
+                                            <th>Job Link</th>
+                                            <th>Job Role</th>
+                                            <th>Checked By</th>
+                                            <th>Review</th>
+                                            <th>Created At</th>
+                                            <th>Updated At</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach ($leads as $lead)
-                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700"> <td class="border px-4 py-2">{{ $lead->id }}</td> <td class="border px-4 py-2">{{ $lead->linkedin_link }}</td> <td class="border px-4 py-2">{{ $lead->company_name }}</td> <td class="border px-4 py-2">{{ $lead->contact_name }}</td> <td class="border px-4 py-2">{{ $lead->name_prefix }}</td> <td class="border px-4 py-2">{{ $lead->full_name }}</td> <td class="border px-4 py-2">{{ $lead->first_name }}</td> <td class="border px-4 py-2">{{ $lead->last_name }}</td> <td class="border px-4 py-2">{{ $lead->email }}</td> <td class="border px-4 py-2">{{ $lead->title_position }}</td> <td class="border px-4 py-2">{{ $lead->person_location }}</td> <td class="border px-4 py-2">{{ $lead->full_address }}</td> <td class="border px-4 py-2">{{ $lead->company_phone }}</td> <td class="border px-4 py-2">{{ $lead->company_head_count }}</td> <td class="border px-4 py-2">{{ $lead->country }}</td> <td class="border px-4 py-2">{{ $lead->city }}</td> <td class="border px-4 py-2">{{ $lead->state }}</td> <td class="border px-4 py-2">{{ $lead->tag }}</td> <td class="border px-4 py-2">{{ $lead->source_link }}</td> <td class="border px-4 py-2">{{ $lead->middle_name }}</td> <td class="border px-4 py-2">{{ $lead->sur_name }}</td> <td class="border px-4 py-2">{{ $lead->gender }}</td> <td class="border px-4 py-2">{{ $lead->personal_phone }}</td> <td class="border px-4 py-2">{{ $lead->employee_range }}</td> <td class="border px-4 py-2">{{ $lead->company_website }}</td> <td class="border px-4 py-2">{{ $lead->company_linkedin_link }}</td> <td class="border px-4 py-2">{{ $lead->company_hq_address }}</td> <td class="border px-4 py-2">{{ $lead->industry }}</td> <td class="border px-4 py-2">{{ $lead->revenue }}</td> <td class="border px-4 py-2">{{ $lead->street }}</td> <td class="border px-4 py-2">{{ $lead->zip_code }}</td> <td class="border px-4 py-2">{{ $lead->rating }}</td> <td class="border px-4 py-2">{{ $lead->sheet_id }}</td> <td class="border px-4 py-2">{{ $lead->job_link }}</td> <td class="border px-4 py-2">{{ $lead->job_role }}</td> <td class="border px-4 py-2">{{ $lead->checked_by }}</td> <td class="border px-4 py-2">{{ $lead->review }}</td> <td class="border px-4 py-2">{{ $lead->sheets_id }}</td> <td class="border px-4 py-2">{{ $lead->created_at }}</td> <td class="border px-4 py-2">{{ $lead->updated_at }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
                                 </table>
                             </div>
 
@@ -119,10 +112,67 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             $('#dataTable').DataTable({
-
                 responsive: true,
                 autoWidth: true,
                 scrollX: true,
+                scrollY: "75vh", // Corrected property name
+                scrollCollapse: true ,
+                ajax: {
+                    url: '/leads/data',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'linkedin_link' },
+                    { data: 'company_name' },
+                    { data: 'contact_name' },
+                    { data: 'name_prefix' },
+                    { data: 'full_name' },
+                    { data: 'first_name' },
+                    { data: 'last_name' },
+                    { data: 'email' },
+                    { data: 'title_position' },
+                    { data: 'person_location' },
+                    { data: 'full_address' },
+                    { data: 'company_phone' },
+                    { data: 'company_head_count' },
+                    { data: 'country' },
+                    { data: 'city' },
+                    { data: 'state' },
+                    { data: 'tag' },
+                    { data: 'source_link' },
+                    { data: 'middle_name' },
+                    { data: 'sur_name' },
+                    { data: 'gender' },
+                    { data: 'personal_phone' },
+                    { data: 'employee_range' },
+                    { data: 'company_website' },
+                    { data: 'company_linkedin_link' },
+                    { data: 'company_hq_address' },
+                    { data: 'industry' },
+                    { data: 'revenue' },
+                    { data: 'street' },
+                    { data: 'zip_code' },
+                    { data: 'rating' },
+                    { data: 'sheet_name' },
+                    { data: 'job_link' },
+                    { data: 'job_role' },
+                    { data: 'checked_by' },
+                    { data: 'review' },
+                    {
+                        data: 'created_at',
+                        render: function(data) {
+                            return moment(data).format('DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                        }
+                    },
+                    {
+                        data: 'updated_at',
+                        render: function(data) {
+                            return moment(data).format('DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                        }
+                    }
+                ],
+
                 layout: {
                     topEnd: ['search'],
                     topStart: {
