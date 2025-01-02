@@ -14,37 +14,39 @@ class DataController extends Controller
     // Display the list of leads
     public function index()
     {
-        $leads = Lead::all(); // Paginate the leads data
+        // $leads = Lead::all(); // Paginate the leads data
         $leads = Lead::paginate(10);
-        return view('leadServer.index', compact('leads'));
+        $categories = Lead::all();
+        return view('leadServer.index', compact('leads','categories'));
     }
 
-    // public function dataServer()
-    // {
-    //     $leads = Lead::all();
-    //     return DataTables::of($leads)->make(true);
-    // }
-
-    public function dataServer(Request $request)
+    public function dataServer()
     {
-        $clientId = $request->input('client_id');
-        $sheetId = $request->input('sheet_id');
-
-        // Validate the parameters if needed
-        if (!$clientId || !$sheetId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'client_id and sheet_id are required.'
-            ], 400);
-        }
-
-        // Filter leads based on client_id and sheet_id
-        $leads = Lead::where('client_id', $clientId)
-                     ->where('sheet_id', $sheetId)
-                     ->get();
-
-        return DataTables::of($leads)->toJson();
+        $leads = Lead::all();
+        
+        return DataTables::of($leads)->make(true);
     }
+
+    // public function dataServer(Request $request)
+    // {
+    //     $clientId = $request->input('client_id');
+    //     $sheetId = $request->input('sheet_id');
+
+    //     // Validate the parameters if needed
+    //     if (!$clientId || !$sheetId) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'client_id and sheet_id are required.'
+    //         ], 400);
+    //     }
+
+    //     // Filter leads based on client_id and sheet_id
+    //     $leads = Lead::where('client_id', $clientId)
+    //                  ->where('sheet_id', $sheetId)
+    //                  ->get();
+
+    //     return DataTables::of($leads)->toJson();
+    // }
 
 
     // Filter leads based on search criteria

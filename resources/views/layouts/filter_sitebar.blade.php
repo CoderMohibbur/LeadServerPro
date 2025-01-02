@@ -19,6 +19,13 @@
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
             <div class="w-full md:w-2/2 bg-gray shadow-lg rounded-lg space-y-6">
+
+                @foreach($categories as $key => $label)
+                    <label>
+                        <input type="checkbox" name="category_id[]" value="{{ $key }}" class="custom-checkbox category-filter">
+                        {{ $label->first_name }}
+                    </label>
+                @endforeach
                 <div>
                     <label for="linkedin">LinkedIn Link</label>
                     <input type="text" id="linkedin" class="filter-input" data-field="linkedin_link" placeholder="Enter LinkedIn Link" />

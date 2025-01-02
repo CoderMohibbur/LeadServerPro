@@ -120,10 +120,131 @@
                 ajax: {
                     url: '/leads/data',
                     type: 'GET',
-                    data: function (d) {
-                        d.client_id = 123; // ডাইনামিক ক্লাইন্ট আইডি
-                        d.sheet_id = 456;  // ডাইনামিক শিট আইডি
+                        data: function (d) {
+                         // Collect selected categories
+                        d.category_id = [];
+                        $('input[name="category_id[]"]:checked').each(function() {
+                            d.category_id.push($(this).val());
+                        });
+
+                        // Collect selected brands
+                        d.brand_id = [];
+                        $('input[name="brand_id[]"]:checked').each(function() {
+                            d.brand_id.push($(this).val());
+                        });
+                        console.log('Categories:', d.category_id);
+                        console.log('Brands:', d.brand_id);  
                     }
+                },
+                columns: [{data: 'id'},
+                    {data: 'linkedin_link'},
+                    {data: 'company_name'},
+                    {data: 'contact_name'},
+                    {data: 'name_prefix'},
+                    {data: 'full_name'},
+                    {data: 'first_name'},
+                    {data: 'last_name'},
+                    {data: 'email'},
+                    {data: 'title_position'},
+                    {data: 'person_location'},
+                    {data: 'full_address'},
+                    {data: 'company_phone'},
+                    {data: 'company_head_count'},
+                    {data: 'country'},
+                    {data: 'city'},
+                    {data: 'state'},
+                    {data: 'tag'},
+                    {data: 'source_link'},
+                    {data: 'middle_name'},
+                    {data: 'sur_name'},
+                    {data: 'gender'},
+                    {data: 'personal_phone'},
+                    {data: 'employee_range'},
+                    {data: 'company_website'},
+                    {data: 'company_linkedin_link'},
+                    {data: 'company_hq_address'},
+                    {data: 'industry'},
+                    {data: 'revenue'},
+                    {data: 'street'},
+                    {data: 'zip_code'},
+                    {data: 'rating'},
+                    {data: 'sheet_name'},
+                    {data: 'job_link'},
+                    {data: 'job_role'},
+                    {data: 'checked_by'},
+                    {data: 'review'},
+                    {data: 'created_at',
+                        render: function(data) {
+                            return moment(data).format(
+                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                        }},
+                    {data: 'updated_at',
+                        render: function(data) {
+                            return moment(data).format(
+                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                        }
+                    }
+                ],
+
+                layout: {
+                    topEnd: ['search'],
+                    topStart: {
+                        pageLength: true,
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+                    }
+                },
+                initComplete: function() {
+                    var columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
+                    var api = this.api();
+
+                    // Create a new search row and prepend it to the thead
+                    var searchRow = $('<tr></tr>');
+                    $(api.table().header()).prepend(searchRow);
+
+                    // Loop through all columns
+                    api.columns().every(function(index) {
+                        var column = this;
+
+                        if (columnsToSearch.includes(index)) {
+                            // Add an input to searchable columns
+                            var title = $(column.header()).text(); // Get column header text
+                            $('<th><input type="text" placeholder="Search ' + title +
+                                    '" style="width:100%;" /></th>')
+                                .appendTo(searchRow)
+                                .find('input')
+                                .on('keyup change clear', function() {
+                                    if (column.search() !== this.value) {
+                                        column.search(this.value).draw();
+                                    }
+                                });
+                        } else {
+                            // Add an empty cell for non-searchable columns
+                            $('<th></th>').appendTo(searchRow);
+                        }
+                    });
+                }
+            });
+            $(document).on('change', 'input[name="category_id[]"], input[name="brand_id[]"]', function () {
+                dataTable.ajax.reload();
+            });
+        });
+
+    </script>
+    {{-- <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const dataTable = $('#dataTable').DataTable({
+                responsive: true,
+                autoWidth: true,
+                scrollX: true,
+                scrollY: "75vh",
+                scrollCollapse: true,
+                ajax: {
+                    url: '/leads/data',
+                    type: 'GET'
+                    // data: function (d) {
+                    //     d.client_id = 123;
+                    //     d.sheet_id = 456;  
+                    // }
                 },
                 columns: [{
                         data: 'id'
@@ -291,7 +412,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 </body>
 <style>
     .dataTable th,
