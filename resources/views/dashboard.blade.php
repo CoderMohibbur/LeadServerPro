@@ -32,7 +32,8 @@
                 </div>
 
                 <!-- Total Student Card -->
-                <div class="transition-all duration-200 bg-gradient-to-r from-pink-500 via-yellow-500 to-blue-500 shadow-sm hover:shadow-lg rounded-xl hover:-translate-y-1.5 ring-1 ring-gray-200">
+                 <!-- Total Expense Card -->
+                 <div class="transition-all duration-200 bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 shadow-sm hover:shadow-lg rounded-xl hover:-translate-y-1.5 ring-1 ring-gray-200">
                     <div class="p-4 sm:p-5">
                         <div class="flex items-center gap-4">
                             <div>
@@ -41,18 +42,17 @@
                                 </svg>
                             </div>
                             <div>
-                                <h1 class="font-bold text-white">Total client </h1>
+                                <h1 class="font-bold text-white">Total client</h1>
                                 <div class="flex items-center">
                                     <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd" />
                                     </svg>
-                                    <h1 class="font-black text-white">4456</h1>
+                                    <h1 class="font-black text-white">45414</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <!-- Total Donor Card -->
                 <div class="transition-all duration-200 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 shadow-sm hover:shadow-lg rounded-xl hover:-translate-y-1.5 ring-1 ring-gray-200">
                     <div class="p-4 sm:p-5">
@@ -75,10 +75,8 @@
                     </div>
                 </div>
 
-
-
-                <!-- Total Expense Card -->
-                <div class="transition-all duration-200 bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 shadow-sm hover:shadow-lg rounded-xl hover:-translate-y-1.5 ring-1 ring-gray-200">
+                <!-- Total Student Card -->
+                <div class="transition-all duration-200 bg-gradient-to-r from-pink-500 via-yellow-500 to-blue-500 shadow-sm hover:shadow-lg rounded-xl hover:-translate-y-1.5 ring-1 ring-gray-200">
                     <div class="p-4 sm:p-5">
                         <div class="flex items-center gap-4">
                             <div>
@@ -87,7 +85,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h1 class="font-bold text-white">Total Expense</h1>
+                                <h1 class="font-bold text-white">.......</h1>
                                 <div class="flex items-center">
                                     <svg class="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd" />
@@ -98,6 +96,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <!-- Additional Cards can be added in similar way -->
 
