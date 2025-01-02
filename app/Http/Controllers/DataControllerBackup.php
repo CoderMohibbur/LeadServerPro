@@ -17,7 +17,7 @@ class DataController extends Controller
         // $leads = Lead::all(); // Paginate the leads data
         $leads = Lead::paginate(10);
         $categories = Lead::all();
-        return view('leadServer.index2', compact('leads', 'categories'));
+        return view('leadServer.index', compact('leads', 'categories'));
     }
 
     public function dataServer(Request $request)

@@ -463,16 +463,16 @@
                     url: '/leads/data',
                     type: 'GET',
                     data: function (d) {
-                        // Dynamically collect selected filter values
-                        $('#filtersContainer input[type="checkbox"]:checked').each(function () {
-                            const columnName = $(this).attr('name').replace('[]', ''); // Remove [] from the name
-                            if (!d[columnName]) {
-                                d[columnName] = []; // Initialize array for the column if not already set
+                        // Dynamically collect input field values
+                        $('#filtersContainer input[type="text"]').each(function () {
+                            const columnName = $(this).attr('name').replace('filter_', ''); // Extract column name
+                            const inputValue = $(this).val();
+                            if (inputValue) {
+                                d[columnName] = inputValue.split(',').map(value => value.trim()); // Split by comma and trim spaces
                             }
-                            d[columnName].push($(this).val()); // Add selected value to the column array
                         });
 
-                        console.log('Filters being sent:', d); // Debug log for verification
+                        console.log('Filters being sent:', d); // Debugging
                     }
                 },
                 columns: [
@@ -564,8 +564,8 @@
                     });
                 }
             });
-            $(document).on('change', 'input[type="checkbox"]', function () {
-                dataTable.ajax.reload();
+            $(document).on('input', '#filtersContainer input[type="text"]', function () {
+                $('#dataTable').DataTable().ajax.reload();
             });
         });
     </script>

@@ -40,7 +40,33 @@
                     @endforeach
                 </div> --}}
 
-                <div id="filtersContainer"></div>
+                {{-- <div id="filtersContainer"></div> --}}
+                <div id="filtersContainer">
+                    <div>
+                        <label for="filter_company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Company Name
+                        </label>
+                        <input 
+                            type="text" 
+                            name="filter_company_name" 
+                            id="filter_company_name" 
+                            placeholder="Search by Company Name (comma separated)" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                
+                    <div>
+                        <label for="filter_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Email
+                        </label>
+                        <input 
+                            type="text" 
+                            name="filter_email" 
+                            id="filter_email" 
+                            placeholder="Search by Email (comma separated)" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    <!-- Repeat for other columns -->
+                </div>
 
                 <script>
                     // Fetch filter values dynamically
@@ -98,7 +124,7 @@
                 </script>
 
             </div>
-            
+
         </div>
     </div>
 </aside>
