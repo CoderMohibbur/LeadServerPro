@@ -12,51 +12,41 @@
 table.dataTable {
     @apply w-full border-collapse text-sm text-gray-700 dark:text-gray-300;
 }
-
 table.dataTable thead th {
     @apply px-4 py-2 bg-gray-200 font-semibold text-gray-800 dark:bg-gray-700 dark:text-gray-300;
 }
-
 table.dataTable tbody tr:nth-child(even) {
     @apply bg-gray-100 dark:bg-gray-800;
 }
-
 table.dataTable tbody td {
     @apply px-4 py-2 dark:text-gray-300;
 }
-
 /* Pagination Buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     @apply px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 mx-1 text-gray-800 
     dark:bg-gray-700 dark:text-gray-300 hover:dark:bg-gray-600;
 }
-
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     @apply bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-100;
 }
-
 /* Entries Selector */
 .dataTables_wrapper .dataTables_length select {
     @apply border rounded px-2 py-1 text-gray-700 dark:text-gray-300 
     dark:bg-gray-700 dark:border-gray-600 focus:dark:ring-blue-500;
 }
-
 /* Search Input */
 .dataTables_wrapper .dataTables_filter input {
     @apply border rounded px-2 py-1 focus:outline-none focus:ring focus:border-blue-300 
     dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:dark:ring-blue-500;
 }
-
 /* Info Text */
 .dataTables_wrapper .dataTables_info {
     @apply text-sm text-gray-600 dark:text-gray-400;
 }
-
 /* Processing Indicator */
 div.dt-container .dt-processing {
     @apply text-blue-500 font-semibold dark:text-blue-400;
 }
-
 /* General Container Elements */
 div.dt-container .dt-length,
 div.dt-container .dt-buttons,
@@ -70,20 +60,16 @@ div.dt-container .dt-paging {
 div.dt-container select.dt-input {
     @apply !px-[4px] !pr-[25px] !py-[4px];
 }
-
-
 /* Search Input Styling */
 div.dt-container .dt-search input {
     @apply border rounded px-2 py-1 focus:outline-none focus:ring 
     focus:border-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300;
 }
-
 /* Pagination Styling */
 div.dt-container .dt-paging .paginate_button {
     @apply mx-1 px-3 py-1 rounded bg-gray-200 text-gray-800 
     hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 hover:dark:bg-gray-600;
 }
-
 /* Active Page */
 div.dt-container .dt-paging .paginate_button.current {
     @apply bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-100;
