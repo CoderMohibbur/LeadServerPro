@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Models\User;
 use App\Models\Sheet;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -371,7 +373,29 @@ class DataController extends Controller
         fclose($handle);
 
         // Redirect with success message
+
+
+
         return redirect()->route('lead-server.index')->with('success', 'Lead added and CSV updated successfully!');
+
+
     }
+
+    public function dashboard_TotalLead(){
+
+        $leads = Lead::count();
+        $users = User::count();
+        $sheets = Sheet::count();
+        $tickets = Ticket::count();
+
+
+
+        return view('dashboard', compact('leads','users','sheets','tickets'));
+    }
+
+
+
+
+
 
 }

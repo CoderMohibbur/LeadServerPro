@@ -17,7 +17,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard/sa', function () {
         return view('dashboard');
     })->name('dashboard');
     Route::resource('User', UserController::class);
@@ -73,5 +73,7 @@ Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('glo
 
 Route::resource('lead-server', DataController::class);
 // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
+Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+
 
 });
