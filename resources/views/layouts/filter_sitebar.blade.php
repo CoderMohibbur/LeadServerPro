@@ -7,9 +7,12 @@
             <li>
                 <a href="/dashboard"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-                      </svg>
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                    </svg>
                     <span class="ms-3">Bank To Home</span>
                 </a>
             </li>
@@ -18,54 +21,84 @@
         <!-- Filter Section -->
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
-            <div class="w-full md:w-2/2 bg-gray shadow-lg rounded-lg space-y-6">
+            <div class="w-full md:w-2/2 bg-gray-100 shadow-lg rounded-lg  space-y-6">
+                {{-- <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Title
+                </label>
+                <div style="margin-top: 5px" class="flex flex-row flex-wrap mt-0">
+                    @foreach ($leads as $key => $label)
+                        <div class="p-1 border border-gray-500 border-separate">
+                            <input type="checkbox" name="category_id[]" value="{{ $key }}"
+                                id="category-{{ $key }}"
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
 
-                @foreach($categories as $key => $label)
-                    <label>
-                        <input type="checkbox" name="category_id[]" value="{{ $key }}" class="custom-checkbox category-filter">
-                        {{ $label->first_name }}
-                    </label>
-                @endforeach
-                <div>
-                    <label for="linkedin">LinkedIn Link</label>
-                    <input type="text" id="linkedin" class="filter-input" data-field="linkedin_link" placeholder="Enter LinkedIn Link" />
-                    <div id="linkedin-dropdown" class="dropdown"></div>
-                </div>
-                <div>
-                    <label for="company">Company Name</label>
-                    <input type="text" id="company" class="filter-input" data-field="company_name" placeholder="Enter Company Name" />
-                    <div id="company-dropdown" class="dropdown"></div>
-                </div>
-                <form action="" method="GET">
-                    @php
-                        $filters = [
-                            'linkedin_link' => 'LinkedIn Link',
-                            'company_name' => 'Company Name',
-                            'contact_name' => 'Contact Name',
-                            'email' => 'Email Address',
-                            'title_position' => 'Title/Position',
-                            'country' => 'Country',
-                        ];
-                    @endphp
+                            <label for="category-{{ $key }}"
+                                class="text-sm font-medium text-gray-900 dark:text-gray-300">
+                                {{ $label->first_name }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div> --}}
 
-                    <div class="space-y-4">
-                        @foreach ($filters as $name => $label)
-                            <div>
-                                <label for="{{ $name }}"
-                                    class="block text-sm font-semibold text-gray-600 dark:text-gray-300">{{ $label }}</label>
-                                <input type="text" id="{{ $name }}" name="{{ $name }}"
-                                    class="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-                                    placeholder="Enter {{ $label }}">
-                            </div>
-                        @endforeach
-                    </div>
+                <div id="filtersContainer"></div>
 
-                    <button type="submit"
-                        class="bg-blue-500 text-white font-medium py-3 px-6 mt-4 rounded-lg w-full shadow-md hover:bg-blue-600 transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-500">
-                        Apply Filters
-                    </button>
-                </form>
+                <script>
+                    // Fetch filter values dynamically
+                    fetch('/leads/filters')
+                        .then(response => response.json())
+                        .then(data => {
+                            const container = document.getElementById('filtersContainer');
+
+                            // Iterate over each column
+                            Object.keys(data).forEach(column => {
+                                const values = data[column];
+
+                                if (values && values.length > 0) {
+                                    // Create a wrapper div for the column
+                                    const columnDiv = document.createElement('div');
+                                    columnDiv.className = "mb-4";
+
+                                    // Add a label for the column
+                                    const label = document.createElement('label');
+                                    label.className = "block text-sm font-medium text-gray-700 dark:text-gray-300";
+                                    label.textContent = column.replace(/_/g, ' ').toUpperCase();
+                                    columnDiv.appendChild(label);
+
+                                    // Add checkboxes for each value
+                                    const checkboxesDiv = document.createElement('div');
+                                    checkboxesDiv.className = "flex flex-row flex-wrap mt-2";
+
+                                    values.forEach(value => {
+                                        const checkboxWrapper = document.createElement('div');
+                                        checkboxWrapper.className = "p-1 border border-gray-500 border-separate";
+
+                                        const checkbox = document.createElement('input');
+                                        checkbox.type = "checkbox";
+                                        checkbox.name = `${column}[]`;
+                                        checkbox.value = value;
+                                        checkbox.className =
+                                            "h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600";
+
+                                        const checkboxLabel = document.createElement('label');
+                                        checkboxLabel.textContent = value;
+                                        checkboxLabel.className =
+                                            "ml-2 text-sm font-medium text-gray-900 dark:text-gray-300";
+
+                                        checkboxWrapper.appendChild(checkbox);
+                                        checkboxWrapper.appendChild(checkboxLabel);
+                                        checkboxesDiv.appendChild(checkboxWrapper);
+                                    });
+
+                                    columnDiv.appendChild(checkboxesDiv);
+                                    container.appendChild(columnDiv);
+                                }
+                            });
+                        })
+                        .catch(error => console.error('Error fetching filter values:', error));
+                </script>
+
             </div>
+            
         </div>
     </div>
 </aside>
