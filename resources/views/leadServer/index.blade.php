@@ -311,15 +311,6 @@
                         $('input[name="review[]"]:checked').each(function() {
                             d.review.push($(this).val());
                         });
-
-
-
-
-
-
-
-
-
                         console.log('Categories:', d.category_id);
                         console.log('Brands:', d.brand_id);
                     }
