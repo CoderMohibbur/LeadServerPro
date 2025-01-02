@@ -118,9 +118,13 @@
             scrollY: "75vh", // Corrected property name
             scrollCollapse: true,
             ajax: {
-                url: '/leads/data',
-                type: 'GET'
-            },
+    url: '/leads/data',
+    type: 'GET',
+    data: function (d) {
+        d.client_id = 123; // ডাইনামিক ক্লাইন্ট আইডি
+        d.sheet_id = 456;  // ডাইনামিক শিট আইডি
+    }
+},
             columns: [
                 { data: 'id' },
                 { data: 'linkedin_link' },

@@ -25,9 +25,24 @@ class DataController extends Controller
     //     return DataTables::of($leads)->make(true);
     // }
 
-    public function dataServer()
+    public function dataServer(Request $request)
     {
-        $leads = Lead::all();
+        $clientId = $request->input('client_id');
+        $sheetId = $request->input('sheet_id');
+
+        // Validate the parameters if needed
+        if (!$clientId || !$sheetId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'client_id and sheet_id are required.'
+            ], 400);
+        }
+
+        // Filter leads based on client_id and sheet_id
+        $leads = Lead::where('client_id', $clientId)
+                     ->where('sheet_id', $sheetId)
+                     ->get();
+
         return DataTables::of($leads)->toJson();
     }
 
