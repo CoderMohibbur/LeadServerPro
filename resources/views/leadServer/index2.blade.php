@@ -14,6 +14,16 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
+    {{-- <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script> --}}
+
+
 
     <!-- Styles -->
     @livewireStyles
@@ -462,66 +472,157 @@
                 ajax: {
                     url: '/leads/data',
                     type: 'GET',
-                    data: function (d) {
-                        // Dynamically collect input field values
-                        $('#filtersContainer input[type="text"]').each(function () {
-                            const columnName = $(this).attr('name').replace('filter_', ''); // Extract column name
-                            const inputValue = $(this).val();
-                            if (inputValue) {
-                                d[columnName] = inputValue.split(',').map(value => value.trim()); // Split by comma and trim spaces
+                    data: function(d) {
+                        // Dynamically collect selected filter values
+                        $('#filtersContainer input[type="checkbox"]:checked').each(function() {
+                            const columnName = $(this).attr('name').replace('[]',
+                            ''); // Remove [] from the name
+                            if (!d[columnName]) {
+                                d[
+                            columnName] = []; // Initialize array for the column if not already set
+                            }
+                            d[columnName].push($(this)
+                        .val()); // Add selected value to the column array
+                        });
+
+                        // Collect values from Tagify inputs
+                        $('#filtersContainer .tagify').each(function() {
+                            const tagify = $(this).data(
+                            'tagify'); // Retrieve the Tagify instance
+                            if (tagify) {
+                                const columnName = $(this).attr(
+                                'name'); // Use the input's name as the column
+                                d[columnName] = tagify.value.map(tag => tag
+                                .value); // Add Tagify values as an array
                             }
                         });
 
-                        console.log('Filters being sent:', d); // Debugging
+                        console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
-                columns: [
-                    {data: 'id'},
-                    {data: 'linkedin_link'},
-                    {data: 'company_name'},
-                    {data: 'contact_name'},
-                    {data: 'name_prefix'},
-                    {data: 'full_name'},
-                    {data: 'first_name'},
-                    {data: 'last_name'},
-                    {data: 'email'},
-                    {data: 'title_position'},
-                    {data: 'person_location'},
-                    {data: 'full_address'},
-                    {data: 'company_phone'},
-                    {data: 'company_head_count'},
-                    {data: 'country'},
-                    {data: 'city'},
-                    {data: 'state'},
-                    {data: 'tag'},
-                    {data: 'source_link'},
-                    {data: 'middle_name'},
-                    {data: 'sur_name'},
-                    {data: 'gender'},
-                    {data: 'personal_phone'},
-                    {data: 'employee_range'},
-                    {data: 'company_website'},
-                    {data: 'company_linkedin_link'},
-                    {data: 'company_hq_address'},
-                    {data: 'industry'},
-                    {data: 'revenue'},
-                    {data: 'street'},
-                    {data: 'zip_code'},
-                    {data: 'rating'},
-                    {data: 'sheet_name'},
-                    {data: 'job_link'},
-                    {data: 'job_role'},
-                    {data: 'checked_by'},
-                    {data: 'review'},
-                    {data: 'created_at',
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'linkedin_link'
+                    },
+                    {
+                        data: 'company_name'
+                    },
+                    {
+                        data: 'contact_name'
+                    },
+                    {
+                        data: 'name_prefix'
+                    },
+                    {
+                        data: 'full_name'
+                    },
+                    {
+                        data: 'first_name'
+                    },
+                    {
+                        data: 'last_name'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
+                        data: 'title_position'
+                    },
+                    {
+                        data: 'person_location'
+                    },
+                    {
+                        data: 'full_address'
+                    },
+                    {
+                        data: 'company_phone'
+                    },
+                    {
+                        data: 'company_head_count'
+                    },
+                    {
+                        data: 'country'
+                    },
+                    {
+                        data: 'city'
+                    },
+                    {
+                        data: 'state'
+                    },
+                    {
+                        data: 'tag'
+                    },
+                    {
+                        data: 'source_link'
+                    },
+                    {
+                        data: 'middle_name'
+                    },
+                    {
+                        data: 'sur_name'
+                    },
+                    {
+                        data: 'gender'
+                    },
+                    {
+                        data: 'personal_phone'
+                    },
+                    {
+                        data: 'employee_range'
+                    },
+                    {
+                        data: 'company_website'
+                    },
+                    {
+                        data: 'company_linkedin_link'
+                    },
+                    {
+                        data: 'company_hq_address'
+                    },
+                    {
+                        data: 'industry'
+                    },
+                    {
+                        data: 'revenue'
+                    },
+                    {
+                        data: 'street'
+                    },
+                    {
+                        data: 'zip_code'
+                    },
+                    {
+                        data: 'rating'
+                    },
+                    {
+                        data: 'sheet_name'
+                    },
+                    {
+                        data: 'job_link'
+                    },
+                    {
+                        data: 'job_role'
+                    },
+                    {
+                        data: 'checked_by'
+                    },
+                    {
+                        data: 'review'
+                    },
+                    {
+                        data: 'created_at',
                         render: function(data) {
                             return moment(data).format(
-                                'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
-                    },{data: 'updated_at',
+                    },
+                    {
+                        data: 'updated_at',
                         render: function(data) {
                             return moment(data).format(
-                                'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
                     }
                 ],
@@ -534,20 +635,40 @@
                     }
                 },
                 initComplete: function() {
-                    var columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
-                    var api = this.api();
+                    const api = this.api();
 
-                    // Create a new search row and prepend it to the thead
-                    var searchRow = $('<tr></tr>');
+                    // Initialize Tagify for all inputs with the "tagify" class in filtersContainer
+                    $('#filtersContainer .tagify').each(function() {
+                        const input = this;
+                        const tagify = new Tagify(input);
+                        $(input).data('tagify',
+                        tagify); // Attach the Tagify instance to the input
+
+                        // Handle Tagify events
+                        tagify.on('add', (e) => {
+                            console.log(`Tag added for input [${input.id}]:`, e.detail
+                                .data);
+                            dataTable.ajax.reload(); // Reload DataTable on tag addition
+                        });
+
+                        tagify.on('remove', (e) => {
+                            console.log(`Tag removed for input [${input.id}]:`, e.detail
+                                .data);
+                            dataTable.ajax.reload(); // Reload DataTable on tag removal
+                        });
+                    });
+
+                    // Search Row for Filterable Columns
+                    const columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
+                    const searchRow = $('<tr></tr>');
                     $(api.table().header()).prepend(searchRow);
 
-                    // Loop through all columns
                     api.columns().every(function(index) {
-                        var column = this;
+                        const column = this;
 
                         if (columnsToSearch.includes(index)) {
                             // Add an input to searchable columns
-                            var title = $(column.header()).text(); // Get column header text
+                            const title = $(column.header()).text();
                             $('<th><input type="text" placeholder="Search ' + title +
                                     '" style="width:100%;" /></th>')
                                 .appendTo(searchRow)
@@ -558,17 +679,18 @@
                                     }
                                 });
                         } else {
-                            // Add an empty cell for non-searchable columns
                             $('<th></th>').appendTo(searchRow);
                         }
                     });
                 }
             });
-            $(document).on('input', '#filtersContainer input[type="text"]', function () {
-                $('#dataTable').DataTable().ajax.reload();
-            });
         });
     </script>
+
+    <script>
+        // Initialize Tagify
+    </script>
+
 </body>
 <style>
     .dataTable th,

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 
-class DataController extends Controller
+class DataControllerBackup extends Controller
 {
     // Display the list of leads
     public function index()

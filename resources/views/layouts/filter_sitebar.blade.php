@@ -21,7 +21,7 @@
         <!-- Filter Section -->
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
-            <div class="w-full md:w-2/2 bg-gray-100 shadow-lg rounded-lg  space-y-6">
+            <div class="w-full md:w-2/2 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg space-y-6">
                 {{-- <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Title
                 </label>
@@ -40,43 +40,49 @@
                     @endforeach
                 </div> --}}
 
-                <div id="filtersContainer"></div>
                 <div id="filtersContainer">
                     <div>
-                        <label for="filter_company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="filter_company_name" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Company Name
                         </label>
                         <input 
                             type="text" 
-                            name="filter_company_name" 
-                            id="filter_company_name" 
+                            name="company_name" 
+                            id="company_name" 
                             placeholder="Type and press Enter" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm tagify">
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
                     
                     <div>
-                        <label for="filter_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="filter_email" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Email
                         </label>
                         <input 
                             type="text" 
-                            name="filter_email" 
-                            id="filter_email" 
+                            name="email" 
+                            id="email" 
                             placeholder="Type and press Enter" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm tagify">
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    <!-- Repeat for other columns -->
-                </div>       
-                <script>
                     
-                    $(document).ready(function () {
-                        // Tags Input field enable
-                        $('#filter_company_name').tagsinput({
-                            allowDuplicates: false,
-                            trimValue: true
-                        });
-                    });
-                    </script>         
+                    <div>
+                        <label for="full_address" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Full Address
+                        </label>
+                        <input 
+                            type="text" 
+                            name="full_address" 
+                            id="full_address" 
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                </div>
+                
+       
+                {{-- <div id="filtersContainer"></div> --}}
 
                 {{-- <script>
                     // Fetch filter values dynamically
