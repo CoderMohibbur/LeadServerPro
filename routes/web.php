@@ -74,6 +74,7 @@ Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('glo
 Route::resource('lead-server', DataController::class);
 // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
 Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+// Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
 
 
 });

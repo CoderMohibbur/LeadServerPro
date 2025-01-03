@@ -151,6 +151,7 @@ class SheetController extends Controller
     {
         // Retrieve all sheets and display them
         $sheets = Sheet::all();
+
         return view('sheets.index', compact('sheets'));
     }
 
@@ -189,6 +190,13 @@ class SheetController extends Controller
         // Pass the sheet and users to the edit view
         return view('sheets.edit', compact('sheet', 'users'));
     }
+
+    public function leadServerLink(Sheet $sheet)
+{
+    $leadServerUrl = "https://your-lead-server.com/sheets/{$sheet->id}"; // লিড সার্ভার লিঙ্ক
+    return redirect()->away($leadServerUrl); // ব্যবহারকারীকে লিড সার্ভার লিঙ্কে রিডাইরেক্ট করে
+}
+
 
 
 }

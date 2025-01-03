@@ -11,7 +11,7 @@ class Sheet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'file', 'sheet_working_date', 'sheet_name', 'user_id', 
+        'file', 'sheet_working_date', 'sheet_name', 'user_id',
     ];
 
     public function user()
