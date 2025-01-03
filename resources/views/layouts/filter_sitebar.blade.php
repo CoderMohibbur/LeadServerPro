@@ -40,7 +40,7 @@
                     @endforeach
                 </div> --}}
 
-                {{-- <div id="filtersContainer"></div> --}}
+                <div id="filtersContainer"></div>
                 <div id="filtersContainer">
                     <div>
                         <label for="filter_company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -50,10 +50,10 @@
                             type="text" 
                             name="filter_company_name" 
                             id="filter_company_name" 
-                            placeholder="Search by Company Name (comma separated)" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm tagify">
                     </div>
-                
+                    
                     <div>
                         <label for="filter_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Email
@@ -62,13 +62,23 @@
                             type="text" 
                             name="filter_email" 
                             id="filter_email" 
-                            placeholder="Search by Email (comma separated)" 
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm tagify">
                     </div>
                     <!-- Repeat for other columns -->
-                </div>
-
+                </div>       
                 <script>
+                    
+                    $(document).ready(function () {
+                        // Tags Input field enable
+                        $('#filter_company_name').tagsinput({
+                            allowDuplicates: false,
+                            trimValue: true
+                        });
+                    });
+                    </script>         
+
+                {{-- <script>
                     // Fetch filter values dynamically
                     fetch('/leads/filters')
                         .then(response => response.json())
@@ -121,7 +131,7 @@
                             });
                         })
                         .catch(error => console.error('Error fetching filter values:', error));
-                </script>
+                </script> --}}
 
             </div>
 

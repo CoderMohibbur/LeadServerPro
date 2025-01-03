@@ -52,5 +52,12 @@ class UserController extends Controller
         }
     }
 
+    // public function dashboard_Totalclient(){
+
+    //     $users = User::count();
+
+    //     return view('dashboard', compact('users'));
+    // }
+
 }
 
