@@ -27,8 +27,18 @@ import 'datatables.net-buttons/js/buttons.html5.min.js'; // HTML5 export buttons
 import 'datatables.net-buttons/js/buttons.print.min.js'; // Print button
 import 'datatables.net-buttons/js/buttons.colVis.min.js'; // Column visibility button
 
+
+// Import Bootstrap Tags Input
+// import 'bootstrap-tagsinput//dist/bootstrap-tagsinput.min.js';
+// import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css';
+
+// import Tagify from '@yaireo/tagify';
+
+
 // Import Flowbite (if needed)
 import 'flowbite';
+
+    // Initialize Tagify
 
 // $('#UserTable').DataTable({
 //     processing: true,

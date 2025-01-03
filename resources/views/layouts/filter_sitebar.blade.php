@@ -21,7 +21,7 @@
         <!-- Filter Section -->
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
-            <div class="w-full md:w-2/2 bg-gray-100 shadow-lg rounded-lg  space-y-6">
+            <div class="w-full md:w-2/2 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg space-y-6">
                 {{-- <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Title
                 </label>
@@ -40,9 +40,51 @@
                     @endforeach
                 </div> --}}
 
-                <div id="filtersContainer"></div>
+                <div id="filtersContainer">
+                    <div>
+                        <label for="filter_company_name" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Company Name
+                        </label>
+                        <input 
+                            type="text" 
+                            name="company_name" 
+                            id="company_name" 
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    
+                    <div>
+                        <label for="filter_email" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Email
+                        </label>
+                        <input 
+                            type="text" 
+                            name="email" 
+                            id="email" 
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    
+                    <div>
+                        <label for="full_address" 
+                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Full Address
+                        </label>
+                        <input 
+                            type="text" 
+                            name="full_address" 
+                            id="full_address" 
+                            placeholder="Type and press Enter" 
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                </div>
+                
+       
+                {{-- <div id="filtersContainer"></div> --}}
 
-                <script>
+                {{-- <script>
                     // Fetch filter values dynamically
                     fetch('/leads/filters')
                         .then(response => response.json())
@@ -95,10 +137,10 @@
                             });
                         })
                         .catch(error => console.error('Error fetching filter values:', error));
-                </script>
+                </script> --}}
 
             </div>
-            
+
         </div>
     </div>
 </aside>

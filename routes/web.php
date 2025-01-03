@@ -21,7 +21,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::resource('User', UserController::class);
-    Route::get('/users/data', [UserController::class, 'getUsers'])->name('users.data');
+    Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
     Route::get('/leads/filters', [DataController::class, 'getFilterValues'])->name('leads.filters');
 

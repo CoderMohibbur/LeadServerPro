@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
-use App\Models\User;
 use App\Models\Sheet;
-use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 
-class DataController extends Controller
+class DataControllerBackup extends Controller
 {
     // Display the list of leads
     public function index()
@@ -19,7 +17,7 @@ class DataController extends Controller
         // $leads = Lead::all(); // Paginate the leads data
         $leads = Lead::paginate(10);
         $categories = Lead::all();
-        return view('leadServer.index2', compact('leads', 'categories'));
+        return view('leadServer.index', compact('leads', 'categories'));
     }
 
     public function dataServer(Request $request)
@@ -373,29 +371,7 @@ class DataController extends Controller
         fclose($handle);
 
         // Redirect with success message
-
-
-
         return redirect()->route('lead-server.index')->with('success', 'Lead added and CSV updated successfully!');
-
-
     }
-
-    public function dashboard_TotalLead(){
-
-        $leads = Lead::count();
-        $users = User::count();
-        $sheets = Sheet::count();
-        $tickets = Ticket::count();
-
-
-
-        return view('dashboard', compact('leads','users','sheets','tickets'));
-    }
-
-
-
-
-
 
 }
