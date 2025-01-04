@@ -9,7 +9,7 @@
         <!-- Move the button to the right with spacing -->
         <div class="mb-4 flex justify-end space-x-4">
             <a href="{{ route('sheets.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Create New Sheet
+                Upload New Sheet
             </a>
         </div>
 
@@ -17,18 +17,23 @@
         <table id="sheetTable" class="table-auto w-full border-collapse dark:border-gray-700 ">
             <thead>
                 <tr >
-                    <th class="px-4 py-2 border dark:border-gray-600 text-green-800 dark:text-green-400 font-bold text-center">Sheet Name</th>
-                    <th class="px-4 py-2 border dark:border-gray-600 text-blue-800 dark:text-blue-400 font-bold text-center">File</th>
-                    <th class="px-4 py-2 border dark:border-gray-600 text-yellow-800 dark:text-yellow-400 font-bold text-center">Working Date</th>
-                    <th class="px-4 py-2 border dark:border-gray-600 text-purple-800 dark:text-purple-400 font-bold text-center">Client Name</th>
-                    <th class="px-4 py-2 border dark:border-gray-600 text-red-800 dark:text-red-400 font-bold text-center">Actions</th>
+                    <th>Sheet Name</th>
+                    <th>File</th>
+                    <th>Working Date</th>
+                    <th>Client Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($sheets as $sheet)
                     <tr class="dark:bg-gray-900 text-center">
 
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">{{ $sheet->sheet_name }}</td>
+                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                            <a href="{{ route('leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}" 
+                                class="text-blue-500 hover:underline dark:text-blue-400">
+                                 {{ $sheet->sheet_name }}
+                             </a>
+                        </td>
                         <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
                             @if($sheet->file)
                                 <a href="{{ asset('storage/' . $sheet->file) }}" target="_blank" class="text-blue-500 hover:underline dark:text-blue-400">
@@ -43,7 +48,12 @@
                         </td>
 
                         <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">{{ $sheet->user->name }}</td>
+                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                            <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}" 
+                                class="text-blue-500 hover:underline dark:text-blue-400">
+                                 {{ $sheet->user->name }}
+                             </a>
+                        </td>
                         <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
                             <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">
                                 @csrf
@@ -60,6 +70,7 @@
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     $('#sheetTable').DataTable({
+        processing: true,
         responsive: true,
         autoWidth: false,
         scrollX: true,

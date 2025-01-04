@@ -22,11 +22,49 @@ class DataController extends Controller
         return view('leadServer.index2', compact('leads', 'categories'));
     }
 
+    // public function dataServer(Request $request)
+    // {
+    //     $query = Lead::query();
+
+    //     // Apply filters dynamically
+    //     foreach ($request->all() as $column => $values) {
+    //         if (is_array($values) && !empty($values)) {
+    //             // Apply whereIn filter for columns with selected values
+    //             $query->whereIn($column, $values);
+    //         }
+    //     }
+
+    //     // Return the filtered data to DataTables
+    //     return DataTables::of($query)->make(true);
+    // }
     public function dataServer(Request $request)
     {
         $query = Lead::query();
 
-        // Apply filters dynamically
+        // // Filter by sheet_id if provided
+        // if ($request->has('sheet_id') && !empty($request->sheet_id)) {
+        //     $query->where('sheets_id', $request->sheet_id);
+        // }
+        // // Filter by user_id if provided
+        // if ($request->has('user_id') && !empty($request->user_id)) {
+        //     $query->whereHas('sheet', function ($q) use ($request) {
+        //         $q->where('user_id', $request->user_id);
+        //     });
+        // }
+
+        if ($request->hasAny(['sheet_id', 'user_id'])) {
+            $query->when($request->filled('sheet_id'), function ($q) use ($request) {
+                $q->where('sheets_id', $request->sheet_id);
+            });
+        
+            $query->when($request->filled('user_id'), function ($q) use ($request) {
+                $q->whereHas('sheet', function ($subQuery) use ($request) {
+                    $subQuery->where('user_id', $request->user_id);
+                });
+            });
+        }
+        
+        // Apply other filters dynamically
         foreach ($request->all() as $column => $values) {
             if (is_array($values) && !empty($values)) {
                 // Apply whereIn filter for columns with selected values
@@ -37,6 +75,7 @@ class DataController extends Controller
         // Return the filtered data to DataTables
         return DataTables::of($query)->make(true);
     }
+
 
     public function getFilterValues()
     {

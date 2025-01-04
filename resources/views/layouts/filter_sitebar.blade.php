@@ -80,8 +80,8 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
                 </div>
-                
-       
+                <input type="text" id="sheetIdFilter" class="form-input hidden" placeholder="Enter Sheet ID" readonly />
+                <input type="text" id="userIdFilter" class="form-input hidden" placeholder="Enter User ID" readonly />
                 {{-- <div id="filtersContainer"></div> --}}
 
                 {{-- <script>

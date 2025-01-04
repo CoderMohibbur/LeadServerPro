@@ -77,3 +77,21 @@ div.dt-container .dt-paging .paginate_button.current {
 /* .dataTable th, .dataTable td {
     white-space: nowrap;
 } */
+
+    /* Light Mode Placeholder */
+    .tagify__input::placeholder {
+        @apply text-gray-400;
+    }
+
+    /* Dark Mode Placeholder */
+    .dark .tagify__input::placeholder {
+        @apply text-white !important;
+    }
+
+    /* Placeholder Text Styling for the Fake Input in Tagify */
+    .tagify__placeholder {
+        @apply text-gray-400;
+    }
+    .dark .tagify__placeholder {
+        @apply text-gray-500;
+    }

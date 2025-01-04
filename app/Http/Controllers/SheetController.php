@@ -2,17 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
 use App\Models\User;
 use App\Models\Sheet;
 use App\Models\Client;
+use League\Csv\Reader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use League\Csv\Reader;
-use Illuminate\Support\Facades\DB;
 
 class SheetController extends Controller
 {
+    public function leadsBySheet($sheetId)
+    {
+        $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
+        // $leads = Lead::where('sheets_id', $sheetId)->get(); // Get leads associated with this sheet
+
+        return view('leadServer.index2', compact( 'sheet'));
+    }
+
+    public function leadsByUser($userId)
+    {
+        $user = User::findOrFail($userId); // Retrieve the user or throw 404
+        return view('leadServer.index2', compact('user')); // Pass user to the view
+    }
+
+
     public function create()
     {
         // Fetch users for the dropdown
