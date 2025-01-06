@@ -45,7 +45,7 @@
 
     @stack('modals')
 
- 
+
 
 
     @livewireScripts
@@ -90,7 +90,11 @@
 
         // Initialize theme on page load
         applyTheme();
+
+
+        
     </script>
+
 
 </body>
 
