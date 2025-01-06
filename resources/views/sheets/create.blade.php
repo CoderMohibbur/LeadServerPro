@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create New Sheet') }}
+            {{ __('Upload New Sheet') }}
         </h2>
     </x-slot>
 
@@ -11,10 +11,7 @@
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <!-- Move the button to the right with spacing -->
             <div class="mb-4 flex justify-end space-x-4">
-                <a href="{{ route('sheets.index') }}"
-                    class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                    Back to shert
-                </a>
+                
             </div>
             <form action="{{ route('sheets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
@@ -106,8 +103,12 @@
                 <div>
                     <button type="submit"
                         class="inline-block px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 transition duration-200">
-                        Create Sheet
+                        Upload Sheet
                     </button>
+                    <a href="{{ route('sheets.index') }}"
+                        class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                        Back to List
+                    </a>
                 </div>
             </form>
         </div>

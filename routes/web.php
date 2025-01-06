@@ -51,30 +51,38 @@ Route::middleware(['auth'])->group(function () {
     Route::put('tickets/{ticket}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
     Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
-// TicketController Show
-Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+    // TicketController Show
+    Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 
-// Answer Store
-Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
-
-
-Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
-Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
+    // Answer Store
+    Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
 
 
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
+    Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
 
 
-Route::get('/export', [YourController::class, 'export'])->name('export');
-Route::get('/import', [YourController::class, 'import'])->name('import');
-Route::get('/all-sheets', [YourController::class, 'allSheets'])->name('all_sheets');
-Route::get('/reset', [YourController::class, 'reset'])->name('reset');
-Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
+
+
+    Route::get('/export', [YourController::class, 'export'])->name('export');
+    Route::get('/import', [YourController::class, 'import'])->name('import');
+    Route::get('/all-sheets', [YourController::class, 'allSheets'])->name('all_sheets');
+    Route::get('/reset', [YourController::class, 'reset'])->name('reset');
+    Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
+
 
 Route::resource('lead-server', DataController::class);
 // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
 Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
 // Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
+
+    Route::resource('lead-server', DataController::class);
+    // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
+    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+    Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
+    Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
+
 
 
 });

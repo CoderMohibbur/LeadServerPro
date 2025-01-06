@@ -54,7 +54,7 @@
         <main>
             <div class="p-4 sm:ml-64">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                    <div class="container mx-auto py-8">
+                    <div class="container mx-auto">
 
                         <!-- Table Section -->
                         <div class="w-full bg-white p-5 shadow-md rounded-lg dark:bg-gray-700">
@@ -105,12 +105,6 @@
                                     </thead>
                                 </table>
                             </div>
-
-                            {{-- <!-- Pagination -->
-                            <div class="mt-4">
-                                {{ $leads->links() }}
-                            </div> --}}
-
                         </div>
                     </div>
                 </div>
@@ -326,8 +320,7 @@
                     //     console.log('Brands:', d.brand_id);
                     }
                 },
-                columns: [{
-                        data: 'id'},{data: 'linkedin_link'},
+                columns: [{data: 'id'},{data: 'linkedin_link'},
                         {data: 'company_name'},
                         {data: 'contact_name'},
                         {data: 'name_prefix'},
@@ -463,7 +456,22 @@
     </script> --}}
     <script>
         window.addEventListener('DOMContentLoaded', () => {
+            // Extract URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Set the sheet ID in the filter input if it exists
+            const sheetId = urlParams.get('sheet_id');
+            if (sheetId) {
+                $('#sheetIdFilter').val(sheetId);
+            }
+
+            // Set the user ID in the filter input if it exists
+            const userId = urlParams.get('user_id');
+            if (userId) {
+                $('#userIdFilter').val(userId);
+            }
             const dataTable = $('#dataTable').DataTable({
+                processing: true,
                 responsive: true,
                 autoWidth: true,
                 scrollX: true,
@@ -473,6 +481,32 @@
                     url: '/leads/data',
                     type: 'GET',
                     data: function(d) {
+                        // // Collect sheet_id and user_id dynamically
+                        // ['sheetIdFilter', 'userIdFilter'].forEach((filterId) => {
+                        //     const value = $(`#${filterId}`).val();
+                        //     if (value) {
+                        //         d[filterId.replace('Filter', '').toLowerCase()] = value; // Add sheet_id or user_id dynamically
+                        //     }
+                        // });
+
+                        // Include sheet_id in the request payload
+                        const sheetId = $('#sheetIdFilter').val();
+                        if (sheetId) {
+                            d.sheet_id = sheetId;
+                        }
+
+                        // Include user_id in the request payload
+                        const userId = $('#userIdFilter').val();
+                        if (userId) {
+                            d.user_id = userId;
+                        }
+                        // Ensure the Sheet ID input exists and retrieve its value
+                        // const sheetId = $('#sheetIdFilter').val();
+                        // if (sheetId) {
+                        //     d.sheet_id = sheetId; // Add sheet_id to the DataTable's request payload
+                        // } else {
+                        //     d.sheet_id = null; // Default to null if no Sheet ID is provided
+                        // }
                         // Dynamically collect selected filter values
                         $('#filtersContainer input[type="checkbox"]:checked').each(function() {
                             const columnName = $(this).attr('name').replace('[]',
@@ -496,121 +530,46 @@
                                 .value); // Add Tagify values as an array
                             }
                         });
-
                         console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'linkedin_link'
-                    },
-                    {
-                        data: 'company_name'
-                    },
-                    {
-                        data: 'contact_name'
-                    },
-                    {
-                        data: 'name_prefix'
-                    },
-                    {
-                        data: 'full_name'
-                    },
-                    {
-                        data: 'first_name'
-                    },
-                    {
-                        data: 'last_name'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'title_position'
-                    },
-                    {
-                        data: 'person_location'
-                    },
-                    {
-                        data: 'full_address'
-                    },
-                    {
-                        data: 'company_phone'
-                    },
-                    {
-                        data: 'company_head_count'
-                    },
-                    {
-                        data: 'country'
-                    },
-                    {
-                        data: 'city'
-                    },
-                    {
-                        data: 'state'
-                    },
-                    {
-                        data: 'tag'
-                    },
-                    {
-                        data: 'source_link'
-                    },
-                    {
-                        data: 'middle_name'
-                    },
-                    {
-                        data: 'sur_name'
-                    },
-                    {
-                        data: 'gender'
-                    },
-                    {
-                        data: 'personal_phone'
-                    },
-                    {
-                        data: 'employee_range'
-                    },
-                    {
-                        data: 'company_website'
-                    },
-                    {
-                        data: 'company_linkedin_link'
-                    },
-                    {
-                        data: 'company_hq_address'
-                    },
-                    {
-                        data: 'industry'
-                    },
-                    {
-                        data: 'revenue'
-                    },
-                    {
-                        data: 'street'
-                    },
-                    {
-                        data: 'zip_code'
-                    },
-                    {
-                        data: 'rating'
-                    },
-                    {
-                        data: 'sheet_name'
-                    },
-                    {
-                        data: 'job_link'
-                    },
-                    {
-                        data: 'job_role'
-                    },
-                    {
-                        data: 'checked_by'
-                    },
-                    {
-                        data: 'review'
-                    },
+                columns: [{data: 'id' },
+                    {data: 'linkedin_link' },
+                    {data: 'company_name' },
+                    {data: 'contact_name' },
+                    {data: 'name_prefix' },
+                    {data: 'full_name' },
+                    {data: 'first_name' },
+                    {data: 'last_name' },
+                    {data: 'email' },
+                    {data: 'title_position' },
+                    {data: 'person_location' },
+                    {data: 'full_address' },
+                    {data: 'company_phone' },
+                    {data: 'company_head_count' },
+                    {data: 'country' },
+                    {data: 'city' },
+                    {data: 'state' },
+                    {data: 'tag' },
+                    {data: 'source_link' },
+                    {data: 'middle_name' },
+                    {data: 'sur_name' },
+                    {data: 'gender' },
+                    {data: 'personal_phone' },
+                    {data: 'employee_range' },
+                    {data: 'company_website' },
+                    {data: 'company_linkedin_link' },
+                    {data: 'company_hq_address' },
+                    {data: 'industry' },
+                    {data: 'revenue' },
+                    {data: 'street' },
+                    {data: 'zip_code' },
+                    {data: 'rating' },
+                    {data: 'sheet_name' },
+                    {data: 'job_link' },
+                    {data: 'job_role' },
+                    {data: 'checked_by' },
+                    {data: 'review' },
                     {
                         data: 'created_at',
                         render: function(data) {
@@ -638,23 +597,62 @@
                     const api = this.api();
 
                     // Initialize Tagify for all inputs with the "tagify" class in filtersContainer
-                    $('#filtersContainer .tagify').each(function() {
-                        const input = this;
-                        const tagify = new Tagify(input);
-                        $(input).data('tagify',
-                        tagify); // Attach the Tagify instance to the input
+                    // $('#filtersContainer .tagify').each(function() {
+                    //     const input = this;
+                    //     const tagify = new Tagify(input);
+                    //     $(input).data('tagify',
+                    //     tagify); // Attach the Tagify instance to the input
 
-                        // Handle Tagify events
-                        tagify.on('add', (e) => {
-                            console.log(`Tag added for input [${input.id}]:`, e.detail
-                                .data);
-                            dataTable.ajax.reload(); // Reload DataTable on tag addition
+                    //     // Handle Tagify events
+                    //     tagify.on('add', (e) => {
+                    //         console.log(`Tag added for input [${input.id}]:`, e.detail
+                    //             .data);
+                    //         dataTable.ajax.reload(); // Reload DataTable on tag addition
+                    //     });
+
+                    //     tagify.on('remove', (e) => {
+                    //         console.log(`Tag removed for input [${input.id}]:`, e.detail
+                    //             .data);
+                    //         dataTable.ajax.reload(); // Reload DataTable on tag removal
+                    //     });
+                    // });
+                    $('#filtersContainer .tagify').each(function () {
+                        const input = this;
+                        const columnName = $(input).attr('name'); // Get the name attribute to identify the column
+
+                        // Initialize Tagify
+                        const tagify = new Tagify(input, {
+                            whitelist: [], // Start empty
+                            dropdown: {
+                                enabled: 1, // Show suggestions after 1 character
+                                maxItems: 20, // Maximum items to display in dropdown
+                                position: 'input', // Show dropdown near the input
+                                closeOnSelect: false // Keep dropdown open after selecting
+                            }
                         });
 
-                        tagify.on('remove', (e) => {
-                            console.log(`Tag removed for input [${input.id}]:`, e.detail
-                                .data);
-                            dataTable.ajax.reload(); // Reload DataTable on tag removal
+                        $(input).data('tagify', tagify); // Attach the Tagify instance to the input
+
+                        // Handle dynamic suggestions from the server
+                        tagify.on('input', function (e) {
+                            const searchTerm = e.detail.value;
+
+                            fetch(`/leads/filters?column=${columnName}&term=${searchTerm}`)
+                                .then((res) => res.json())
+                                .then((data) => {
+                                    tagify.settings.whitelist = data[columnName] || [];
+                                    tagify.dropdown.show(searchTerm); // Show suggestions
+                                })
+                                .catch((err) => console.error('Error fetching suggestions:', err));
+                        });
+
+                        // Reload DataTable on tag addition or removal
+                        tagify.on('add', () => {
+                            $('#dataTable').DataTable().ajax.reload();
+                        });
+
+                        tagify.on('remove', () => {
+                            $('#dataTable').DataTable().ajax.reload();
                         });
                     });
 
@@ -685,10 +683,6 @@
                 }
             });
         });
-    </script>
-
-    <script>
-        // Initialize Tagify
     </script>
 
 </body>
