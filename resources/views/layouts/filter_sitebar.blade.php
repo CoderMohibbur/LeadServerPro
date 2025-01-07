@@ -42,46 +42,164 @@
 
                 <div id="filtersContainer">
                     <div>
-                        <label for="filter_company_name" 
-                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="filter_company_name"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Company Name
                         </label>
-                        <input 
-                            type="text" 
-                            name="company_name" 
-                            id="company_name" 
-                            placeholder="Type and press Enter" 
+                        <input type="text" name="company_name" id="company_name" placeholder="Type and press Enter"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    
+
                     <div>
-                        <label for="filter_email" 
-                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="filter_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Email
                         </label>
-                        <input 
-                            type="text" 
-                            name="email" 
-                            id="email" 
-                            placeholder="Type and press Enter" 
+                        <input type="text" name="email" id="email" placeholder="Type and press Enter"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    
+
                     <div>
-                        <label for="full_address" 
-                               class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="full_address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Full Address
                         </label>
-                        <input 
-                            type="text" 
-                            name="full_address" 
-                            id="full_address" 
-                            placeholder="Type and press Enter" 
+                        <input type="text" name="full_address" id="full_address" placeholder="Type and press Enter"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
+
+                    <div>
+                        <label for="linkedin_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            linkedin_link
+                        </label>
+                        <input type="link" name="linkedin_link" id="linkedin_link" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="contact_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            contact_name
+                        </label>
+                        <input type="text" name="contact_name" id="contact_name" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            first_name
+                        </label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            last_name
+                        </label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            full_name
+                        </label>
+                        <input type="text" name="full_name" id="full_name" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+                    <div>
+                        <label for="person_location" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            person_location
+                        </label>
+                        <input type="text" name="person_location" id="person_location"
+                            placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+                    <div>
+                        <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            city
+                        </label>
+                        <input type="text" name="city" id="city" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="tag" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            tag
+                        </label>
+                        <input type="text" name="tag" id="tag" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
+                    <div>
+                        <label for="source_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            source_link
+                        </label>
+                        <input type="text" name="source_link" id="source_link" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="personal_phone"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            personal_phone
+                        </label>
+                        <input type="text" name="personal_phone" id="personal_phone"
+                            placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="company_website"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            company_website
+                        </label>
+                        <input type="text" name="company_website" id="company_website"
+                            placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="company_linkedin_link"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            company_linkedin_link
+                        </label>
+                        <input type="text" name="company_linkedin_link" id="company_linkedin_link"
+                            placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="company_hq_address"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            company_hq_address
+                        </label>
+                        <input type="text" name="company_hq_address" id="company_hq_address"
+                            placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="zip_code" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            zip_code
+                        </label>
+                        <input type="text" name="zip_code" id="zip_code" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="job_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            job_link
+                        </label>
+                        <input type="text" name="job_link" id="job_link" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="sheet_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            sheet_name
+                        </label>
+                        <input type="text" name="sheet_name" id="sheet_name" placeholder="Type and press Enter"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+
                 </div>
-                <input type="text" id="sheetIdFilter" class="form-input hidden" placeholder="Enter Sheet ID" readonly />
-                <input type="text" id="userIdFilter" class="form-input hidden" placeholder="Enter User ID" readonly />
+                <input type="text" id="sheetIdFilter" class="form-input hidden" placeholder="Enter Sheet ID"
+                    readonly />
+                <input type="text" id="userIdFilter" class="form-input hidden" placeholder="Enter User ID"
+                    readonly />
                 {{-- <div id="filtersContainer"></div> --}}
 
                 {{-- <script>
