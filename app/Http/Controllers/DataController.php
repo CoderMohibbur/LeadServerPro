@@ -19,7 +19,8 @@ class DataController extends Controller
         // $leads = Lead::all(); // Paginate the leads data
         $leads = Lead::paginate(10);
         $categories = Lead::all();
-        return view('leadServer.index2', compact('leads', 'categories'));
+        $users = User::all();
+        return view('leadServer.index2', compact('leads', 'categories','users'));
     }
 
     // public function dataServer(Request $request)
@@ -56,14 +57,14 @@ class DataController extends Controller
             $query->when($request->filled('sheet_id'), function ($q) use ($request) {
                 $q->where('sheets_id', $request->sheet_id);
             });
-        
+
             $query->when($request->filled('user_id'), function ($q) use ($request) {
                 $q->whereHas('sheet', function ($subQuery) use ($request) {
                     $subQuery->where('user_id', $request->user_id);
                 });
             });
         }
-        
+
         // Apply other filters dynamically
         foreach ($request->all() as $column => $values) {
             if (is_array($values) && !empty($values)) {

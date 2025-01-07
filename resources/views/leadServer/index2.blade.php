@@ -46,9 +46,170 @@
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Lead Lists') }}
                 </h2>
+
+                {{-- <div class="mb-4 flex justify-end space-x-4">
+                    <a href="{{ route('sheets.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                        Upload New Sheet
+                    </a>
+                </div> --}}
+
+
+
+                <!-- Modal toggle -->
+                <button data-modal-target="select-modal" data-modal-toggle="select-modal"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
+                    type="button">
+                    Toggle modal
+                </button>
+
+                <!-- Main modal -->
+                <div id="select-modal" tabindex="-1" aria-hidden="true"
+                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <!-- Modal header -->
+                            <div
+                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                    Open positions
+                                </h3>
+                                <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-toggle="select-modal">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-4 md:p-5">
+                                <p class="text-gray-500 dark:text-gray-400 mb-4">Select your desired position:</p>
+
+
+                                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                                    <!-- Move the button to the right with spacing -->
+                                    <div class="mb-4 flex justify-end space-x-4">
+
+                                    </div>
+                                    <form action="{{ route('sheets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                                        @csrf
+
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <!-- File Input -->
+                                            <div>
+                                                <label for="file" class="block text-gray-700 dark:text-gray-300">Select Your Sheet:</label>
+                                                <input type="file" id="file" name="file" required
+                                                    class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                                                @error('file')
+                                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <!-- Working Date -->
+                                            <div>
+                                                <label for="sheet_working_date" class="block text-gray-700 dark:text-gray-300">Sheet Working
+                                                    Date:</label>
+                                                <input type="date" id="sheet_working_date" name="sheet_working_date"
+                                                    value="{{ old('sheet_working_date', now()->toDateString()) }}" required
+                                                    class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                                                @error('sheet_working_date')
+                                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <!-- Sheet Name -->
+                                            <div>
+                                                <label for="sheet_name" class="block text-gray-700 dark:text-gray-300">Sheet Name:</label>
+                                                <input type="text" id="sheet_name" name="sheet_name" value="{{ old('sheet_name') }}" required
+                                                    class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                                                @error('sheet_name')
+                                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div x-data="{ open: false, search: '', selectedUser: '', selectedUserId: '' }" class="relative">
+                                                <label for="user_id" class="block text-gray-700 dark:text-gray-300">User:</label>
+
+                                                <!-- Input for search -->
+                                                <input
+                                                    type="text"
+                                                    x-model="search"
+                                                    @focus="open = true"
+                                                    @click="open = true"
+                                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
+                                                    placeholder="Search User..."
+                                                    autocomplete="off">
+
+                                                <!-- Dropdown Menu -->
+                                                <div
+                                                    x-show="open"
+                                                    @click.outside="open = false"
+                                                    class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
+                                                    <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
+                                                        @foreach ($users as $user)
+                                                            <li x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
+                                                                <a href="#"
+                                                                    class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                                                    @click.prevent="
+                                                                        selectedUser = '{{ $user->name }}';
+                                                                        selectedUserId = '{{ $user->id }}';
+                                                                        open = false;">
+                                                                    {{ $user->name }}
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+
+                                                <!-- Selected User -->
+                                                <div x-show="selectedUser" class="mt-2 text-gray-600 dark:text-gray-300">
+                                                    <p>Selected User: <span x-text="selectedUser"></span></p>
+                                                </div>
+
+                                                <!-- Hidden Input for Form Submission -->
+                                                <input type="hidden" name="user_id" :value="selectedUserId">
+
+                                                <!-- Error handling -->
+                                                @error('user_id')
+                                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
+                                        </div>
+
+                                        <div>
+                                            <button type="submit"
+                                                class="inline-block px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 transition duration-200">
+                                                Upload Sheet
+                                            </button>
+                                            <a href="{{ route('sheets.index') }}"
+                                                class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                                                Back to List
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <button
+                                    class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Next step
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
 
         </div>
+
 
         <!-- Page Content -->
         <main>
@@ -101,8 +262,6 @@
                                             <th>Review</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
-                                          
-
                                         </tr>
                                     </thead>
                                 </table>
@@ -512,78 +671,153 @@
                         // Dynamically collect selected filter values
                         $('#filtersContainer input[type="checkbox"]:checked').each(function() {
                             const columnName = $(this).attr('name').replace('[]',
-                            ''); // Remove [] from the name
+                                ''); // Remove [] from the name
                             if (!d[columnName]) {
                                 d[
-                            columnName] = []; // Initialize array for the column if not already set
+                                    columnName
+                                ] = []; // Initialize array for the column if not already set
                             }
                             d[columnName].push($(this)
-                        .val()); // Add selected value to the column array
+                                .val()); // Add selected value to the column array
                         });
 
                         // Collect values from Tagify inputs
                         $('#filtersContainer .tagify').each(function() {
                             const tagify = $(this).data(
-                            'tagify'); // Retrieve the Tagify instance
+                                'tagify'); // Retrieve the Tagify instance
                             if (tagify) {
                                 const columnName = $(this).attr(
-                                'name'); // Use the input's name as the column
+                                    'name'); // Use the input's name as the column
                                 d[columnName] = tagify.value.map(tag => tag
-                                .value); // Add Tagify values as an array
+                                    .value); // Add Tagify values as an array
                             }
                         });
                         console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
-                columns: [{data: 'id' },
-                    {data: 'linkedin_link' },
-                    {data: 'company_name' },
-                    {data: 'contact_name' },
-                    {data: 'name_prefix' },
-                    {data: 'full_name' },
-                    {data: 'first_name' },
-                    {data: 'last_name' },
-                    {data: 'email' },
-                    {data: 'title_position' },
-                    {data: 'person_location' },
-                    {data: 'full_address' },
-                    {data: 'company_phone' },
-                    {data: 'company_head_count' },
-                    {data: 'country' },
-                    {data: 'city' },
-                    {data: 'state' },
-                    {data: 'tag' },
-                    {data: 'source_link' },
-                    {data: 'middle_name' },
-                    {data: 'sur_name' },
-                    {data: 'gender' },
-                    {data: 'personal_phone' },
-                    {data: 'employee_range' },
-                    {data: 'company_website' },
-                    {data: 'company_linkedin_link' },
-                    {data: 'company_hq_address' },
-                    {data: 'industry' },
-                    {data: 'revenue' },
-                    {data: 'street' },
-                    {data: 'zip_code' },
-                    {data: 'rating' },
-                    {data: 'sheet_name' },
-                    {data: 'job_link' },
-                    {data: 'job_role' },
-                    {data: 'checked_by' },
-                    {data: 'review' },
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'linkedin_link'
+                    },
+                    {
+                        data: 'company_name'
+                    },
+                    {
+                        data: 'contact_name'
+                    },
+                    {
+                        data: 'name_prefix'
+                    },
+                    {
+                        data: 'full_name'
+                    },
+                    {
+                        data: 'first_name'
+                    },
+                    {
+                        data: 'last_name'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
+                        data: 'title_position'
+                    },
+                    {
+                        data: 'person_location'
+                    },
+                    {
+                        data: 'full_address'
+                    },
+                    {
+                        data: 'company_phone'
+                    },
+                    {
+                        data: 'company_head_count'
+                    },
+                    {
+                        data: 'country'
+                    },
+                    {
+                        data: 'city'
+                    },
+                    {
+                        data: 'state'
+                    },
+                    {
+                        data: 'tag'
+                    },
+                    {
+                        data: 'source_link'
+                    },
+                    {
+                        data: 'middle_name'
+                    },
+                    {
+                        data: 'sur_name'
+                    },
+                    {
+                        data: 'gender'
+                    },
+                    {
+                        data: 'personal_phone'
+                    },
+                    {
+                        data: 'employee_range'
+                    },
+                    {
+                        data: 'company_website'
+                    },
+                    {
+                        data: 'company_linkedin_link'
+                    },
+                    {
+                        data: 'company_hq_address'
+                    },
+                    {
+                        data: 'industry'
+                    },
+                    {
+                        data: 'revenue'
+                    },
+                    {
+                        data: 'street'
+                    },
+                    {
+                        data: 'zip_code'
+                    },
+                    {
+                        data: 'rating'
+                    },
+                    {
+                        data: 'sheet_name'
+                    },
+                    {
+                        data: 'job_link'
+                    },
+                    {
+                        data: 'job_role'
+                    },
+                    {
+                        data: 'checked_by'
+                    },
+                    {
+                        data: 'review'
+                    },
                     {
                         data: 'created_at',
                         render: function(data) {
                             return moment(data).format(
-                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                                'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
                     },
                     {
                         data: 'updated_at',
                         render: function(data) {
                             return moment(data).format(
-                            'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                                'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
                     }
                 ],
@@ -618,9 +852,10 @@
                     //         dataTable.ajax.reload(); // Reload DataTable on tag removal
                     //     });
                     // });
-                    $('#filtersContainer .tagify').each(function () {
+                    $('#filtersContainer .tagify').each(function() {
                         const input = this;
-                        const columnName = $(input).attr('name'); // Get the name attribute to identify the column
+                        const columnName = $(input).attr(
+                        'name'); // Get the name attribute to identify the column
 
                         // Initialize Tagify
                         const tagify = new Tagify(input, {
@@ -633,19 +868,24 @@
                             }
                         });
 
-                        $(input).data('tagify', tagify); // Attach the Tagify instance to the input
+                        $(input).data('tagify',
+                        tagify); // Attach the Tagify instance to the input
 
                         // Handle dynamic suggestions from the server
-                        tagify.on('input', function (e) {
+                        tagify.on('input', function(e) {
                             const searchTerm = e.detail.value;
 
-                            fetch(`/leads/filters?column=${columnName}&term=${searchTerm}`)
+                            fetch(
+                                    `/leads/filters?column=${columnName}&term=${searchTerm}`)
                                 .then((res) => res.json())
                                 .then((data) => {
-                                    tagify.settings.whitelist = data[columnName] || [];
-                                    tagify.dropdown.show(searchTerm); // Show suggestions
+                                    tagify.settings.whitelist = data[columnName] ||
+                                        [];
+                                    tagify.dropdown.show(
+                                    searchTerm); // Show suggestions
                                 })
-                                .catch((err) => console.error('Error fetching suggestions:', err));
+                                .catch((err) => console.error(
+                                    'Error fetching suggestions:', err));
                         });
 
                         // Reload DataTable on tag addition or removal
