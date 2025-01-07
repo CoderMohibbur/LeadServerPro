@@ -196,7 +196,7 @@
                                 </div>
 
                                 <button
-                                    class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    {{-- class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> --}}
                                     Next step
                                 </button>
                             </div>
@@ -262,6 +262,8 @@
                                             <th>Review</th>
                                             <th>Created At</th>
                                             <th>Updated At</th>
+                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                 </table>
@@ -819,7 +821,18 @@
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
+                    },
+                    {
+                        data: 'id', // The ID will be used for Edit, Show, Delete actions
+                        render: function(data, type, row) {
+                            return `
+                                <button type="button" data-id="${data}" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                            `;
+                        },
+                        orderable: false, // Disable sorting for the action column
+                        searchable: false // Disable searching for the action column
                     }
+
                 ],
 
                 layout: {
@@ -920,6 +933,28 @@
                                 });
                         } else {
                             $('<th></th>').appendTo(searchRow);
+                        }
+                    });
+                }
+            });
+             // Handle Delete Button Clicks
+             $(document).on('click', '.delete-btn', function() {
+                var ID = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this user?')) {
+                    $.ajax({
+                        url: '/lead-server/' + ID,
+                        type: 'DELETE',
+                        data: {
+        _token: '{{ csrf_token() }}' // Include CSRF token
+    },
+                        success: function(response) {
+                            alert('User deleted successfully!');
+                            $('#dataTable').DataTable().ajax
+                        .reload(); // Reload the table data after deletion
+                        },
+                        error: function() {
+                            alert('An error occurred while deleting the user.');
                         }
                     });
                 }

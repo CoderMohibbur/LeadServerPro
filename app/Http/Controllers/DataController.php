@@ -162,7 +162,7 @@ class DataController extends Controller
         }
 
         $leads = $query->paginate(10);
-        return view('leadServer.index', compact('leads'));
+        return view('leadServer.index2', compact('leads'));
     }
 
     // Show the form for creating a new lead
@@ -262,7 +262,7 @@ class DataController extends Controller
         ]);
 
         // Redirect with success message after saving
-        return redirect()->route('lead-server.index')->with('success', 'Lead added successfully!');
+        return redirect()->route('leadServer.index2')->with('success', 'Lead added successfully!');
     }
 
 
@@ -416,7 +416,7 @@ class DataController extends Controller
 
 
 
-        return redirect()->route('lead-server.index')->with('success', 'Lead added and CSV updated successfully!');
+        return redirect()->route('leadServer.index2')->with('success', 'Lead added and CSV updated successfully!');
 
 
     }
@@ -432,9 +432,25 @@ class DataController extends Controller
 
         return view('dashboard', compact('leads','users','sheets','tickets'));
     }
+// Delete a lead from the database
+// DataController.php
 
+public function destroy($id)
+{
+    try {
+        // Find the lead by ID
+        $lead = Lead::findOrFail($id);
 
+        // Delete the lead
+        $lead->delete();
 
+        // Return success response
+        return response()->json(['success' => true, 'message' => 'User deleted successfully!']);
+    } catch (\Exception $e) {
+        // Return error response if something goes wrong
+        return response()->json(['success' => false, 'message' => 'An error occurred while deleting the user.']);
+    }
+}
 
 
 
