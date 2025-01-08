@@ -1,15 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Edit User') }}
-        </h2>
+        </h1>
     </x-slot>
 
     <div class="p-4 sm:ml-64">
-        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <!-- Form Title -->
-            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">Edit User</h1>
-
             @if ($errors->has('error'))
                 <div class="bg-red-500 text-white p-4 rounded mb-4">
                     {{ $errors->first('error') }}
@@ -96,16 +94,16 @@
                         @enderror
                     </div>
                 </div>
-
-                <!-- Form Actions -->
-                <div class="flex items-center justify-between mt-6">
-                    <a href="{{ route('User.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:underline">
-                        {{ __('Cancel') }}
-                    </a>
-                    <x-button
-                        class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800">
-                        {{ __('Save Changes') }}
-                    </x-button>
+                <div>
+                    <button type="submit"
+                        class="inline-block px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 transition duration-200">
+                        Update
+                    </button>
+                    <button 
+                        onclick="window.location.href='{{ route('User.index') }}'"
+                        class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                        Back to List
+                    </button>
                 </div>
             </form>
         </div>
