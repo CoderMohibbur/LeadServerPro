@@ -414,11 +414,7 @@ class DataController extends Controller
 
         // Redirect with success message
 
-
-
         return redirect()->route('leadServer.index2')->with('success', 'Lead added and CSV updated successfully!');
-
-
     }
 
     public function dashboard_TotalLead(){
@@ -427,8 +423,6 @@ class DataController extends Controller
         $users = User::count();
         $sheets = Sheet::count();
         $tickets = Ticket::count();
-
-
 
         return view('dashboard', compact('leads','users','sheets','tickets'));
     }

@@ -12,11 +12,18 @@
 table.dataTable {
     @apply w-full border-collapse text-sm text-gray-700 dark:text-gray-300;
 }
-table.dataTable thead th {
+/* table.dataTable thead th {
     @apply px-4 py-2 bg-gray-200 font-semibold text-gray-800 dark:bg-gray-700 dark:text-gray-300;
-}
+} */
 table.dataTable tbody tr:nth-child(even) {
     @apply bg-gray-100 dark:bg-gray-800;
+}
+thead input {
+    @apply bg-white text-gray-800 font-normal rounded-lg w-full px-2 py-1;
+    @apply dark:bg-gray-800 dark:text-gray-200;
+}
+table.dataTable thead th {
+    @apply bg-gray-200 dark:bg-gray-900 text-gray-700 dark:text-gray-300;
 }
 table.dataTable tbody td {
     @apply px-4 py-2 dark:text-gray-300;
@@ -78,20 +85,20 @@ div.dt-container .dt-paging .paginate_button.current {
     white-space: nowrap;
 } */
 
-    /* Light Mode Placeholder */
-    .tagify__input::placeholder {
-        @apply text-gray-400;
-    }
+/* Light Mode Placeholder */
+.tagify__input::placeholder {
+    @apply text-gray-400;
+}
 
-    /* Dark Mode Placeholder */
-    .dark .tagify__input::placeholder {
-        @apply text-white !important;
-    }
+/* Dark Mode Placeholder */
+.dark .tagify__input::placeholder {
+    @apply text-white !important;
+}
 
-    /* Placeholder Text Styling for the Fake Input in Tagify */
-    .tagify__placeholder {
-        @apply text-gray-400;
-    }
-    .dark .tagify__placeholder {
-        @apply text-gray-500;
-    }
+/* Placeholder Text Styling for the Fake Input in Tagify */
+.tagify__placeholder {
+    @apply text-gray-400;
+}
+.dark .tagify__placeholder {
+    @apply text-gray-500;
+}

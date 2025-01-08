@@ -30,7 +30,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen bg-white dark:bg-gray-800">
         @include('layouts.header')
         @include('layouts.filter_sitebar')
 
@@ -42,11 +42,11 @@
 
         <!-- Page Heading -->
         <div class="p-4 sm:ml-64">
-            <div class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                 <div class=" flex items-center">
-                    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Lead Lists') }}
-                    </h2>
+                    </h1>
 
                     {{-- <div class="mb-4 flex justify-end space-x-4">
                         <a href="{{ route('sheets.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
@@ -76,47 +76,46 @@
                                 <table id="dataTable" class="dataTable table-auto border-collapse w-full">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>LinkedIn Link</th>
-                                            <th>Company Name</th>
-                                            <th>Contact Name</th>
-                                            <th>Name Prefix</th>
-                                            <th>Full Name</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Title Position</th>
-                                            <th>Person Location</th>
-                                            <th>Full Address</th>
-                                            <th>Company Phone</th>
-                                            <th>Company Head Count</th>
-                                            <th>Country</th>
-                                            <th>City</th>
-                                            <th>State</th>
-                                            <th>Tag</th>
-                                            <th>Source Link</th>
-                                            <th>Middle Name</th>
-                                            <th>Sur Name</th>
-                                            <th>Gender</th>
-                                            <th>Personal Phone</th>
-                                            <th>Employee Range</th>
-                                            <th>Company Website</th>
-                                            <th>Company LinkedIn Link</th>
-                                            <th>Company HQ Address</th>
-                                            <th>Industry</th>
-                                            <th>Revenue</th>
-                                            <th>Street</th>
-                                            <th>Zip Code</th>
-                                            <th>Rating</th>
-                                            <th>Sheet Name</th>
-                                            <th>Job Link</th>
-                                            <th>Job Role</th>
-                                            <th>Checked By</th>
-                                            <th>Review</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
-                                            <th>Action</th>
-
+                                            <th class="p-2.5">ID</th>
+                                            <th class="p-2.5">LinkedIn Link</th>
+                                            <th class="p-2.5">Company Name</th>
+                                            <th class="p-2.5">Contact Name</th>
+                                            <th class="p-2.5">Name Prefix</th>
+                                            <th class="p-2.5">Full Name</th>
+                                            <th class="p-2.5">First Name</th>
+                                            <th class="p-2.5">Last Name</th>
+                                            <th class="p-2.5">Email</th>
+                                            <th class="p-2.5">Title Position</th>
+                                            <th class="p-2.5">Person Location</th>
+                                            <th class="p-2.5">Full Address</th>
+                                            <th class="p-2.5">Company Phone</th>
+                                            <th class="p-2.5">Company Head Count</th>
+                                            <th class="p-2.5">Country</th>
+                                            <th class="p-2.5">City</th>
+                                            <th class="p-2.5">State</th>
+                                            <th class="p-2.5">Tag</th>
+                                            <th class="p-2.5">Source Link</th>
+                                            <th class="p-2.5">Middle Name</th>
+                                            <th class="p-2.5">Sur Name</th>
+                                            <th class="p-2.5">Gender</th>
+                                            <th class="p-2.5">Personal Phone</th>
+                                            <th class="p-2.5">Employee Range</th>
+                                            <th class="p-2.5">Company Website</th>
+                                            <th class="p-2.5">Company LinkedIn Link</th>
+                                            <th class="p-2.5">Company HQ Address</th>
+                                            <th class="p-2.5">Industry</th>
+                                            <th class="p-2.5">Revenue</th>
+                                            <th class="p-2.5">Street</th>
+                                            <th class="p-2.5">Zip Code</th>
+                                            <th class="p-2.5">Rating</th>
+                                            <th class="p-2.5">Sheet Name</th>
+                                            <th class="p-2.5">Job Link</th>
+                                            <th class="p-2.5">Job Role</th>
+                                            <th class="p-2.5">Checked By</th>
+                                            <th class="p-2.5">Review</th>
+                                            <th class="p-2.5">Created At</th>
+                                            <th class="p-2.5">Updated At</th>
+                                            <th class="p-2.5">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -129,14 +128,19 @@
     </div>
 
     <!-- Main modal -->
-    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="popup-modal" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
-                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                <button type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
@@ -178,8 +182,8 @@
                             <div>
                                 <label for="sheet_name" class="block text-gray-700 dark:text-gray-300">Sheet
                                     Name</label>
-                                <input type="text" id="sheet_name" name="sheet_name" value="{{ old('sheet_name') }}"
-                                    required
+                                <input type="text" id="sheet_name" name="sheet_name"
+                                    value="{{ old('sheet_name') }}" required
                                     class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
                                 @error('sheet_name')
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -236,10 +240,9 @@
                                 class="inline-block px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-500 transition duration-200">
                                 Upload Sheet
                             </button>
-                            <button
-                            onclick="window.location.href='{{ route('sheets.index') }}'"
-                            class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                            Back to List
+                            <button onclick="window.location.href='{{ route('sheets.index') }}'"
+                                class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                                Back to List
                             </button>
                         </div>
                     </form>
@@ -592,7 +595,7 @@
 
         });
     </script> --}}
-    
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             // Extract URL parameters
@@ -616,6 +619,8 @@
                 scrollX: true,
                 scrollY: "75vh",
                 scrollCollapse: true,
+                pageLength: 25, // Default number of rows per page
+                lengthMenu: [25, 50, 100, 200], // Dropdown options for rows per page
                 ajax: {
                     url: '/leads/data',
                     type: 'GET',
@@ -889,29 +894,59 @@
                     });
 
                     // Search Row for Filterable Columns
-                    const columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
-                    const searchRow = $('<tr></tr>');
-                    $(api.table().header()).prepend(searchRow);
+                    // const columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
+                    // const searchRow = $('<tr></tr>');
+                    // $(api.table().header()).prepend(searchRow);
+
+                    // api.columns().every(function(index) {
+                    //     const column = this;
+
+                    //     if (columnsToSearch.includes(index)) {
+                    //         // Add an input to searchable columns
+                    //         const title = $(column.header()).text();
+                    //         $('<th><input type="text" placeholder="Search ' + title +
+                    //                 '" style="width:100%;" /></th>')
+                    //             .appendTo(searchRow)
+                    //             .find('input')
+                    //             .on('keyup change clear', function() {
+                    //                 if (column.search() !== this.value) {
+                    //                     column.search(this.value).draw();
+                    //                 }
+                    //             });
+                    //     } else {
+                    //         $('<th></th>').appendTo(searchRow);
+                    //     }
+                    // });
+                    const columnsToSearch = [1, 2, 3, 5, 4,
+                    6]; // Indices of columns to include (0-based)
+
+                    // Add a second row for search filters
+                    const tableHeader = $(api.table().header());
+                    const searchRow = $(
+                    '<tr class="search-row"></tr>'); // Add a class for easier styling
+                    tableHeader.append(searchRow); // Append as the second row
 
                     api.columns().every(function(index) {
                         const column = this;
 
                         if (columnsToSearch.includes(index)) {
-                            // Add an input to searchable columns
-                            const title = $(column.header()).text();
-                            $('<th><input type="text" placeholder="Search ' + title +
-                                    '" style="width:100%;" /></th>')
+                            // Create a search input for searchable columns
+                            const title = $(column.header()).text(); // Get column title
+                            $('<th><input type="text" placeholder=""style="width:100%;padding: 1px;"/></th>')
                                 .appendTo(searchRow)
                                 .find('input')
                                 .on('keyup change clear', function() {
                                     if (column.search() !== this.value) {
-                                        column.search(this.value).draw();
+                                        column.search(this.value)
+                                    .draw(); // Trigger filtering
                                     }
                                 });
                         } else {
-                            $('<th></th>').appendTo(searchRow);
+                            $('<th></th>').appendTo(
+                            searchRow); // Add an empty cell for non-searchable columns
                         }
                     });
+
                 }
             });
             // Handle Delete Button Clicks
@@ -938,7 +973,6 @@
             });
         });
     </script>
-
 </body>
 <style>
     .dataTable th,
@@ -946,12 +980,12 @@
         white-space: nowrap;
     }
 
-    table.dataTable>thead>tr:first-child>th {
+    /* table.dataTable>thead>tr:first-child>th {
         background: transparent !important;
-    }
+    } */
 
     thead input {
-        padding: 2px 10px !important;
+        border-radius: 5px !important;
     }
 
     .dropdown {
@@ -971,6 +1005,20 @@
 
     .dropdown-item:hover {
         background-color: #f0f0f0;
+    }
+
+    /* .tagify {
+        @apply text-gray-800 bg-gray-100;
+        @apply dark:text-white dark:bg-gray-900;
+    } */
+    .tagify {
+        --placeholder-color: #6b7280; /* Default placeholder color for light mode */
+        --placeholder-color-focus: #6b7280;
+    }
+
+    .dark .tagify {
+        --placeholder-color: #6e6e6e; /* Placeholder color for dark mode */
+        --placeholder-color-focus: #6e6e6e; /* Placeholder color for dark mode */
     }
 </style>
 

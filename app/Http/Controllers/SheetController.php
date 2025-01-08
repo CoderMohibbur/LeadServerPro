@@ -16,16 +16,18 @@ class SheetController extends Controller
 {
     public function leadsBySheet($sheetId)
     {
+        $users = User::all();
         $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
         // $leads = Lead::where('sheets_id', $sheetId)->get(); // Get leads associated with this sheet
 
-        return view('leadServer.index2', compact( 'sheet'));
+        return view('leadServer.index2', compact( 'sheet','users'));
     }
 
     public function leadsByUser($userId)
     {
+        $users = User::all();
         $user = User::findOrFail($userId); // Retrieve the user or throw 404
-        return view('leadServer.index2', compact('user')); // Pass user to the view
+        return view('leadServer.index2', compact('user','users')); // Pass user to the view
     }
 
 
