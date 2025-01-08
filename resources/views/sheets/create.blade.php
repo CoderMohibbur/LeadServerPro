@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Upload New Sheet') }}
@@ -11,7 +11,7 @@
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <!-- Move the button to the right with spacing -->
             <div class="mb-4 flex justify-end space-x-4">
-                
+
             </div>
             <form action="{{ route('sheets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
@@ -113,4 +113,58 @@
             </form>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
+
+
+
+
+
+<div x-data="{ open: false, search: '', selectedUser: null }" class="relative">
+    <label for="user_id" class="block text-gray-700 dark:text-gray-300">User:</label>
+
+    <!-- Input for search -->
+    <input
+        type="text"
+        x-model="search"
+        @focus="open = true"
+        @click="open = true"
+        class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
+        placeholder="Search User..."
+        autocomplete="off">
+
+    <!-- Dropdown Menu -->
+    <div
+        x-show="open"
+        @click.outside="open = false"
+        class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
+        <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
+            @foreach ($users as $user)
+                <li
+                    class="cursor-pointer px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())"
+                    @click="
+                        selectedUser = { id: '{{ $user->id }}', name: '{{ $user->name }}' };
+                        open = false;">
+                    {{ $user->name }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+    <!-- Selected User -->
+    <div x-show="selectedUser" class="mt-2 text-gray-600 dark:text-gray-300">
+        <p>Selected User: <span x-text="selectedUser.name"></span></p>
+    </div>
+
+    <!-- Hidden Input for Form Submission -->
+    <input type="hidden" name="user_id" :value="selectedUser ? selectedUser.id : ''">
+
+    <!-- Error handling -->
+    @error('user_id')
+        <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+    @enderror
+</div>
+
+
+
+

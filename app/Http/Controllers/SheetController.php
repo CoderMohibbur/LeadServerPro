@@ -167,8 +167,9 @@ class SheetController extends Controller
     {
         // Retrieve all sheets and display them
         $sheets = Sheet::all();
+        $users = User::all();
 
-        return view('sheets.index', compact('sheets'));
+        return view('sheets.index', compact('sheets','users'));
     }
 
     public function show(Sheet $sheet)
