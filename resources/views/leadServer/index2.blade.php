@@ -42,7 +42,7 @@
 
         <!-- Page Heading -->
         <div class="p-4 sm:ml-64">
-            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+            <div class="p-4 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Lead Lists') }}
                 </h2>
@@ -57,7 +57,7 @@
 
                 <!-- Modal toggle -->
                 <button data-modal-target="select-modal" data-modal-toggle="select-modal"
-                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
                     type="button">
                     Toggle modal
                 </button>
@@ -65,15 +65,13 @@
                 <!-- Main modal -->
                 <div id="select-modal" tabindex="-1" aria-hidden="true"
                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                    <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative p-8 w-full max-w-3xl max-h-screen bg-white rounded-lg shadow-lg overflow-auto dark:bg-gray-800">
                         <!-- Modal content -->
                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                             <!-- Modal header -->
                             <div
                                 class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                    Open positions
-                                </h3>
+
                                 <button type="button"
                                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                     data-modal-toggle="select-modal">
@@ -86,22 +84,24 @@
                                 </button>
                             </div>
                             <!-- Modal body -->
-                            <div class="p-4 md:p-5">
-                                <p class="text-gray-500 dark:text-gray-400 mb-4">Select your desired position:</p>
+                            <div>
 
 
-                                <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                                <div class=" border-gray-200">
                                     <!-- Move the button to the right with spacing -->
                                     <div class="mb-4 flex justify-end space-x-4">
 
                                     </div>
-                                    <form action="{{ route('sheets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                                    <form action="{{ route('sheets.store') }}" method="POST"
+                                        enctype="multipart/form-data" class="space-y-6">
                                         @csrf
 
-                                        <div class="grid grid-cols-2 gap-4">
+                                        <div>
                                             <!-- File Input -->
                                             <div>
-                                                <label for="file" class="block text-gray-700 dark:text-gray-300">Select Your Sheet:</label>
+                                                <label for="file"
+                                                    class="block text-gray-700 dark:text-gray-300">Select Your
+                                                    Sheet:</label>
                                                 <input type="file" id="file" name="file" required
                                                     class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
                                                 @error('file')
@@ -111,10 +111,12 @@
 
                                             <!-- Working Date -->
                                             <div>
-                                                <label for="sheet_working_date" class="block text-gray-700 dark:text-gray-300">Sheet Working
+                                                <label for="sheet_working_date"
+                                                    class="block text-gray-700 dark:text-gray-300">Sheet Working
                                                     Date:</label>
                                                 <input type="date" id="sheet_working_date" name="sheet_working_date"
-                                                    value="{{ old('sheet_working_date', now()->toDateString()) }}" required
+                                                    value="{{ old('sheet_working_date', now()->toDateString()) }}"
+                                                    required
                                                     class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
                                                 @error('sheet_working_date')
                                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -123,8 +125,10 @@
 
                                             <!-- Sheet Name -->
                                             <div>
-                                                <label for="sheet_name" class="block text-gray-700 dark:text-gray-300">Sheet Name:</label>
-                                                <input type="text" id="sheet_name" name="sheet_name" value="{{ old('sheet_name') }}" required
+                                                <label for="sheet_name"
+                                                    class="block text-gray-700 dark:text-gray-300">Sheet Name:</label>
+                                                <input type="text" id="sheet_name" name="sheet_name"
+                                                    value="{{ old('sheet_name') }}" required
                                                     class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
                                                 @error('sheet_name')
                                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -132,26 +136,22 @@
                                             </div>
 
                                             <div x-data="{ open: false, search: '', selectedUser: '', selectedUserId: '' }" class="relative">
-                                                <label for="user_id" class="block text-gray-700 dark:text-gray-300">User:</label>
+                                                <label for="user_id"
+                                                    class="block text-gray-700 dark:text-gray-300">User:</label>
 
                                                 <!-- Input for search -->
-                                                <input
-                                                    type="text"
-                                                    x-model="search"
-                                                    @focus="open = true"
+                                                <input type="text" x-model="search" @focus="open = true"
                                                     @click="open = true"
                                                     class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
-                                                    placeholder="Search User..."
-                                                    autocomplete="off">
+                                                    placeholder="Search User..." autocomplete="off">
 
                                                 <!-- Dropdown Menu -->
-                                                <div
-                                                    x-show="open"
-                                                    @click.outside="open = false"
+                                                <div x-show="open" @click.outside="open = false"
                                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
                                                     <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
                                                         @foreach ($users as $user)
-                                                            <li x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
+                                                            <li
+                                                                x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
                                                                 <a href="#"
                                                                     class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                                                                     @click.prevent="
@@ -166,7 +166,8 @@
                                                 </div>
 
                                                 <!-- Selected User -->
-                                                <div x-show="selectedUser" class="mt-2 text-gray-600 dark:text-gray-300">
+                                                <div x-show="selectedUser"
+                                                    class="mt-2 text-gray-600 dark:text-gray-300">
                                                     <p>Selected User: <span x-text="selectedUser"></span></p>
                                                 </div>
 
@@ -195,10 +196,7 @@
                                     </form>
                                 </div>
 
-                                <button
-                                    {{-- class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> --}}
-                                    Next step
-                                </button>
+                                <button {{-- class="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> --}} Next step </button>
                             </div>
                         </div>
                     </div>
@@ -868,7 +866,7 @@
                     $('#filtersContainer .tagify').each(function() {
                         const input = this;
                         const columnName = $(input).attr(
-                        'name'); // Get the name attribute to identify the column
+                            'name'); // Get the name attribute to identify the column
 
                         // Initialize Tagify
                         const tagify = new Tagify(input, {
@@ -882,20 +880,21 @@
                         });
 
                         $(input).data('tagify',
-                        tagify); // Attach the Tagify instance to the input
+                            tagify); // Attach the Tagify instance to the input
 
                         // Handle dynamic suggestions from the server
                         tagify.on('input', function(e) {
                             const searchTerm = e.detail.value;
 
                             fetch(
-                                    `/leads/filters?column=${columnName}&term=${searchTerm}`)
+                                    `/leads/filters?column=${columnName}&term=${searchTerm}`
+                                    )
                                 .then((res) => res.json())
                                 .then((data) => {
                                     tagify.settings.whitelist = data[columnName] ||
                                         [];
                                     tagify.dropdown.show(
-                                    searchTerm); // Show suggestions
+                                        searchTerm); // Show suggestions
                                 })
                                 .catch((err) => console.error(
                                     'Error fetching suggestions:', err));
@@ -937,8 +936,8 @@
                     });
                 }
             });
-             // Handle Delete Button Clicks
-             $(document).on('click', '.delete-btn', function() {
+            // Handle Delete Button Clicks
+            $(document).on('click', '.delete-btn', function() {
                 var ID = $(this).data('id');
 
                 if (confirm('Are you sure you want to delete this user?')) {
@@ -946,12 +945,12 @@
                         url: '/lead-server/' + ID,
                         type: 'DELETE',
                         data: {
-        _token: '{{ csrf_token() }}' // Include CSRF token
-    },
+                            _token: '{{ csrf_token() }}' // Include CSRF token
+                        },
                         success: function(response) {
                             alert('User deleted successfully!');
                             $('#dataTable').DataTable().ajax
-                        .reload(); // Reload the table data after deletion
+                                .reload(); // Reload the table data after deletion
                         },
                         error: function() {
                             alert('An error occurred while deleting the user.');
