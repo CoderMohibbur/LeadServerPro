@@ -6,30 +6,36 @@
 
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('password.update') }}">
+        <form method="POST" action="{{ route('password.update') }}" class="max-w-sm mx-auto bg-white p-4 rounded-md shadow-md">
             @csrf
 
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            </div>
+            <div class="space-y-3">
+                <!-- Email Field -->
+                <div>
+                    <x-label for="email" value="{{ __('Email') }}" class="text-sm" />
+                    <x-input id="email" class="block mt-1 w-2/3 mx-auto p-1 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
+                </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+                <!-- Password Field -->
+                <div>
+                    <x-label for="password" value="{{ __('Password') }}" class="text-sm" />
+                    <x-input id="password" class="block mt-1 w-2/3 mx-auto p-1 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="password" required autocomplete="new-password" />
+                </div>
 
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+                <!-- Confirm Password Field -->
+                <div>
+                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" class="text-sm" />
+                    <x-input id="password_confirmation" class="block mt-1 w-2/3 mx-auto p-1 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" name="password_confirmation" required autocomplete="new-password" />
+                </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
+                <!-- Submit Button -->
+                <div class="flex items-center justify-end mt-4">
+                    <x-button class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded">
+                        {{ __('Reset Password') }}
+                    </x-button>
+                </div>
             </div>
         </form>
     </x-authentication-card>
