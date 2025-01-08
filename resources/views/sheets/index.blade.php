@@ -1,18 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-left">
-            {{ __('All Sheets List') }}
-        </h2>
-    </x-slot>
-
-    <div class="p-4 sm:ml-64">
-        <!-- Move the button to the right with spacing -->
-        <div class="mb-4 flex justify-end space-x-4">
+        <div class=" flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-left">
+                {{ __('All Sheets List') }}
+            </h2>
             <a href="{{ route('sheets.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                 Upload New Sheet
             </a>
         </div>
 
+    </x-slot>
+
+    <div class="p-4 sm:ml-64">
         <!-- Data Table -->
         <table id="sheetTable" class="table-auto w-full border-collapse dark:border-gray-700 ">
             <thead>

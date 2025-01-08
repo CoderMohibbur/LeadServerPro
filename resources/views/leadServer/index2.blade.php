@@ -240,7 +240,7 @@
                             onclick="window.location.href='{{ route('sheets.index') }}'"
                             class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                             Back to List
-                        </button>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -250,6 +250,7 @@
     </div>
 
     @livewireScripts
+
     {{-- <script>
         window.addEventListener('DOMContentLoaded', () => {
             const dataTable = $('#dataTable').DataTable({
@@ -591,6 +592,7 @@
 
         });
     </script> --}}
+    
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             // Extract URL parameters

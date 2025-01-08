@@ -22,11 +22,9 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('User', controller: UserController::class);
 
-
     Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
     Route::get('/leads/filters', [DataController::class, 'getFilterValues'])->name('leads.filters');
-
     Route::resource('roles', RoleController::class);
 });
 
@@ -35,8 +33,6 @@ Route::middleware([
 // Route::get('/sheet-list/create', [SheetListController::class, 'create']);
 // Route::post('/sheet-list', [SheetListController::class, 'store']);
 // Route::resource('sheet-lists', SheetListController::class);
-
-
 
 Route::resource('sheets', SheetController::class);
 
@@ -59,13 +55,9 @@ Route::middleware(['auth'])->group(function () {
     // Answer Store
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
 
-
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
     Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
-
-
-
 
     Route::get('/export', [YourController::class, 'export'])->name('export');
     Route::get('/import', [YourController::class, 'import'])->name('import');
@@ -73,18 +65,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reset', [YourController::class, 'reset'])->name('reset');
     Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
 
-
-Route::resource('lead-server', DataController::class);
-// Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
-Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
-// Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
+    Route::resource('lead-server', DataController::class);
+    // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
+    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+    // Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
 
     Route::resource('lead-server', DataController::class);
     // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
     Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
-
-
 
 });

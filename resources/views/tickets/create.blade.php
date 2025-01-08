@@ -1,20 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Ticket') }}
-        </h2>
+        <!-- Back to Tickets Button -->
+        <div class="flex justify-between items-center">
+            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Create Ticket') }}
+            </h1>
+            <a href="{{ route('tickets.index') }}"
+                class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 transition">
+                &larr; Back to Tickets
+            </a>
+        </div>
     </x-slot>
 
-    <div class="p-6 sm:ml-64">
-        <div class="p-6 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
-            <!-- Back to Tickets Button -->
-            <div class="mb-6 text-right">
-                <a href="{{ route('tickets.index') }}"
-                   class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 transition">
-                    &larr; Back to Tickets
-                </a>
-            </div>
-
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <!-- Form Section -->
             <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow">
                 @if ($errors->any())
@@ -30,29 +29,32 @@
                 <form action="{{ route('tickets.store') }}" method="POST">
                     @csrf
 
-                    <!-- Title Input -->
-                    <div class="mb-6">
-                        <label for="title" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            class="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Enter ticket title"
-                            required>
-                    </div>
+                    <div>
+                         <!-- Title Input -->
+                        <div class="mb-6">
+                            <label for="title" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                class="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Enter ticket title"
+                                required>
+                        </div>
 
-                    <!-- Description Input -->
-                    <div class="mb-6">
-                        <label for="description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                        <textarea
-                            id="description"
-                            name="description"
-                            rows="5"
-                            class="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Provide a detailed description"
-                            required></textarea>
+                        <!-- Description Input -->
+                        <div class="mb-6">
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="5"
+                                class="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Provide a detailed description"
+                                required></textarea>
+                        </div>
                     </div>
+    
 
                     <!-- Submit Button -->
                     <div class="text-right">
