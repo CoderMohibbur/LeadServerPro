@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Spatie\Permission\Models\Role; // Import Spatie Role
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -19,6 +20,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        // Validate input
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -30,7 +32,8 @@ class CreateNewUser implements CreatesNewUsers
             'linkedin_url' => 'nullable|url',
         ])->validate();
 
-        return User::create([
+        // Create the user
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
@@ -38,6 +41,12 @@ class CreateNewUser implements CreatesNewUsers
             'company_name' => $input['company_name'] ?? null,
             'phone_number' => $input['phone_number'] ?? null,
             'linkedin_url' => $input['linkedin_url'] ?? null,
+            'is_approved' => true, // Automatically set to false
         ]);
+
+        // Assign the default "Customer" role to the new user
+        $user->assignRole('Customer'); // Ensure the "Customer" role exists in your database
+
+        return $user;
     }
 }
