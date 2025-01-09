@@ -27,9 +27,9 @@
                 <li>
                     <a href="{{ route('roles.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Roles</a>
                 </li>
-                {{-- <li>
-                    <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">User Type</a>
-                </li> --}}
+                <li>
+                    <a href="/role-management" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Role Assian</a>
+                </li>
             </ul>
             </li>
             <li>

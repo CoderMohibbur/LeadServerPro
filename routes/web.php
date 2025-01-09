@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\YourController; // Import the controller
+use App\Http\Controllers\RoleManagementController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,14 +19,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard/sa', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard');
     Route::resource('User', controller: UserController::class);
     Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
     Route::get('/leads/filters', [DataController::class, 'getFilterValues'])->name('leads.filters');
     Route::resource('roles', RoleController::class);
+    Route::get('/role-management', [RoleManagementController::class, 'index'])->name('role.management');
+    Route::post('/role-management/update', [RoleManagementController::class, 'update'])->name('role.update');
+
 });
 
 // routes/web.php
@@ -66,12 +69,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('lead-server', DataController::class);
     // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
-    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+    // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     // Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
 
     Route::resource('lead-server', DataController::class);
     // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
-    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
+    // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
 

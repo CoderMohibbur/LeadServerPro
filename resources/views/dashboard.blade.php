@@ -98,18 +98,22 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
-
-
-
-                <!-- Additional Cards can be added in similar way -->
-
             </div>
         </div>
+        @if (auth()->user()->hasRole('Admin'))
+            <p>You have the "Admin" role.</p>
+        @else
+            <p>You do not have the "Admin" role.</p>
+        @endif
+        @if (auth()->user()->hasRole('Customer'))
+            <p>You have the "Customer" role.</p>
+        @else
+            <p>You do not have the "Customer" role.</p>
+        @endif
+
     </div>
 
 </x-app-layout>
