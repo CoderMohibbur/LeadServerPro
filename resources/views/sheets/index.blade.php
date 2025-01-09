@@ -14,70 +14,72 @@
     </x-slot>
 
     <div class="p-4 sm:ml-64">
-        <div class="flex justify-start items-center space-x-4 mb-4">
-            <div>
-                <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
-                <input type="date" id="start_date" name="start_date"
-                    class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+            <div class="flex justify-start items-center space-x-4 mb-4">
+                <div>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
+                    <input type="date" id="start_date" name="start_date"
+                        class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
+                    <input type="date" id="end_date" name="end_date"
+                        class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+                </div>
             </div>
-            <div>
-                <label for="end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
-                <input type="date" id="end_date" name="end_date"
-                    class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
-            </div>
-        </div>
-        <!-- Data Table -->
-        <table id="sheetTable" class="table-auto w-full border-collapse ">
-            <thead>
-                <tr >
-                    <th>Sheet Name</th>
-                    <th>File</th>
-                    <th>Working Date</th>
-                    <th>Client Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($sheets as $sheet)
-                    <tr class="dark:bg-gray-900 text-center">
-
-                        <td class="px-4 py-2  dark:text-gray-300">
-                            <a href="{{ route('leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
-                                class="text-blue-500 hover:underline dark:text-blue-400">
-                                 {{ $sheet->sheet_name }}
-                             </a>
-                        </td>
-                        <td class="px-4 py-2  dark:text-gray-300">
-                            @if($sheet->file)
-                                <a href="{{ asset('storage/' . $sheet->file) }}" target="_blank" class="text-blue-500 hover:underline dark:text-blue-400">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"/>
-                                    </svg>
-                                    Open File download
-                                </a>
-                            @else
-                                <span class="text-gray-500 dark:text-gray-400">No file available</span>
-                            @endif
-                        </td>
-
-                        <td class="px-4 py-2  dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
-                        <td class="px-4 py-2  dark:text-gray-300">
-                            <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
-                                class="text-blue-500 hover:underline dark:text-blue-400">
-                                 {{ $sheet->user->name }}
-                             </a>
-                        </td>
-                        <td class="px-4 py-2  dark:text-gray-300">
-                            <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
-                            </form>
-                        </td>
+            <!-- Data Table -->
+            <table id="sheetTable" class="table-auto w-full border-collapse ">
+                <thead>
+                    <tr >
+                        <th>Sheet Name</th>
+                        <th>File</th>
+                        <th>Working Date</th>
+                        <th>Client Name</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($sheets as $sheet)
+                        <tr class="dark:bg-gray-900 text-center">
+
+                            <td class="px-4 py-2  dark:text-gray-300">
+                                <a href="{{ route('leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
+                                    class="text-blue-500 hover:underline dark:text-blue-400">
+                                    {{ $sheet->sheet_name }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-2  dark:text-gray-300">
+                                @if($sheet->file)
+                                    <a href="{{ asset('storage/' . $sheet->file) }}" target="_blank" class="text-blue-500 hover:underline dark:text-blue-400">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"/>
+                                        </svg>
+                                        Open File download
+                                    </a>
+                                @else
+                                    <span class="text-gray-500 dark:text-gray-400">No file available</span>
+                                @endif
+                            </td>
+
+                            <td class="px-4 py-2  dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
+                            <td class="px-4 py-2  dark:text-gray-300">
+                                <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
+                                    class="text-blue-500 hover:underline dark:text-blue-400">
+                                    {{ $sheet->user->name }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-2  dark:text-gray-300">
+                                <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
         <!-- Main modal -->
         <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

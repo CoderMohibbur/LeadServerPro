@@ -3,11 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Laravel\Jetstream\Jetstream;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
-use Spatie\Permission\Models\Role; // Import Spatie Role
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -17,6 +18,7 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param  array<string, string>  $input
+     * @return User
      */
     public function create(array $input): User
     {
@@ -41,12 +43,22 @@ class CreateNewUser implements CreatesNewUsers
             'company_name' => $input['company_name'] ?? null,
             'phone_number' => $input['phone_number'] ?? null,
             'linkedin_url' => $input['linkedin_url'] ?? null,
-            'is_approved' => true, // Automatically set to false
+            'is_approved' => false, // Automatically set to false
         ]);
 
         // Assign the default "Customer" role to the new user
         $user->assignRole('Customer'); // Ensure the "Customer" role exists in your database
 
+        // Fire the Registered event
+        event(new Registered($user));
+
+        // Log out the user immediately after registration
+        Auth::logout();
+
+        // Flash a message to inform the user
+        session()->flash('error', 'Your account has been created but is pending approval.');
+
+        // Return the user object (required by Fortify)
         return $user;
     }
 }
