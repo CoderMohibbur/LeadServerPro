@@ -3,8 +3,11 @@
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
-
-        <x-validation-errors class="mb-4" />
+        @if (session('error'))
+            <div class="bg-red-500 text-white p-3 rounded mb-4 text-center">
+                {{ session('error') }}
+            </div>
+        @endif
 
         @session('status')
             <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">

@@ -14,8 +14,20 @@
     </x-slot>
 
     <div class="p-4 sm:ml-64">
+        <div class="flex justify-start items-center space-x-4 mb-4">
+            <div>
+                <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
+                <input type="date" id="start_date" name="start_date"
+                    class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+            </div>
+            <div>
+                <label for="end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">End Date</label>
+                <input type="date" id="end_date" name="end_date"
+                    class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
+            </div>
+        </div>
         <!-- Data Table -->
-        <table id="sheetTable" class="table-auto w-full border-collapse dark:border-gray-700 ">
+        <table id="sheetTable" class="table-auto w-full border-collapse ">
             <thead>
                 <tr >
                     <th>Sheet Name</th>
@@ -29,13 +41,13 @@
                 @foreach ($sheets as $sheet)
                     <tr class="dark:bg-gray-900 text-center">
 
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                        <td class="px-4 py-2  dark:text-gray-300">
                             <a href="{{ route('leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
                                 class="text-blue-500 hover:underline dark:text-blue-400">
                                  {{ $sheet->sheet_name }}
                              </a>
                         </td>
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                        <td class="px-4 py-2  dark:text-gray-300">
                             @if($sheet->file)
                                 <a href="{{ asset('storage/' . $sheet->file) }}" target="_blank" class="text-blue-500 hover:underline dark:text-blue-400">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -48,18 +60,18 @@
                             @endif
                         </td>
 
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                        <td class="px-4 py-2  dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
+                        <td class="px-4 py-2  dark:text-gray-300">
                             <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
                                 class="text-blue-500 hover:underline dark:text-blue-400">
                                  {{ $sheet->user->name }}
                              </a>
                         </td>
-                        <td class="px-4 py-2 border dark:border-gray-600 dark:text-gray-300">
+                        <td class="px-4 py-2  dark:text-gray-300">
                             <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-500">Delete</button>
+                                <button type="submit" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -190,19 +202,41 @@
 
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    $('#sheetTable').DataTable({
-        processing: true,
-        responsive: true,
-        autoWidth: false,
-        scrollX: true,
-        layout: {
-            topEnd: ['search'],
-            topStart: {
-                pageLength: true,
-                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colVis', 'print']
-            }
-        }
-    });
+    $(document).ready(function () {
+            const table = $('#sheetTable').DataTable({
+                processing: true,
+                responsive: true,
+                autoWidth: false,
+                scrollX: true,
+                layout: {
+                    topEnd: ['search'],
+                    topStart: {
+                        pageLength: true,
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+                    }
+                },
+            });
+
+            // Custom filtering function for date range
+            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                const startDate = $('#start_date').val() ? new Date($('#start_date').val()) : null;
+                const endDate = $('#end_date').val() ? new Date($('#end_date').val()) : null;
+                const workingDate = new Date(data[2]); // Adjust index based on Working Date column
+
+                if ((startDate === null && endDate === null) ||
+                    (startDate === null && workingDate <= endDate) ||
+                    (endDate === null && workingDate >= startDate) ||
+                    (workingDate >= startDate && workingDate <= endDate)) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Event listeners for the date inputs
+            $('#start_date, #end_date').on('change', function () {
+                table.draw();
+            });
+        });
 });
 </script>
 

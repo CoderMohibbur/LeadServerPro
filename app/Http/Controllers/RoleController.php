@@ -25,6 +25,22 @@ class RoleController extends Controller
         return view('roles.create', compact('permissions')); // Pass permissions to the create view
     }
 
+    // public function store(Request $request)
+    // {
+    //     // Validate role and permissions
+    //     $request->validate([
+    //         'name' => 'required|string|max:255|unique:roles,name',
+    //         'permissions' => 'required|array',
+    //     ]);
+
+    //     // Create new role
+    //     $role = Role::create(['name' => $request->name]);
+
+    //     // Assign selected permissions to the role
+    //     $role->givePermissionTo($request->permissions);
+
+    //     return redirect()->route('roles.index')->with('success', 'Role created successfully!');
+    // }
     public function store(Request $request)
     {
         // Validate role and permissions
@@ -33,14 +49,22 @@ class RoleController extends Controller
             'permissions' => 'required|array',
         ]);
 
-        // Create new role
-        $role = Role::create(['name' => $request->name]);
+        // Create new role with the default guard
+        $role = Role::create([
+            'name' => $request->name,
+            'guard_name' => 'web', // Explicitly set the guard name (change to 'sanctum' if needed)
+        ]);
 
         // Assign selected permissions to the role
-        $role->givePermissionTo($request->permissions);
+        $permissions = Permission::whereIn('id', $request->permissions)
+                                ->where('guard_name', 'web') // Match permissions with the same guard
+                                ->get();
+
+        $role->syncPermissions($permissions);
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully!');
     }
+
 
 
     public function edit($id)

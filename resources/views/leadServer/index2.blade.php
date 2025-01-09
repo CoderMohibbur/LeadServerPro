@@ -208,9 +208,9 @@
                                                 <a href="#"
                                                     class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                                                     @click.prevent="
-                                    selectedUser = '{{ $user->name }}';
-                                    selectedUserId = '{{ $user->id }}';
-                                    open = false;">
+                                                    selectedUser = '{{ $user->name }}';
+                                                    selectedUserId = '{{ $user->id }}';
+                                                    open = false;">
                                                     {{ $user->name }}
                                                 </a>
                                             </li>

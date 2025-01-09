@@ -23,7 +23,8 @@
 
             {{-- <div id="custom-buttons" class="custom-buttons mb-4"></div> <!-- Custom Buttons Container --> --}}
 
-            <table id="UserTable" class="dataTable table-auto border-collapse w-full">
+            </div>
+            <table id="UserTable" class="dataTable table-auto border-collapse w-full dark:bg-gray-700">
                 <thead>
                     <tr>
                         <th>ID</th>
