@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Pail\ValueObjects\Origin\Console;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
     }
     public function getUsers()
     {
-        $users = User::select(columns: ['id', 'name', 'email', 'created_at']);
+        $users = User::select(columns: ['id', 'name', 'email', 'created_at','is_approved']);
         return DataTables::of($users)->make(true);
     }
     public function create()
@@ -125,15 +126,19 @@ public function show($id)
 
 public function updateStatus(Request $request, $id)
 {
-    $request->validate([
-        'is_approved' => 'required|boolean',
-    ]);
+    try {
+        $request->validate([
+            'is_approved' => 'required|boolean',
+        ]);
 
-    $record = User::findOrFail($id);
-    $record->is_approved = $request->input('is_approved');
-    $record->save();
+        $record = User::findOrFail($id);
+        $record->is_approved = $request->input('is_approved');
+        $record->save();
 
-    return response()->json(['success' => true]);
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+    }
 }
 
 

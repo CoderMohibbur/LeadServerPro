@@ -32,7 +32,7 @@
                     <th>Email</th>
                     <th>Created At</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
         </table>
@@ -233,8 +233,7 @@
                     {
                         data: 'is_approved',
                         render: function(data, type, row) {
-                            if (data) {
-                                // Approved: Green button
+                            if (data === 'true' || data === true || data === 1 || data === '1') {
                                 return `
                                     <button
                                         class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
@@ -243,7 +242,6 @@
                                     </button>
                                 `;
                             } else {
-                                // Pending: Red button
                                 return `
                                     <button
                                         class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
@@ -266,6 +264,9 @@
                         orderable: false, // Disable sorting for the action column
                         searchable: false // Disable searching for the action column
                     }
+                ],
+                columnDefs: [
+                    { targets: [5], className: 'text-center' } // For specific columns
                 ],
                 layout: {
                     topEnd: ['search'],
@@ -301,29 +302,28 @@
         });
 
         function updateStatus(id, status) {
-    // Example AJAX request to update status
-    fetch(`/update-status/${id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ is_approved: status })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Status updated successfully!');
-            // Reload the table to reflect changes
-            $('#UserTable').DataTable().ajax.reload();
-        } else {
-            alert('Failed to update status!');
+            // Example AJAX request to update status
+            fetch(`/update-status/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ is_approved: status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    // Reload the table to reflect changes
+                    $('#UserTable').DataTable().ajax.reload();
+                } else {
+                    alert('Failed to update status!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
     </script>
 </x-app-layout>
