@@ -41,7 +41,7 @@
                 </div> --}}
 
                 <div id="filtersContainer">
-                    <div>
+                    {{-- <div>
                         <label for="filter_company_name"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Company Name
@@ -64,13 +64,20 @@
                         </label>
                         <input type="text" name="full_address" id="full_address" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div>
+                    </div> --}}
 
                     <div>
                         <label for="linkedin_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Linkedin Link
                         </label>
                         <input type="link" name="linkedin_link" id="linkedin_link" placeholder="Type and Select"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div>
+                        <label for="industry" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Industry
+                        </label>
+                        <input type="link" name="industry" id="industry" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
                     <div>
@@ -88,7 +95,6 @@
                         <input type="text" name="first_name" id="first_name" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-
 
                     <div>
                         <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -130,13 +136,13 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="source_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Source Link
                         </label>
                         <input type="text" name="source_link" id="source_link" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div>
+                    </div> --}}
                     <div>
                         <label for="personal_phone"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300">
