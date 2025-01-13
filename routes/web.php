@@ -82,6 +82,6 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
-    Route::post('/update-status/{id}', [UserController::class, 'updateStatus']);
+    Route::post('/update-status/{id}', [UserController::class, 'updateStatus'])->name('update.status');
 
 });
