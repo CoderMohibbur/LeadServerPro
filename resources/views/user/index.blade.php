@@ -23,30 +23,36 @@
 
             {{-- <div id="custom-buttons" class="custom-buttons mb-4"></div> <!-- Custom Buttons Container --> --}}
 
-            </div>
-            <table id="UserTable" class="dataTable table-auto border-collapse w-full dark:bg-gray-700">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Created At</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
         </div>
+        <table id="UserTable" class="dataTable table-auto border-collapse w-full dark:bg-gray-700">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     </div>
 
-      <!-- Main modal -->
-      <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <!-- Main modal -->
+    <div id="popup-modal" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
-                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                <button type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
@@ -104,7 +110,8 @@
                             <!-- Confirm Password -->
                             <div>
                                 <label for="password_confirmation"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm
+                                    Password</label>
                                 <input id="password_confirmation" name="password_confirmation" type="password"
                                     placeholder="******"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
@@ -150,7 +157,8 @@
                             <!-- LinkedIn URL -->
                             <div>
                                 <label for="linkedin_url"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">LinkedIn URL</label>
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">LinkedIn
+                                    URL</label>
                                 <input id="linkedin_url" name="linkedin_url" type="url"
                                     placeholder="https://www.linkedin.com/in/example"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
@@ -214,11 +222,36 @@
                         data: 'email',
                         name: 'email'
                     },
+
                     {
                         data: 'created_at',
                         render: function(data) {
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                        }
+                    },
+                    {
+                        data: 'is_approved',
+                        render: function(data, type, row) {
+                            if (data) {
+                                // Approved: Green button
+                                return `
+                                    <button
+                                        class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                        onclick="updateStatus(${row.id}, false)">
+                                        Approved
+                                    </button>
+                                `;
+                            } else {
+                                // Pending: Red button
+                                return `
+                                    <button
+                                        class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                        onclick="updateStatus(${row.id}, true)">
+                                        Pending
+                                    </button>
+                                `;
+                            }
                         }
                     },
                     {
@@ -266,6 +299,31 @@
                 }
             });
         });
+
+        function updateStatus(id, status) {
+    // Example AJAX request to update status
+    fetch(`/update-status/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ is_approved: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Status updated successfully!');
+            // Reload the table to reflect changes
+            $('#UserTable').DataTable().ajax.reload();
+        } else {
+            alert('Failed to update status!');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
     </script>
 </x-app-layout>

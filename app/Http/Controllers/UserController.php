@@ -123,5 +123,20 @@ public function show($id)
 }
 
 
+public function updateStatus(Request $request, $id)
+{
+    $request->validate([
+        'is_approved' => 'required|boolean',
+    ]);
+
+    $record = User::findOrFail($id);
+    $record->is_approved = $request->input('is_approved');
+    $record->save();
+
+    return response()->json(['success' => true]);
+}
+
+
+
 }
 
