@@ -68,10 +68,10 @@
                                     @endforeach
                                 </td>
                                 <td class="px-4 py-2  ">
-                                    <!-- Edit Button -->
-                                    <a href="{{ route('roles.edit', $role->id) }}" 
-                                       class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-3 py-1  text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
-                                
+                                    {{-- <!-- Edit Button -->
+                                    <a href="{{ route('roles.edit', $role->id) }}"
+                                       class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-3 py-1  text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</a> --}}
+
                                     <!-- Delete Form -->
                                     <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
                                         @csrf
@@ -82,7 +82,7 @@
                                                 Delete
                                         </button>
                                     </form>
-                                </td>                                
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
