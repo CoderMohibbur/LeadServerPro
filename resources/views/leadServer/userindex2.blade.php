@@ -43,56 +43,24 @@
         <!-- Page Heading -->
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-                <div class="flex items-center justify-between w-full">
-                    <!-- Left Section -->
+                <div class=" flex items-center">
                     <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Lead Lists') }}
                     </h1>
 
-                    <!-- Center Section (Navbar) -->
-                    <nav class="hidden md:flex bg-white border-gray-200 dark:bg-gray-900">
-                        <ul
-                            class="font-medium flex flex-row space-x-8 bg-gray-50 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent">
-                            <li>
-                                <a href="/dashboard"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/User"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    User Management
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/sheets"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    Sheet List
-                                </a>
-                            </li>
-                            {{-- <li>
-                                <a href="/lead-server"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    Lead Server
-                                </a>
-                            </li> --}}
-                            <li>
-                                <a href="/tickets"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    Support Ticket
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    {{-- <div class="mb-4 flex justify-end space-x-4">
+                        <a href="{{ route('sheets.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+                            Upload New Sheet
+                        </a>
+                    </div> --}}
 
-                    <!-- Right Section (Button) -->
+                    <!-- Modal toggle -->
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
+                        type="button">
                         Upload
                     </button>
                 </div>
-
             </div>
         </div>
 
@@ -654,7 +622,7 @@
                 pageLength: 25, // Default number of rows per page
                 lengthMenu: [25, 50, 100, 200], // Dropdown options for rows per page
                 ajax: {
-                    url: '/leads/data',
+                    url: '/client/leads/data',
                     type: 'GET',
                     data: function(d) {
                         // // Collect sheet_id and user_id dynamically
@@ -950,13 +918,12 @@
                     //     }
                     // });
                     const columnsToSearch = [1, 2, 3, 5, 4,
-                        6
-                    ]; // Indices of columns to include (0-based)
+                    6]; // Indices of columns to include (0-based)
 
                     // Add a second row for search filters
                     const tableHeader = $(api.table().header());
                     const searchRow = $(
-                        '<tr class="search-row"></tr>'); // Add a class for easier styling
+                    '<tr class="search-row"></tr>'); // Add a class for easier styling
                     tableHeader.append(searchRow); // Append as the second row
 
                     api.columns().every(function(index) {
@@ -971,12 +938,12 @@
                                 .on('keyup change clear', function() {
                                     if (column.search() !== this.value) {
                                         column.search(this.value)
-                                            .draw(); // Trigger filtering
+                                    .draw(); // Trigger filtering
                                     }
                                 });
                         } else {
                             $('<th></th>').appendTo(
-                                searchRow); // Add an empty cell for non-searchable columns
+                            searchRow); // Add an empty cell for non-searchable columns
                         }
                     });
 
@@ -1045,16 +1012,13 @@
         @apply dark:text-white dark:bg-gray-900;
     } */
     .tagify {
-        --placeholder-color: #6b7280;
-        /* Default placeholder color for light mode */
+        --placeholder-color: #6b7280; /* Default placeholder color for light mode */
         --placeholder-color-focus: #6b7280;
     }
 
     .dark .tagify {
-        --placeholder-color: #6e6e6e;
-        /* Placeholder color for dark mode */
-        --placeholder-color-focus: #6e6e6e;
-        /* Placeholder color for dark mode */
+        --placeholder-color: #6e6e6e; /* Placeholder color for dark mode */
+        --placeholder-color-focus: #6e6e6e; /* Placeholder color for dark mode */
     }
 </style>
 

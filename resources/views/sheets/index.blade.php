@@ -18,8 +18,8 @@
             <div class="flex justify-between space-x-4 mb-4">
                 <div>
                     @if (session('success'))
-                        <div class="px-4 py-3 mb-4 rounded relative border text-sm 
-                               bg-green-100 border-green-400 text-green-700 
+                        <div class="px-4 py-3 mb-4 rounded relative border text-sm
+                               bg-green-100 border-green-400 text-green-700
                                dark:bg-green-900 dark:border-green-700 dark:text-green-300"
                             role="alert">
                             <strong class="font-bold">Success!</strong>
@@ -60,7 +60,7 @@
                         <tr class="dark:bg-gray-900 text-center">
 
                             <td class="px-4 py-2  dark:text-gray-300">
-                                <a href="{{ route('leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
+                                <a href="{{ route(auth()->user()->hasRole('admin') ? 'leads.bySheet' : 'leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
                                     class="text-blue-500 hover:underline dark:text-blue-400">
                                     {{ $sheet->sheet_name }}
                                 </a>
@@ -85,10 +85,15 @@
 
                             <td class="px-4 py-2  dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
                             <td class="px-4 py-2  dark:text-gray-300">
-                                <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
-                                    class="text-blue-500 hover:underline dark:text-blue-400">
-                                    {{ $sheet->user->name }}
-                                </a>
+
+                                @if (auth()->user()->hasRole('Admin'))
+                                    <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
+                                        class="text-blue-500 hover:underline dark:text-blue-400">
+                                        {{ $sheet->user->name }}
+                                    </a>
+                                @else
+                                    <p>{{ $sheet->user->name }}</p>
+                                @endif
                             </td>
                             <td class="px-4 py-2  dark:text-gray-300">
                                 <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">

@@ -10,24 +10,35 @@ use League\Csv\Reader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class SheetController extends Controller
 {
-    public function leadsBySheet($sheetId)
+    public function leadsBySheet(Request $request, $sheetId)
     {
-        $users = User::all();
-        $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
-        // $leads = Lead::where('sheets_id', $sheetId)->get(); // Get leads associated with this sheet
-
-        return view('leadServer.index2', compact( 'sheet','users'));
+        // Check if the authenticated user has the 'admin' role
+        if ($request->user()->hasRole('admin')) {
+            // Code for 'admin' role
+            $users = User::all();
+            $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
+            return view('leadServer.index2', compact('sheet', 'users'));
+        } elseif ($request->user()->hasRole('user')) {
+            // Code for 'user' role
+            $users = User::all();
+            $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
+            return view('leadServer.userindex2', compact('sheet', 'users'));
+        } else {
+            // Code for other roles or unauthorized access
+            return response()->json(['message' => 'Access Denied.'], 403);
+        }
     }
 
     public function leadsByUser($userId)
     {
         $users = User::all();
         $user = User::findOrFail($userId); // Retrieve the user or throw 404
-        return view('leadServer.index2', compact('user','users')); // Pass user to the view
+        return view('leadServer.index2', compact('user', 'users')); // Pass user to the view
     }
 
 
@@ -176,14 +187,14 @@ class SheetController extends Controller
             'sheet_working_date' => 'required|date',
             'user_id' => 'required|exists:users,id',
         ]);
-    
+
         $filePath = null;
-    
+
         // Handle the file upload
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('sheets', 'public');
         }
-    
+
         // Store the sheet details in the database
         $sheet = new Sheet();
         $sheet->file = $filePath;
@@ -191,34 +202,34 @@ class SheetController extends Controller
         $sheet->sheet_working_date = $request->sheet_working_date;
         $sheet->user_id = $request->user_id;
         $sheet->save();
-    
+
         // Initialize counters
         $totalRows = 0; // Tracks the total rows in the CSV
         $skippedRows = 0; // Tracks skipped rows due to duplicate emails
-    
+
         // If the file is a CSV, process its content
         if ($request->file('file')->getClientOriginalExtension() === 'csv') {
             // Get the full file path
             $fullPath = Storage::disk('public')->path($filePath);
-    
+
             // Read the CSV file
             $csv = Reader::createFromPath($fullPath, 'r');
             $csv->setHeaderOffset(0); // Assuming the CSV has a header row
-    
+
             $data = []; // Initialize an empty array to hold the rows
-    
+
             // Fetch existing emails to avoid duplicates
             $existingEmails = DB::table('leads')->pluck('email')->toArray();
-    
+
             foreach ($csv->getRecords() as $record) {
                 $totalRows++; // Increment the total rows counter
-    
+
                 // Skip rows with duplicate emails
                 if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
                     $skippedRows++; // Increment skipped rows counter
                     continue; // Skip this record
                 }
-    
+
                 $data[] = [
                     'linkedin_link' => $record['linkedin_link'] ?? null,
                     'company_name' => $record['company_name'] ?? null,
@@ -261,24 +272,23 @@ class SheetController extends Controller
                     'created_at' => now(), // Add current timestamp
                     'updated_at' => now(), // Add current timestamp
                 ];
-    
+
                 // Batch insert when the array reaches a chunk size of 1000
                 if (count($data) === 1000) {
                     DB::table('leads')->insert($data);
                     $data = []; // Clear the array after insertion
                 }
             }
-    
+
             // Insert any remaining rows
             if (!empty($data)) {
                 DB::table('leads')->insert($data);
             }
         }
-    
+
         // Redirect back with a success message, showing the total and skipped rows
         return redirect()->route('sheets.index')->with('success', "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.");
     }
-    
 
     public function index()
     {
@@ -286,7 +296,7 @@ class SheetController extends Controller
         $sheets = Sheet::all();
         $users = User::all();
 
-        return view('sheets.index', compact('sheets','users'));
+        return view('sheets.index', compact('sheets', 'users'));
     }
 
     public function show(Sheet $sheet)
@@ -326,11 +336,34 @@ class SheetController extends Controller
     }
 
     public function leadServerLink(Sheet $sheet)
-{
-    $leadServerUrl = "https://your-lead-server.com/sheets/{$sheet->id}"; // লিড সার্ভার লিঙ্ক
-    return redirect()->away($leadServerUrl); // ব্যবহারকারীকে লিড সার্ভার লিঙ্কে রিডাইরেক্ট করে
-}
+    {
+        $leadServerUrl = "https://your-lead-server.com/sheets/{$sheet->id}"; // লিড সার্ভার লিঙ্ক
+        return redirect()->away($leadServerUrl); // ব্যবহারকারীকে লিড সার্ভার লিঙ্কে রিডাইরেক্ট করে
+    }
 
+    public function userindex()
+    {
+        $user = Auth::user();
+        // Non-admin users see only their associated sheets and users
+        $sheets = Sheet::where('user_id', $user->id)->get(); // Assuming 'user_id' is the column linking sheets to users
+        $users = User::where('id', $user->id)->get(); // Only the logged-in user's record
 
+        // Pass the data and admin flag to the view
+        return view('sheets.index', compact('sheets', 'users'));
+    }
 
+    public function mytest(Request $request)
+    {
+        // Check if the authenticated user has the 'admin' role
+        if ($request->user()->hasRole('admin')) {
+            // Code for 'admin' role
+            return response()->json(['message' => 'Welcome, Admin!']);
+        } elseif ($request->user()->hasRole('user')) {
+            // Code for 'user' role
+            return response()->json(['message' => 'Welcome, User!']);
+        } else {
+            // Code for other roles or unauthorized access
+            return response()->json(['message' => 'Access Denied.'], 403);
+        }
+    }
 }

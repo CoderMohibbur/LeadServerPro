@@ -4,10 +4,13 @@
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Ticket Lists') }}
             </h1>
-            <a href="{{ route('tickets.create') }}"
-                class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 transition">
-                Create Support Ticket
-            </a>
+           <!-- Link to Create Support Ticket -->
+<a href="{{ route(auth()->user()->hasRole('admin') ? 'tickets.create' : 'client.tickets.create') }}"
+    class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 transition">
+    Create Support Ticket
+</a>
+
+
         </div>
     </x-slot>
 

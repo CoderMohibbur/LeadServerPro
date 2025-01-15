@@ -47,7 +47,15 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         // Assign the default "Customer" role to the new user
-        $user->assignRole('Customer'); // Ensure the "Customer" role exists in your database
+        // $user->assignRole('user'); // Ensure the "Customer" role exists in your database
+
+        // Check if this is the first user being created
+        if (\App\Models\User::count() === 1) {
+            $user->assignRole('admin'); // Assign "admin" role to the first user
+        } else {
+            $user->assignRole('user'); // Assign "user" role to subsequent users
+        }
+
 
         // Fire the Registered event
         event(new Registered($user));

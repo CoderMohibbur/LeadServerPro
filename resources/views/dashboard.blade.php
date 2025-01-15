@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-             
+
 
 
                 <!-- Total Student Card -->
@@ -115,5 +115,9 @@
         @endif
 
     </div>
+
+
+
+
 
 </x-app-layout>

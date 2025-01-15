@@ -14,13 +14,24 @@ use Yajra\DataTables\Facades\DataTables;
 class DataController extends Controller
 {
     // Display the list of leads
-    public function index()
+    public function index(Request $request)
     {
-        // $leads = Lead::all(); // Paginate the leads data
-        $leads = Lead::paginate(10);
-        $categories = Lead::all();
-        $users = User::all();
-        return view('leadServer.index2', compact('leads', 'categories','users'));
+        if ($request->user()->hasRole('admin')) {
+            // $leads = Lead::all(); // Paginate the leads data
+            $leads = Lead::paginate(10);
+            $categories = Lead::all();
+            $users = User::all();
+            return view('leadServer.index2', compact('leads', 'categories', 'users'));
+        } elseif ($request->user()->hasRole('user')) {
+            // $leads = Lead::all(); // Paginate the leads data
+            $leads = Lead::paginate(10);
+            $categories = Lead::all();
+            $users = User::all();
+            return view('leadServer.userindex2', compact('leads', 'categories', 'users'));
+        } else {
+            // Code for other roles or unauthorized access
+            return response()->json(['message' => 'Access Denied.'], 403);
+        }
     }
 
     // public function dataServer(Request $request)
@@ -417,35 +428,21 @@ class DataController extends Controller
         return redirect()->route('leadServer.index2')->with('success', 'Lead added and CSV updated successfully!');
     }
 
-    public function dashboard_TotalLead(){
 
-        $leads = Lead::count();
-        $users = User::count();
-        $sheets = Sheet::count();
-        $tickets = Ticket::count();
+    public function destroy($id)
+    {
+        try {
+            // Find the lead by ID
+            $lead = Lead::findOrFail($id);
 
-        return view('dashboard', compact('leads','users','sheets','tickets'));
+            // Delete the lead
+            $lead->delete();
+
+            // Return success response
+            return response()->json(['success' => true, 'message' => 'User deleted successfully!']);
+        } catch (\Exception $e) {
+            // Return error response if something goes wrong
+            return response()->json(['success' => false, 'message' => 'An error occurred while deleting the user.']);
+        }
     }
-// Delete a lead from the database
-// DataController.php
-
-public function destroy($id)
-{
-    try {
-        // Find the lead by ID
-        $lead = Lead::findOrFail($id);
-
-        // Delete the lead
-        $lead->delete();
-
-        // Return success response
-        return response()->json(['success' => true, 'message' => 'User deleted successfully!']);
-    } catch (\Exception $e) {
-        // Return error response if something goes wrong
-        return response()->json(['success' => false, 'message' => 'An error occurred while deleting the user.']);
-    }
-}
-
-
-
 }

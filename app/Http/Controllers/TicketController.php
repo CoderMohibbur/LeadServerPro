@@ -6,6 +6,8 @@ use App\Models\Ticket;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -39,41 +41,33 @@ class TicketController extends Controller
     /**
      * Store a newly created ticket in storage.
      */
-    public function store(Request $request)
+    public function ticketstore(Request $request)
     {
-        // Log the incoming request data for debugging
-        Log::info('Create Ticket Request Data:', $request->all());
-
-        // Validate the form inputs
-        $validatedData = $request->validate([
+        // Validate the request
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
 
-        // Log the successful validation
-        Log::info('Ticket data validated successfully. Creating ticket...');
-
         // Create a new ticket
-        $ticket = Ticket::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => Auth::id()
-        ]);
+        $ticket = new Ticket();
+        $ticket->title = $request->input('title');
+        $ticket->description = $request->input('description');
+        $ticket->user_id = Auth::id(); // Associate the ticket with the logged-in user
+        $ticket->save();
 
-        $validated = $request->validate([
-            'ticket_id' => 'required|exists:tickets,id',
-            'message' => 'required|string',
-        ]);
+        // Redirect with a success message
+        if ($request->user()->hasRole('admin')) {
+            // Redirect to the admin tickets index route with a success message
+            return redirect()->route('admin.tickets.index')->with('success', 'Ticket created successfully!');
+        } elseif ($request->user()->hasRole('user')) {
+            // Redirect to the client tickets index route with a success message
+            return redirect()->route('client.tickets.index')->with('success', 'Ticket created successfully!');
+        } else {
+            // Handle unauthorized access
+            return response()->json(['message' => 'Access Denied.'], 403);
+        }
 
-        Message::create([
-            'ticket_id' => $validated['ticket_id'],
-            'message' => $validated['message'],
-            'user_id' =>  Auth::id() // Ensure this field is handled correctly
-        ]);
-        // Log the successful creation
-        Log::info('Ticket created successfully with ID: ' . $ticket->id);
-
-        return redirect()->route('tickets.index')->with('success', 'Ticket created successfully!');
     }
 
     public function edit($id)
@@ -199,5 +193,23 @@ class TicketController extends Controller
         $message->save();
 
         return redirect()->route('tickets.show', $ticket->id);
+    }
+    public function ticketindex()
+    {
+        // Log that the tickets page was accessed
+        $user = Auth::user();
+
+        // Fetch all tickets
+        $tickets = Ticket::where('user_id', $user->id)->get();
+
+        // Log the number of tickets fetched
+        $users = User::where('id', $user->id)->get(); // Only the logged-in user's record
+
+        // Return view with tickets
+        return view('tickets.index', compact('tickets'));
+    }
+    public function ticketcreate()
+    {
+        return view('tickets.create');
     }
 }

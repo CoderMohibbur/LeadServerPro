@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('tickets.store') }}" method="POST">
+                <form action="{{ route(auth()->user()->hasRole('Admin') ? 'admin.tickets.store' : 'client.tickets.store') }}" method="POST">
                     @csrf
 
                     <div>
@@ -54,7 +54,7 @@
                                 required></textarea>
                         </div>
                     </div>
-    
+
 
                     <!-- Submit Button -->
                     <div class="text-right">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -14,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::middleware([
     'auth:sanctum',
+    'role:admin',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard');
     Route::resource('User', controller: UserController::class);
     Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
@@ -27,20 +29,7 @@ Route::middleware([
     Route::resource('roles', RoleController::class);
     Route::get('/role-management', [RoleManagementController::class, 'index'])->name('role.management');
     Route::post('/role-management/update', [RoleManagementController::class, 'update'])->name('role.update');
-
-});
-
-// routes/web.php
-// Route::get('/sheet-list', [SheetListController::class, 'index']);
-// Route::get('/sheet-list/create', [SheetListController::class, 'create']);
-// Route::post('/sheet-list', [SheetListController::class, 'store']);
-// Route::resource('sheet-lists', SheetListController::class);
-
-Route::resource('sheets', SheetController::class);
-
-//TicketController
-
-Route::middleware(['auth'])->group(function () {
+    Route::resource('sheets', controller: SheetController::class);
     Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('tickets/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('tickets', [TicketController::class, 'store'])->name('tickets.store');
@@ -82,6 +71,28 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
-    Route::post('/update-status/{id}', [UserController::class, 'updateStatus'])->name('update.status');
-
 });
+
+Route::middleware([
+    'auth:sanctum',
+    'role:admin|user',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard_TotalLead'])->name('dashboard');
+});
+
+// User / Client Route
+Route::prefix('client')->middleware(['role:user'])->group(function () {
+    Route::get('sheets', [SheetController::class, 'userindex'])->name('sheets.index');
+    Route::get('tickets', [TicketController::class, 'ticketindex'])->name('client.tickets.index');
+    Route::get('tickets/create', [TicketController::class, 'ticketcreate'])->name('client.tickets.create');
+    Route::post('tickets/store', [TicketController::class, 'ticketstore'])->name('client.tickets.store');
+    Route::resource('lead-server', DataController::class);
+    Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
+    Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
+    Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
+});
+
+
+

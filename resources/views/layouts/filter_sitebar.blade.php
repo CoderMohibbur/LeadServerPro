@@ -5,7 +5,7 @@
         <!-- Sidebar Content -->
         <ul class="space-y-2 font-medium">
             <li>
-                <a href="/sheets"
+                <a href="{{ route(auth()->user()->hasRole('admin') ? 'sheets.index' : 'sheets.index') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -116,8 +116,7 @@
                         <label for="person_location" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Person Location
                         </label>
-                        <input type="text" name="person_location" id="person_location"
-                            placeholder="Type and Select"
+                        <input type="text" name="person_location" id="person_location" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
@@ -144,21 +143,17 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div> --}}
                     <div>
-                        <label for="personal_phone"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="personal_phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Personal Phone
                         </label>
-                        <input type="text" name="personal_phone" id="personal_phone"
-                            placeholder="Type and Select"
+                        <input type="text" name="personal_phone" id="personal_phone" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
                     <div>
-                        <label for="company_website"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="company_website" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Company Website
                         </label>
-                        <input type="text" name="company_website" id="company_website"
-                            placeholder="Type and Select"
+                        <input type="text" name="company_website" id="company_website" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
                     <div>
@@ -206,6 +201,19 @@
                     readonly />
                 <input type="text" id="userIdFilter" class="form-input hidden" placeholder="Enter User ID"
                     readonly />
+
+                <script>
+                    // লগইন করা ইউজারের রোল এবং আইডি Blade থেকে পাস করা হচ্ছে
+                    const userRole = "{{ auth()->user()->getRoleNames()->first() }}"; // ইউজারের রোল
+                    const userId = "{{ auth()->user()->id }}"; // ইউজারের আইডি
+
+                    // রোল চেক করে ইনপুট ফিল্ড আপডেট
+                    if (userRole === 'user') {
+                        const userIdFilter = document.getElementById('userIdFilter');
+                        userIdFilter.value = userId;
+                        userIdFilter.classList.remove('hidden'); // hidden ক্লাস সরিয়ে ফেলা
+                    }
+                </script>
                 {{-- <div id="filtersContainer"></div> --}}
 
                 {{-- <script>
