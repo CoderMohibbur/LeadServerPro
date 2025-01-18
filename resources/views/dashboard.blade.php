@@ -54,8 +54,6 @@
                 </a>
             </div>
         </div>
-<<<<<<< HEAD
-=======
         {{-- @if (auth()->user()->hasRole('Admin'))
             <p>You have the "Admin" role.</p>
         @else
@@ -66,7 +64,6 @@
         @else
             <p>You do not have the "Customer" role.</p>
         @endif --}}
->>>>>>> bc42c13ff1c5ce37dab64a1af7337c8b7e938478
     </div>
 
 
