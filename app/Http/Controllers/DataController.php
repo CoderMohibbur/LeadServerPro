@@ -53,17 +53,6 @@ class DataController extends Controller
     {
         $query = Lead::query();
 
-        // // Filter by sheet_id if provided
-        // if ($request->has('sheet_id') && !empty($request->sheet_id)) {
-        //     $query->where('sheets_id', $request->sheet_id);
-        // }
-        // // Filter by user_id if provided
-        // if ($request->has('user_id') && !empty($request->user_id)) {
-        //     $query->whereHas('sheet', function ($q) use ($request) {
-        //         $q->where('user_id', $request->user_id);
-        //     });
-        // }
-
         if ($request->hasAny(['sheet_id', 'user_id'])) {
             $query->when($request->filled('sheet_id'), function ($q) use ($request) {
                 $q->where('sheets_id', $request->sheet_id);

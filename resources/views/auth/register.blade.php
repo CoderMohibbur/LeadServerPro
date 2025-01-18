@@ -52,15 +52,15 @@
                                 </div>
                                 <div>
                                     <label for="company_name" value="{{ __('Company Name') }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
-                                    <input type="text" name="company_name" id="company_name" placeholder=" Company Name " value="92 Miles Drive, Newark, NJ 07103" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <input type="text" name="company_name" id="company_name" placeholder=" Company Name "  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 </div>
                                 <div>
                                     <label for="phone_number" value="{{ __('Phone Number') }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                                    <input type="number" name="phone_number" id="phone_number" placeholder="Add a phone number" value="3934567890" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <input type="number" name="phone_number" id="phone_number" placeholder="Add a phone number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 </div>
                                 <div>
                                     <label for="linkedin_url" value="{{ __('LinkedIn URL') }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Linkedin URL</label>
-                                    <input type="url" name="linkedin_url" id="linkedin_url" placeholder="LinkedIn URL" value="https://www.linkedin.com/in/helene-example/" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <input type="url" name="linkedin_url" id="linkedin_url" placeholder="LinkedIn URL" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 </div>
                             </div>
                             

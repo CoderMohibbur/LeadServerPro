@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
+
 
 class SheetController extends Controller
 {
@@ -178,118 +181,350 @@ class SheetController extends Controller
     //     return redirect()->route('sheets.index')->with('success', 'Sheet created and CSV data processed successfully!');
     // }
 
+    //Old store without heard auto
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|file|mimes:csv,txt',
+    //         'sheet_name' => 'required|string|max:255',
+    //         'sheet_working_date' => 'required|date',
+    //         'user_id' => 'required|exists:users,id',
+    //     ]);
+    
+    //     $filePath = null;
+    
+    //     if ($request->hasFile('file')) {
+    //         $filePath = $request->file('file')->store('sheets', 'public');
+    //     }
+    
+    //     $sheet = new Sheet();
+    //     $sheet->file = $filePath;
+    //     $sheet->sheet_name = $request->sheet_name;
+    //     $sheet->sheet_working_date = $request->sheet_working_date;
+    //     $sheet->user_id = $request->user_id;
+    //     $sheet->save();
+    
+    //     $totalRows = 0;
+    //     $skippedRows = 0;
+    
+    //     if ($request->file('file')->getClientOriginalExtension() === 'csv') {
+    //         $fullPath = Storage::disk('public')->path($filePath);
+    //         $csv = Reader::createFromPath($fullPath, 'r');
+    //         $csv->setHeaderOffset(0);
+    
+    //         Log::info('CSV Headers:', $csv->getHeader());
+    
+    //         $data = [];
+    //         $existingEmails = DB::table('leads')->pluck('email')->toArray();
+    
+    //         foreach ($csv->getRecords() as $record) {
+    //             $totalRows++;
+    
+    //             if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
+    //                 $skippedRows++;
+    //                 continue;
+    //             }
+    
+    //             $data[] = [
+    //                 'linkedin_link' => $record['linkedin_link'] ?? null,
+    //                 'company_name' => $record['company_name'] ?? null,
+    //                 'contact_name' => $record['contact_name'] ?? null,
+    //                 'name_prefix' => $record['name_prefix'] ?? null,
+    //                 'full_name' => $record['full_name'] ?? null,
+    //                 'first_name' => $record['first_name'] ?? null,
+    //                 'last_name' => $record['last_name'] ?? null,
+    //                 'email' => $record['email'] ?? null,
+    //                 'title_position' => $record['title_position'] ?? null,
+    //                 'person_location' => $record['person_location'] ?? null,
+    //                 'full_address' => $record['full_address'] ?? null,
+    //                 'company_phone' => $record['company_phone'] ?? null,
+    //                 'company_head_count' => $record['company_head_count'] ?? null,
+    //                 'country' => $record['country'] ?? null,
+    //                 'city' => $record['city'] ?? null,
+    //                 'state' => $record['state'] ?? null,
+    //                 'tag' => $record['tag'] ?? null,
+    //                 'source_link' => $record['source_link'] ?? null,
+    //                 'middle_name' => $record['middle_name'] ?? null,
+    //                 'sur_name' => $record['sur_name'] ?? null,
+    //                 'gender' => $record['gender'] ?? null,
+    //                 'personal_phone' => $record['personal_phone'] ?? null,
+    //                 'employee_range' => $record['employee_range'] ?? null,
+    //                 'company_website' => $record['company_website'] ?? null,
+    //                 'company_linkedin_link' => $record['company_linkedin_link'] ?? null,
+    //                 'company_hq_address' => $record['company_hq_address'] ?? null,
+    //                 'industry' => $record['industry'] ?? null,
+    //                 'revenue' => $record['revenue'] ?? null,
+    //                 'street' => $record['street'] ?? null,
+    //                 'zip_code' => $record['zip_code'] ?? null,
+    //                 'rating' => $record['rating'] ?? null,
+    //                 'sheet_name' => $record['sheet_name'] ?? null,
+    //                 'job_link' => $record['job_link'] ?? null,
+    //                 'job_role' => $record['job_role'] ?? null,
+    //                 'checked_by' => $record['checked_by'] ?? null,
+    //                 'review' => $record['review'] ?? null,
+    //                 'sheets_id' => $sheet->id, // Use sheets_id
+    //                 'created_at' => now(),
+    //                 'updated_at' => now(),
+    //             ];
+    
+    //             if (count($data) === 1000) {
+    //                 Log::info('Inserting Batch:', $data);
+    //                 DB::table('leads')->insert($data);
+    //                 $data = [];
+    //             }
+    //         }
+    
+    //         if (!empty($data)) {
+    //             Log::info('Inserting Remaining:', $data);
+    //             DB::table('leads')->insert($data);
+    //         }
+    //     }
+    
+    //     return redirect()->route('sheets.index')->with('success', "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.");
+    // }
+
     public function store(Request $request)
     {
-        // Validate the form data
         $request->validate([
-            'file' => 'required',
+            'file' => 'required|file|mimes:csv,txt',
             'sheet_name' => 'required|string|max:255',
             'sheet_working_date' => 'required|date',
             'user_id' => 'required|exists:users,id',
         ]);
-
+    
         $filePath = null;
-
-        // Handle the file upload
+    
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('sheets', 'public');
         }
-
-        // Store the sheet details in the database
+    
         $sheet = new Sheet();
         $sheet->file = $filePath;
         $sheet->sheet_name = $request->sheet_name;
         $sheet->sheet_working_date = $request->sheet_working_date;
         $sheet->user_id = $request->user_id;
         $sheet->save();
-
-        // Initialize counters
-        $totalRows = 0; // Tracks the total rows in the CSV
-        $skippedRows = 0; // Tracks skipped rows due to duplicate emails
-
-        // If the file is a CSV, process its content
+    
+        $totalRows = 0;
+        $skippedRows = 0;
+    
         if ($request->file('file')->getClientOriginalExtension() === 'csv') {
-            // Get the full file path
             $fullPath = Storage::disk('public')->path($filePath);
-
-            // Read the CSV file
             $csv = Reader::createFromPath($fullPath, 'r');
-            $csv->setHeaderOffset(0); // Assuming the CSV has a header row
-
-            $data = []; // Initialize an empty array to hold the rows
-
-            // Fetch existing emails to avoid duplicates
+            $csv->setHeaderOffset(0);
+    
+            // Log CSV headers for debugging
+            // Log::info('CSV Headers:', $csv->getHeader());
+    
+            // Header mapping for normalization
+            $headerMap = [
+                'linkedin link' => 'linkedin_link',
+                'company name' => 'company_name',
+                'contact name' => 'contact_name',
+                'name prefix' => 'name_prefix',
+                'full name' => 'full_name',
+                'first name' => 'first_name',
+                'last name' => 'last_name',
+                'email' => 'email',
+                'title position' => 'title_position',
+                'person location' => 'person_location',
+                'full address' => 'full_address',
+                'company phone' => 'company_phone',
+                'company head count' => 'company_head_count',
+                'country' => 'country',
+                'city' => 'city',
+                'state' => 'state',
+                'tag' => 'tag',
+                'source link' => 'source_link',
+                'middle name' => 'middle_name',
+                'sur name' => 'sur_name',
+                'gender' => 'gender',
+                'personal phone' => 'personal_phone',
+                'employee range' => 'employee_range',
+                'company website' => 'company_website',
+                'company linkedin link' => 'company_linkedin_link',
+                'company hq address' => 'company_hq_address',
+                'industry' => 'industry',
+                'revenue' => 'revenue',
+                'street' => 'street',
+                'zip code' => 'zip_code',
+                'rating' => 'rating',
+                'sheet name' => 'sheet_name',
+                'job link' => 'job_link',
+                'job role' => 'job_role',
+                'checked by' => 'checked_by',
+                'review' => 'review',
+            ];
+    
+            // Normalize headers
+            $headers = $csv->getHeader();
+            $normalizedHeaders = array_map(function ($header) use ($headerMap) {
+                return $headerMap[strtolower($header)] ?? strtolower(str_replace(' ', '_', $header));
+            }, $headers);
+    
+            Log::info('Normalized Headers:', $normalizedHeaders);
+    
+            $data = [];
             $existingEmails = DB::table('leads')->pluck('email')->toArray();
-
+    
             foreach ($csv->getRecords() as $record) {
-                $totalRows++; // Increment the total rows counter
-
+                $totalRows++;
+    
                 // Skip rows with duplicate emails
                 if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
-                    $skippedRows++; // Increment skipped rows counter
-                    continue; // Skip this record
+                    $skippedRows++;
+                    continue;
                 }
-
-                $data[] = [
-                    'linkedin_link' => $record['linkedin_link'] ?? null,
-                    'company_name' => $record['company_name'] ?? null,
-                    'contact_name' => $record['contact_name'] ?? null,
-                    'name_prefix' => $record['name_prefix'] ?? null,
-                    'full_name' => $record['full_name'] ?? null,
-                    'first_name' => $record['first_name'] ?? null,
-                    'last_name' => $record['last_name'] ?? null,
-                    'email' => $record['email'] ?? null,
-                    'title_position' => $record['title_position'] ?? null,
-                    'person_location' => $record['person_location'] ?? null,
-                    'full_address' => $record['full_address'] ?? null,
-                    'company_phone' => $record['company_phone'] ?? null,
-                    'company_head_count' => $record['company_head_count'] ?? null,
-                    'country' => $record['country'] ?? null,
-                    'city' => $record['city'] ?? null,
-                    'state' => $record['state'] ?? null,
-                    'tag' => $record['tag'] ?? null,
-                    'source_link' => $record['source_link'] ?? null,
-                    'middle_name' => $record['middle_name'] ?? null,
-                    'sur_name' => $record['sur_name'] ?? null,
-                    'gender' => $record['gender'] ?? null,
-                    'personal_phone' => $record['personal_phone'] ?? null,
-                    'employee_range' => $record['employee_range'] ?? null,
-                    'company_website' => $record['company_website'] ?? null,
-                    // 'company_description' => $record['company_description'] ?? null,
-                    'company_linkedin_link' => $record['company_linkedin_link'] ?? null,
-                    'company_hq_address' => $record['company_hq_address'] ?? null,
-                    'industry' => $record['industry'] ?? null,
-                    'revenue' => $record['revenue'] ?? null,
-                    'street' => $record['street'] ?? null,
-                    'zip_code' => $record['zip_code'] ?? null,
-                    'rating' => $record['rating'] ?? null,
-                    'sheet_name' => $record['sheet_name'] ?? null,
-                    'job_link' => $record['job_link'] ?? null,
-                    'job_role' => $record['job_role'] ?? null,
-                    'checked_by' => $record['checked_by'] ?? null,
-                    'review' => $record['review'] ?? null,
-                    'sheets_id' => $sheet->id, // Link to the sheet entry
-                    'created_at' => now(), // Add current timestamp
-                    'updated_at' => now(), // Add current timestamp
-                ];
-
-                // Batch insert when the array reaches a chunk size of 1000
+    
+                $mappedRecord = [];
+                foreach ($normalizedHeaders as $index => $dbColumn) {
+                    $mappedRecord[$dbColumn] = $record[$headers[$index]] ?? null;
+                }
+    
+                $mappedRecord['sheets_id'] = $sheet->id;
+                $mappedRecord['created_at'] = now();
+                $mappedRecord['updated_at'] = now();
+    
+                $data[] = $mappedRecord;
+    
+                // Batch insert when data reaches 1000 rows
                 if (count($data) === 1000) {
+                    // Log::info('Inserting Batch:', $data);
                     DB::table('leads')->insert($data);
-                    $data = []; // Clear the array after insertion
+                    $data = [];
                 }
             }
-
-            // Insert any remaining rows
+    
+            // Insert remaining data
             if (!empty($data)) {
+                // Log::info('Inserting Remaining:', $data);
                 DB::table('leads')->insert($data);
             }
         }
-
-        // Redirect back with a success message, showing the total and skipped rows
+    
         return redirect()->route('sheets.index')->with('success', "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.");
     }
+    
 
+    
+
+        
+    
+    // public function store(Request $request)
+    // {
+    //     // Validate the form data
+    //     $request->validate([
+    //         'file' => 'required|file|mimes:csv,txt',
+    //         'sheet_name' => 'required|string|max:255',
+    //         'sheet_working_date' => 'required|date',
+    //         'user_id' => 'required|exists:users,id',
+    //     ]);
+    
+    //     $filePath = null;
+    
+    //     // Handle the file upload
+    //     if ($request->hasFile('file')) {
+    //         $filePath = $request->file('file')->store('sheets', 'public');
+    //     }
+    
+    //     // Store the sheet details in the database
+    //     $sheet = new Sheet();
+    //     $sheet->file = $filePath;
+    //     $sheet->sheet_name = $request->sheet_name;
+    //     $sheet->sheet_working_date = $request->sheet_working_date;
+    //     $sheet->user_id = $request->user_id;
+    //     $sheet->save();
+    
+    //     // Initialize counters
+    //     $totalRows = 0; // Tracks the total rows in the CSV
+    //     $skippedRows = 0; // Tracks skipped rows due to duplicate emails
+    
+    //     // Process CSV file if present
+    //     if ($request->file('file')->getClientOriginalExtension() === 'csv') {
+    //         $fullPath = Storage::disk('public')->path($filePath);
+    //         $csv = Reader::createFromPath($fullPath, 'r');
+    //         $csv->setHeaderOffset(0); // Assuming the CSV has a header row
+    
+    //         $data = []; // Initialize an empty array to hold the rows
+    
+    //         // Fetch existing emails to avoid duplicates
+    //         $existingEmails = DB::table('leads')->pluck('email')->toArray();
+    
+    //         foreach ($csv->getRecords() as $record) {
+    //             $totalRows++; // Increment the total rows counter
+    
+    //             // Skip rows with duplicate emails
+    //             if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
+    //                 $skippedRows++; // Increment skipped rows counter
+    //                 continue; // Skip this record
+    //             }
+    
+    //             $data[] = [
+    //                 'linkedin_link' => $record['linkedin_link'] ?? null,
+    //                 'company_name' => $record['company_name'] ?? null,
+    //                 'contact_name' => $record['contact_name'] ?? null,
+    //                 'name_prefix' => $record['name_prefix'] ?? null,
+    //                 'full_name' => $record['full_name'] ?? null,
+    //                 'first_name' => $record['first_name'] ?? null,
+    //                 'last_name' => $record['last_name'] ?? null,
+    //                 'email' => $record['email'] ?? null,
+    //                 'title_position' => $record['title_position'] ?? null,
+    //                 'person_location' => $record['person_location'] ?? null,
+    //                 'full_address' => $record['full_address'] ?? null,
+    //                 'company_phone' => $record['company_phone'] ?? null,
+    //                 'company_head_count' => $record['company_head_count'] ?? null,
+    //                 'country' => $record['country'] ?? null,
+    //                 'city' => $record['city'] ?? null,
+    //                 'state' => $record['state'] ?? null,
+    //                 'tag' => $record['tag'] ?? null,
+    //                 'source_link' => $record['source_link'] ?? null,
+    //                 'middle_name' => $record['middle_name'] ?? null,
+    //                 'sur_name' => $record['sur_name'] ?? null,
+    //                 'gender' => $record['gender'] ?? null,
+    //                 'personal_phone' => $record['personal_phone'] ?? null,
+    //                 'employee_range' => $record['employee_range'] ?? null,
+    //                 'company_website' => $record['company_website'] ?? null,
+    //                 'company_linkedin_link' => $record['company_linkedin_link'] ?? null,
+    //                 'company_hq_address' => $record['company_hq_address'] ?? null,
+    //                 'industry' => $record['industry'] ?? null,
+    //                 'revenue' => $record['revenue'] ?? null,
+    //                 'street' => $record['street'] ?? null,
+    //                 'zip_code' => $record['zip_code'] ?? null,
+    //                 'rating' => $record['rating'] ?? null,
+    //                 'sheet_name' => $record['sheet_name'] ?? null,
+    //                 'job_link' => $record['job_link'] ?? null,
+    //                 'job_role' => $record['job_role'] ?? null,
+    //                 'checked_by' => $record['checked_by'] ?? null,
+    //                 'review' => $record['review'] ?? null,
+    //                 'sheets_id' => $sheet->id, // Corrected from sheets_id
+    //                 'created_at' => now(),
+    //                 'updated_at' => now(),
+    //             ];
+    
+    //             // Batch insert when the array reaches a chunk size of 1000
+    //             if (count($data) === 1000) {
+    //                 DB::table('leads')->insert($data);
+    //                 $data = []; // Clear the array after insertion
+    //             }
+    //         }
+    
+    //         // Insert any remaining rows
+    //         if (!empty($data)) {
+    //             DB::table('leads')->insert($data);
+    //         }
+    //     }
+    
+    //     // Redirect back with a success message, showing the total and skipped rows
+    //     return redirect()->route('sheets.index')->with('success', "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.");
+    // }
+    
+    
+    
+    
+    
+    
+    
+    
     public function index()
     {
         // Retrieve all sheets and display them
