@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->string('linkedin_link')->nullable();
-            $table->string('company_name')->nullable();
+            $table->string('linkedin_link', 512)->nullable();
+            $table->string('company_name')->nullable()->index();
             $table->string('contact_name')->nullable();
             $table->string('name_prefix')->nullable();
             $table->string('full_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email', 320)->nullable()->index();
             $table->string('title_position')->nullable();
             $table->string('person_location')->nullable();
             $table->text('full_address')->nullable();
@@ -36,24 +36,24 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('personal_phone')->nullable();
             $table->string('employee_range')->nullable();
-            $table->string('company_website')->nullable();
-            $table->string('company_linkedin_link')->nullable();
+            $table->string('company_website', 512)->nullable();
+            $table->string('company_linkedin_link', 512)->nullable();
             $table->string('company_hq_address')->nullable();
             $table->string('industry')->nullable();
             $table->string('revenue')->nullable();
             $table->string('street')->nullable();
             $table->string('zip_code')->nullable();
-            $table->string('rating')->nullable();
+            $table->string('rating')->nullable()->default('unrated');
             $table->string('sheet_name')->nullable();
-            $table->string('job_link')->nullable();
+            $table->string('job_link', 512)->nullable();
             $table->string('job_role')->nullable();
             $table->string('checked_by')->nullable();
             $table->text('review')->nullable();
-            $table->unsignedBigInteger('sheets_id')->nullable(); // Added column
-            $table->foreign('sheets_id')->references('id')->on('sheets')->onDelete('cascade'); // Added foreign key constraint
+            $table->unsignedBigInteger('sheets_id')->nullable(); // Use sheets_id
+            $table->foreign('sheets_id')->references('id')->on('sheets')->onDelete('cascade'); // Foreign key
             $table->timestamps();
         });
-
+        
     }
 
     /**

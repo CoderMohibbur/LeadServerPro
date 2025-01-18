@@ -14,8 +14,6 @@ use App\Http\Controllers\RoleManagementController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 Route::middleware([
     'auth:sanctum',
     'role:admin',
@@ -23,6 +21,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::resource('User', controller: UserController::class);
+    Route::post('/update-status/{id}', [UserController::class, 'updateStatus'])->name('update.status');
     Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
     Route::get('/leads/filters', [DataController::class, 'getFilterValues'])->name('leads.filters');
@@ -42,33 +41,19 @@ Route::middleware([
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
     // TicketController Show
     Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
-
     // Answer Store
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
-
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-    // Route::get('/tickets/{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
-    // Route::post('/tickets/{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
-
     Route::prefix('tickets')->group(function () {
         Route::get('{id}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
         Route::post('{id}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
     });
-
     Route::get('/export', [YourController::class, 'export'])->name('export');
     Route::get('/import', [YourController::class, 'import'])->name('import');
     Route::get('/all-sheets', [YourController::class, 'allSheets'])->name('all_sheets');
     Route::get('/reset', [YourController::class, 'reset'])->name('reset');
     Route::get('/global-filter', [YourController::class, 'globalFilter'])->name('global_filter');
-
     Route::resource('lead-server', DataController::class);
-    // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
-    // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
-    // Route::get('/sheets/lead/{sheet}', [SheetController::class, 'leadServerLink'])->name('sheets.lead');
-
-    Route::resource('lead-server', DataController::class);
-    // Route::post('/leads', [DataController::class, 'store'])->name('leads.store');
-    // Route::get('/dashboard', [DataController::class, 'dashboard_TotalLead'])->name('dashboard.totalLeads');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
 });
@@ -84,14 +69,14 @@ Route::middleware([
 
 // User / Client Route
 Route::prefix('client')->middleware(['role:user'])->group(function () {
-    Route::get('sheets', [SheetController::class, 'userindex'])->name('sheets.index');
+    Route::get('sheets', [SheetController::class, 'userindex'])->name('client.sheets.index');
     Route::get('tickets', [TicketController::class, 'ticketindex'])->name('client.tickets.index');
     Route::get('tickets/create', [TicketController::class, 'ticketcreate'])->name('client.tickets.create');
     Route::post('tickets/store', [TicketController::class, 'ticketstore'])->name('client.tickets.store');
     Route::resource('lead-server', DataController::class);
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
-    Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
-    Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
+    Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('client.leads.bySheet');
+    // Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
 });
 
 

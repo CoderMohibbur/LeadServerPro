@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        @if (auth()->user()->hasRole('Admin'))
+        {{-- @if (auth()->user()->hasRole('Admin'))
             <p>You have the "Admin" role.</p>
         @else
             <p>You do not have the "Admin" role.</p>
@@ -112,8 +112,7 @@
             <p>You have the "Customer" role.</p>
         @else
             <p>You do not have the "Customer" role.</p>
-        @endif
-
+        @endif --}}
     </div>
 
 

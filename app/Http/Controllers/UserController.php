@@ -18,7 +18,7 @@ class UserController extends Controller
     }
     public function getUsers()
     {
-        $users = User::select(columns: ['id', 'name', 'email', 'created_at','is_approved']);
+        $users = User::select(columns: ['id', 'name', 'email', 'created_at', 'is_approved']);
         return DataTables::of($users)->make(true);
     }
     public function create()
@@ -64,84 +64,82 @@ class UserController extends Controller
 
 
     public function destroy($id)
- {
-    try {
-        $user = User::findOrFail($id); // Ensure user exists
-        $user->delete();
-        return response()->json(['message' => 'User deleted successfully.'], 200);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'An error occurred while deleting the user.'], 500);
+    {
+        try {
+            $user = User::findOrFail($id); // Ensure user exists
+            $user->delete();
+            return response()->json(['message' => 'User deleted successfully.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the user.'], 500);
+        }
     }
- }
 
- public function edit($id)
-{
-    try {
-        $user = User::findOrFail($id);  // Find the user by ID
-        return view('user.edit', compact('user'));
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => 'User not found: ' . $e->getMessage()]);
+    public function edit($id)
+    {
+        try {
+            $user = User::findOrFail($id);  // Find the user by ID
+            return view('user.edit', compact('user'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'User not found: ' . $e->getMessage()]);
+        }
     }
-}
 
-public function update(Request $request, $id)
-{
-    // Validate the incoming data
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $id,
-        // Add other fields you want to update
-    ]);
-
-    try {
-        // Find the user by ID
-        $user = User::findOrFail($id);
-
-        // Update user data
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        // Add other fields you want to update
-        $user->save();
-
-        // Redirect back to the user's page or to a success page
-        return redirect()->route('User.index')->with('success', 'User updated successfully!');
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => 'User not found or update failed: ' . $e->getMessage()]);
-    }
-}
-public function show($id)
-{
-    try {
-        // Find the user by ID
-        $user = User::findOrFail($id);
-
-        // Return a view to display the user's details
-        return view('user.show', compact('user'));
-    } catch (\Exception $e) {
-        // If user is not found, redirect with an error message
-        return redirect()->route('User.index')->withErrors(['error' => 'User not found: ' . $e->getMessage()]);
-    }
-}
-
-
-public function updateStatus(Request $request, $id)
-{
-    try {
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming data
         $request->validate([
-            'is_approved' => 'required|boolean',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            // Add other fields you want to update
         ]);
 
-        $record = User::findOrFail($id);
-        $record->is_approved = $request->input('is_approved');
-        $record->save();
+        try {
+            // Find the user by ID
+            $user = User::findOrFail($id);
 
-        return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+            // Update user data
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            // Add other fields you want to update
+            $user->save();
+
+            // Redirect back to the user's page or to a success page
+            return redirect()->route('User.index')->with('success', 'User updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'User not found or update failed: ' . $e->getMessage()]);
+        }
     }
-}
+    public function show($id)
+    {
+        try {
+            // Find the user by ID
+            $user = User::findOrFail($id);
+
+            // Return a view to display the user's details
+            return view('user.show', compact('user'));
+        } catch (\Exception $e) {
+            // If user is not found, redirect with an error message
+            return redirect()->route('User.index')->withErrors(['error' => 'User not found: ' . $e->getMessage()]);
+        }
+    }
 
 
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'is_approved' => 'required|boolean',
+            ]);
+
+            $record = User::findOrFail($id);
+            $record->is_approved = $request->input('is_approved');
+            $record->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
 
 }
 

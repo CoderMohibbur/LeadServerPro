@@ -47,7 +47,7 @@ class Lead extends Model
         'job_role',
         'checked_by',
         'review',
-        'sheets_id', // Foreign key column for sheets
+        'sheets_id', // Use sheets_id
     ];
 
     // Define the relationship with the Sheets model

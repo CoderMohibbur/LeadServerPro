@@ -57,10 +57,10 @@
                 </thead>
                 <tbody>
                     @foreach ($sheets as $sheet)
-                        <tr class="dark:bg-gray-900 text-center">
+                        <tr class="dark:bg-gray-900">
 
                             <td class="px-4 py-2  dark:text-gray-300">
-                                <a href="{{ route(auth()->user()->hasRole('admin') ? 'leads.bySheet' : 'leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
+                                <a href="{{ route(auth()->user()->hasRole('admin') ? 'leads.bySheet' : 'client.leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
                                     class="text-blue-500 hover:underline dark:text-blue-400">
                                     {{ $sheet->sheet_name }}
                                 </a>
@@ -86,7 +86,7 @@
                             <td class="px-4 py-2  dark:text-gray-300">{{ $sheet->sheet_working_date }}</td>
                             <td class="px-4 py-2  dark:text-gray-300">
 
-                                @if (auth()->user()->hasRole('Admin'))
+                                @if (auth()->user()->hasRole('admin'))
                                     <a href="{{ route('leads.byUser', $sheet->user->id) }}?user_id={{ $sheet->user->id }}"
                                         class="text-blue-500 hover:underline dark:text-blue-400">
                                         {{ $sheet->user->name }}
