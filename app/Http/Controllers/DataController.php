@@ -17,7 +17,7 @@ class DataController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->hasRole('admin')) {
-            // $leads = Lead::all(); // Paginate the leads data
+            $leads = Lead::all(); // Paginate the leads data
             $leads = Lead::paginate(10);
             $categories = Lead::all();
             $users = User::all();

@@ -83,6 +83,14 @@
                                     Support Ticket
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="/tickets"
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Current Lead
+
+                                </a>
+                            </li>
                         </ul>
                     </nav>
 
@@ -112,7 +120,6 @@
                                             <th class="p-2.5">LinkedIn Link</th>
                                             <th class="p-2.5">Company Name</th>
                                             <th class="p-2.5">Contact Name</th>
-                                            <th class="p-2.5">Name Prefix</th>
                                             <th class="p-2.5">Full Name</th>
                                             <th class="p-2.5">First Name</th>
                                             <th class="p-2.5">Last Name</th>
@@ -138,6 +145,7 @@
                                             <th class="p-2.5">Industry</th>
                                             <th class="p-2.5">Revenue</th>
                                             <th class="p-2.5">Street</th>
+                                            <th class="p-2.5">Name Prefix</th>
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
                                             <th class="p-2.5">Sheet Name</th>
@@ -226,23 +234,28 @@
                                 <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>
 
                                 <!-- Input for search -->
-                                <input type="text" x-model="search" @focus="open = true" @click="open = true"
-                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
-                                    placeholder="Search User..." autocomplete="off">
+                                <input type="text"
+                                       x-model="search"
+                                       @focus="open = true"
+                                       @click="open = true"
+                                       class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
+                                       placeholder="Search User..."
+                                       autocomplete="off">
 
                                 <!-- Dropdown Menu -->
-                                <div x-show="open" @click.outside="open = false"
-                                    class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
+                                <div x-show="open"
+                                     @click.outside="open = false"
+                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
                                     <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
                                         @foreach ($users as $user)
-                                            <li
-                                                x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
+                                            <li x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
                                                 <a href="#"
-                                                    class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                                                    @click.prevent="
-                                                    selectedUser = '{{ $user->name }}';
-                                                    selectedUserId = '{{ $user->id }}';
-                                                    open = false;">
+                                                   class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                                   @click.prevent="
+                                                        selectedUser = '{{ $user->name }}';
+                                                        selectedUserId = '{{ $user->id }}';
+                                                        search = selectedUser;  // Update the input field with the selected name
+                                                        open = false;">
                                                     {{ $user->name }}
                                                 </a>
                                             </li>
@@ -250,10 +263,10 @@
                                     </ul>
                                 </div>
 
-                                <!-- Selected User -->
+                                {{-- <!-- Selected User -->
                                 <div x-show="selectedUser" class="mt-2 text-gray-600 dark:text-gray-300">
                                     <p>Selected User: <span x-text="selectedUser"></span></p>
-                                </div>
+                                </div> --}}
 
                                 <!-- Hidden Input for Form Submission -->
                                 <input type="hidden" name="user_id" :value="selectedUserId">
@@ -710,9 +723,15 @@
                         console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
-                columns: [{
-                        data: 'id'
-                    },
+                columns: [
+                    {
+        data: null, // Use `null` as data is not tied to any column in the database
+        render: function (data, type, row, meta) {
+            return meta.row + 1; // meta.row starts from 0, so add 1 for 1-based indexing
+        },
+        orderable: false, // Disable sorting for the index column
+        searchable: false, // Disable searching for the index column
+    },
                     {
                         data: 'linkedin_link'
                     },

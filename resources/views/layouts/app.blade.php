@@ -44,10 +44,6 @@
     </div>
 
     @stack('modals')
-
-
-
-
     @livewireScripts
     <script>
         // JavaScript code for theme toggling here
@@ -87,15 +83,10 @@
             }
             applyTheme();
         });
-
         // Initialize theme on page load
         applyTheme();
 
-
-        
     </script>
-
-
 </body>
 
 </html>

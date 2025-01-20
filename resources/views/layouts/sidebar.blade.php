@@ -23,7 +23,7 @@
             <li>
                 <button type="button"
                     class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+                    aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages" aria-expanded="{{ request()->is('User*') || request()->is('roles*') || request()->is('role-management*') ? 'true' : 'false' }}">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                         viewBox="0 0 24 24">
@@ -40,20 +40,26 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <ul id="dropdown-pages" class="hidden py-2 space-y-2">
+                <ul id="dropdown-pages" class="{{ request()->is('User*') || request()->is('roles*') || request()->is('role-management*') ? '' : 'hidden' }} py-2 space-y-2">
                     <li>
                         <a href="/User"
-                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Users</a>
+                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('User*') ? 'active bg-gray-100 dark:bg-gray-700' : '' }}">
+                            Users
+                        </a>
                     </li>
                     <li>
                         <a href="{{ route('roles.index') }}"
-                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Roles</a>
+                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('roles.index') ? 'active bg-gray-100 dark:bg-gray-700' : '' }}">
+                            Roles
+                        </a>
                     </li>
                     <li>
                         <a href="/role-management"
-                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Role
-                            Assian</a>
+                            class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('role-management') ? 'active bg-gray-100 dark:bg-gray-700' : '' }}">
+                            Role Assign
+                        </a>
                     </li>
+
                 </ul>
             </li>
             <li>
@@ -95,10 +101,7 @@
                     <span class="ms-3">Support Ticket</span>
                 </a>
             </li>
-
             @else
-
-
 
             <li>
                 <a href="/dashboard"
