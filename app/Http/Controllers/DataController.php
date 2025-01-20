@@ -17,20 +17,20 @@ class DataController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->hasRole('admin')) {
-            $leads = Lead::all(); // Paginate the leads data
+            $leadcount = Lead::count();
             $leads = Lead::paginate(10);
             $categories = Lead::all();
             $users = User::all();
-            return view('leadServer.index2', compact('leads', 'categories', 'users'));
+            return view('leadServer.index2', compact('leads', 'categories', 'users','leadcount'));
         } elseif ($request->user()->hasRole('user')) {
             // $leads = Lead::all(); // Paginate the leads data
             $leads = Lead::paginate(10);
             $categories = Lead::all();
             $users = User::all();
-            return view('leadServer.userindex2', compact('leads', 'categories', 'users'));
+            return view('leadServer.userindex2', compact('leads', 'categories', 'users','leadcount'));
         } else {
             // Code for other roles or unauthorized access
-            return response()->json(['message' => 'Access Denied.'], 403);
+            return response()->json(['message' => 'Access Denied.','leadcount'], 403);
         }
     }
 
@@ -434,4 +434,5 @@ class DataController extends Controller
             return response()->json(['success' => false, 'message' => 'An error occurred while deleting the user.']);
         }
     }
+
 }

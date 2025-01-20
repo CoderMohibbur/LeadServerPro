@@ -50,7 +50,7 @@
                     </h1>
 
                     <!-- Center Section (Navbar) -->
-                    <nav class="hidden md:flex ">
+                    <nav class="hidden md:flex items-center justify-between">
                         <ul
                             class="font-medium flex flex-row space-x-8 bg-gray-50 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent">
                             <li>
@@ -71,28 +71,26 @@
                                     Sheet List
                                 </a>
                             </li>
-                            {{-- <li>
-                                <a href="/lead-server"
-                                    class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700">
-                                    Lead Server
-                                </a>
-                            </li> --}}
                             <li>
                                 <a href="/tickets"
                                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Support Ticket
                                 </a>
                             </li>
-
-                            <li>
-                                <a href="/tickets"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Current Lead
-
-                                </a>
-                            </li>
                         </ul>
+
+                        <!-- Total Lead Section -->
+
+
+
                     </nav>
+
+                    <div class="flex justify-end pr-10">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full text-sm px-10 py-2 shadow-lg hover:shadow-xl">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Current Lead:<span class="ml-2 text-lg font-bold">{{$leadcount}}</span>
+                        </div>
+                    </div>
 
                     <!-- Right Section (Button) -->
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
