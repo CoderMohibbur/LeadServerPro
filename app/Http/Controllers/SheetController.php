@@ -318,7 +318,7 @@ class SheetController extends Controller
 
             // Header mapping for normalization
             $headerMap = [
-                'linkedin link'                                     => 'linkedin_link',
+                'linkedin link' => 'linkedin_link',
                 'company name' => 'company_name',
                 'contact name' => 'contact_name',
                 'name prefix' => 'name_prefix',
@@ -602,3 +602,41 @@ class SheetController extends Controller
         }
     }
 }
+
+
+
+
+
+
+
+// এটা থাকলে এটা ---> হবে এই ভাবে সিস্টেম করে দাও
+// Linkedln Link  ---> linkedinlLink
+// Source Link --->sourceLink
+// NamePrefix--->namePrefix
+// First Name ---->firstName
+// MiddleName --->middleName
+// Last Name --->lastName
+// SurName --->sureName
+// Gender --->gender
+// Contact Name --->fullName
+// Title --->titlePosition
+// Any field that contain Email or email --->emailAddress
+// personal Phone --->personalPhone
+// Employee Range --->employeeRange
+// Person Location --->personalLocation
+// Company Name --->companyName
+// Company Website,Website,Web Link,WebLink --->companyWebsite
+// Company Linkedin --->companyLinkedinLink
+// Phone Number --->companyphone
+// Number of Employees,#of Employees,Head Count --->companyHeadCount
+// Industry --->industry
+// Revenue --->revenue
+// Street --->street
+// City--->city
+// State ----state
+// Country --->country
+// Zip --->zip
+// Address --->fullAddress
+// Rating ----> rating
+// Job Link --->joblink
+// Job Role, Job Vacancy --->Job Role
