@@ -574,19 +574,6 @@ public function store(Request $request)
             'review'=>['review'],
             'sheets_id'=>['sheetsid','sheets id'],
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             // Add more mappings as needed
         ];
 
