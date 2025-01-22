@@ -77,20 +77,26 @@
                                     Support Ticket
                                 </a>
                             </li>
+
+                            <li>
+                                <a href=""
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Current Lead:<span class="ml-2 text-lg font-bold">{{$leadcount}}</span>
+                                </a>
+                            </li>
                         </ul>
 
                         <!-- Total Lead Section -->
 
 
 
+
                     </nav>
 
-                    <div class="flex justify-end pr-10">
-                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full text-sm px-10 py-2 shadow-lg hover:shadow-xl">
-                            <i class="fas fa-chart-line mr-2"></i>
-                            Current Lead:<span class="ml-2 text-lg font-bold">{{$leadcount}}</span>
-                        </div>
-                    </div>
+
+
+
+
 
                     <!-- Right Section (Button) -->
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
@@ -1013,6 +1019,7 @@
                     });
                 }
             });
+            
         });
     </script>
 </body>
