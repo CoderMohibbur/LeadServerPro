@@ -536,11 +536,57 @@ public function store(Request $request)
         // Define header mappings for normalization
         $headerMap = [
             'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin'],
-            'email' => ['email address', 'email'],
             'company_name' => ['company', 'company name'],
-            'first_name' => ['first name', 'fname'],
-            'last_name' => ['last name', 'lname'],
+            'contact_name'=>['Contact Name','fullName','FullName','Fullname'],
+            'name_prefix'=>['namePrefix'],
+            'full_name'=>[],
+            'first_name' => ['first name', 'fname','firstName'],
+            'last_name' => ['last name', 'lname','lastName'],
+            'email' => ['email address', 'email','Email Address','emailAddress'],
             'phone' => ['phone number', 'phone', 'contact phone'],
+            'title_position'=>['Title','titlePosition'],
+            'person_location'=>['personalLocation'],
+            'full_address'=>['fullAddress','Address '],
+            'company_phone'=>['companyphone','Phone Number'],
+            'company_head_count'=>['Number of Employees','#of Employees','Head Count','companyHeadCount'],
+            'country'=>['country'],
+            'city'=>['city'],
+            'state'=>['state'],
+            'tag'=>['tag'],
+            'source_link'=>['sourceLink'],
+            'middle_name'=>['middleName'],
+            'sur_name'=>['sureName'],
+            'gender'=>['gender'],
+            'personal_phone'=>['personalPhone'],
+            'employee_range'=>['employeeRange'],
+            'company_website'=>['Company Website','Website','Web Link','WebLink ','companyWebsite'],
+            'company_linkedin_link'=>['companyLinkedinLink'],
+            'company_hq_address'=>['company hq address','hq address','company hq','company address'],
+            'industry'=>['industry'],
+            'revenue'=>['revenue'],
+            'street'=>['street'],
+            'zip_code'=>['zip','zip code'],
+            'rating'=>['rating'],
+            'sheet_name'=>[],
+            'job_link'=>['joblink','JobLink'],
+            'job_role'=>['Job Role','Job Vacancy'],
+            'checked_by'=>['checkedby','checked by'],
+            'review'=>['review'],
+            'sheets_id'=>['sheetsid','sheets id'],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             // Add more mappings as needed
         ];
 
