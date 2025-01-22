@@ -23,14 +23,18 @@ class SheetController extends Controller
         // Check if the authenticated user has the 'admin' role
         if ($request->user()->hasRole('admin')) {
             // Code for 'admin' role
+            $leadcount = Lead::count();
+
             $users = User::all();
             $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
-            return view('leadServer.index2', compact('sheet', 'users'));
+            return view('leadServer.index2', compact('sheet', 'users','leadcount'));
         } elseif ($request->user()->hasRole('user')) {
             // Code for 'user' role
             $users = User::all();
+            $leadcount = Lead::count();
+
             $sheet = Sheet::findOrFail($sheetId); // Find the sheet or return 404
-            return view('leadServer.userindex2', compact('sheet', 'users'));
+            return view('leadServer.userindex2', compact('sheet', 'users','leadcount'));
         } else {
             // Code for other roles or unauthorized access
             return response()->json(['message' => 'Access Denied.'], 403);
@@ -39,9 +43,11 @@ class SheetController extends Controller
 
     public function leadsByUser($userId)
     {
+        $leadcount = Lead::count();
         $users = User::all();
         $user = User::findOrFail($userId); // Retrieve the user or throw 404
-        return view('leadServer.index2', compact('user', 'users')); // Pass user to the view
+
+        return view('leadServer.index2', compact('user', 'users','leadcount')); // Pass user to the view
     }
 
 

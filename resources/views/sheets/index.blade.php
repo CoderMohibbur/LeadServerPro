@@ -280,6 +280,28 @@
                     table.draw();
                 });
             });
+            // Handle Delete Button Clicks
+            $(document).on('click', '.delete-btn', function() {
+                var userId = $(this).data('id');
+
+                if (confirm('Are you sure you want to delete this user?')) {
+                    $.ajax({
+                        url: '/User/' + userId,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}' // Include CSRF token
+                        },
+                        success: function(response) {
+                            alert('User deleted successfully!');
+                            $('#UserTable').DataTable().ajax
+                                .reload(); // Reload the table data after deletion
+                        },
+                        error: function() {
+                            alert('An error occurred while deleting the user.');
+                        }
+                    });
+                }
+            });
         });
     </script>
 
