@@ -72,7 +72,7 @@ class DataController extends Controller
                 $query->whereIn($column, $values);
             }
         }
-
+        $query->take(500);
         // Return the filtered data to DataTables
         return DataTables::of($query)->make(true);
     }

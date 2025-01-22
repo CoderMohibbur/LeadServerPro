@@ -120,7 +120,7 @@
                                 <table id="dataTable" class="dataTable table-auto border-collapse w-full">
                                     <thead>
                                         <tr>
-                                            <th class="p-2.5">ID</th>
+                                            <th class="p-2.5">#</th>
                                             <th class="p-2.5">LinkedIn Link</th>
                                             <th class="p-2.5">Company Name</th>
                                             <th class="p-2.5">Contact Name</th>
@@ -662,7 +662,7 @@
             const dataTable = $('#dataTable').DataTable({
                 processing: true,
                 responsive: true,
-                autoWidth: true,
+                autoWidth: false,
                 scrollX: true,
                 scrollY: "75vh",
                 scrollCollapse: true,
@@ -731,124 +731,164 @@
                         render: function (data, type, row, meta) {
                             return meta.row + 1; // meta.row starts from 0, so add 1 for 1-based indexing
                         },
-                        orderable: false, // Disable sorting for the index column
-                        searchable: false, // Disable searching for the index column
+                        width: "50px"
                     },
                     {
-                        data: 'linkedin_link'
+                        data: 'linkedin_link',
+                        width: "150px"
                     },
                     {
-                        data: 'company_name'
+                        data: 'company_name',
+                        width: "150px"
                     },
                     {
-                        data: 'contact_name'
+                        data: 'contact_name',
+                        width: "150px"
                     },
                     {
-                        data: 'first_name'
+                        data: 'first_name',
+                        width: "150px"
                     },
                     {
-                        data: 'last_name'
+                        data: 'last_name',
+                        width: "150px"
                     },
                     {
-                        data: 'email'
+                        data: 'email',
+                        width: "150px"
                     },
                     {
-                        data: 'title_position'
+                        data: 'title_position',
+                        width: "150px"
                     },
                     {
-                        data: 'person_location'
+                        data: 'person_location',
+                        width: "150px"
+
                     },
                     {
-                        data: 'full_address'
+                        data: 'full_address',
+                        width: "150px"
+
                     },
                     {
-                        data: 'company_phone'
+                        data: 'company_phone',
+                        width: "150px"
+
                     },
                     {
-                        data: 'company_head_count'
+                        data: 'company_head_count',
+                        width: "150px"
                     },
                     {
-                        data: 'country'
+                        data: 'country',
+                        width: "150px"
                     },
                     {
-                        data: 'city'
+                        data: 'city',
+                        width: "150px"
                     },
                     {
-                        data: 'state'
+                        data: 'state',
+                        width: "150px"
+
                     },
                     {
-                        data: 'tag'
+                        data: 'tag',
+                        width: "150px"
                     },
                     {
-                        data: 'source_link'
+                        data: 'source_link',
+                        width: "150px"
                     },
                     {
-                        data: 'middle_name'
+                        data: 'middle_name',
+                        width: "150px"
                     },
                     {
-                        data: 'sur_name'
+                        data: 'sur_name',
+                        width: "150px"
+
                     },
                     {
-                        data: 'gender'
+                        data: 'gender',
+                        width: "150px"
                     },
                     {
-                        data: 'personal_phone'
+                        data: 'personal_phone',
+                        width: "150px"
                     },
                     {
-                        data: 'employee_range'
+                        data: 'employee_range',
+                        width: "150px"
                     },
                     {
-                        data: 'company_website'
+                        data: 'company_website',
+                        width: "150px"
                     },
                     {
-                        data: 'company_linkedin_link'
+                        data: 'company_linkedin_link',
+                        width: "150px"
                     },
                     {
-                        data: 'company_hq_address'
+                        data: 'company_hq_address',
+                        width: "150px"
                     },
                     {
-                        data: 'industry'
+                        data: 'industry',
+                        width: "150px"
                     },
                     {
-                        data: 'revenue'
+                        data: 'revenue',
+                        width: "150px"
                     },
                     {
-                        data: 'street'
+                        data: 'street',
+                        width: "150px"
                     },
                     {
-                        data: 'zip_code'
+                        data: 'zip_code',
+                        width: "150px"
                     },
                     {
-                        data: 'rating'
+                        data: 'rating',
+                        width: "150px"
                     },
                     {
-                        data: 'sheet_name'
+                        data: 'sheet_name',
+                        width: "150px"
                     },
                     {
-                        data: 'job_link'
+                        data: 'job_link',
+                        width: "150px"
                     },
                     {
-                        data: 'job_role'
+                        data: 'job_role',
+                        width: "150px"
                     },
                     {
-                        data: 'checked_by'
+                        data: 'checked_by',
+                        width: "150px"
                     },
                     {
-                        data: 'review'
+                        data: 'review',
+                        width: "150px"
                     },
                     {
                         data: 'created_at',
                         render: function(data) {
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
-                        }
+                        },
+                        width: "150px"
                     },
                     {
                         data: 'updated_at',
                         render: function(data) {
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
-                        }
+                        },
+                        width: "150px"
                     },
                     {
                         data: 'id', // The ID will be used for Edit, Show, Delete actions
@@ -858,7 +898,8 @@
                             `;
                         },
                         orderable: false, // Disable sorting for the action column
-                        searchable: false // Disable searching for the action column
+                        searchable: false, // Disable searching for the action column
+                        width: "150px"
                     }
 
                 ],
@@ -1026,7 +1067,9 @@
 <style>
     .dataTable th,
     .dataTable td {
-        white-space: nowrap;
+        white-space: nowrap;       /* Prevent text from wrapping */
+    overflow: hidden;          /* Hide overflowing text */
+    text-overflow: ellipsis;   /* Add ellipsis (...) for hidden text */
     }
 
     /* table.dataTable>thead>tr:first-child>th {
@@ -1071,6 +1114,9 @@
         /* Placeholder color for dark mode */
         --placeholder-color-focus: #6e6e6e;
         /* Placeholder color for dark mode */
+    }
+    table.dataTable {
+        table-layout: fixed !important;
     }
 </style>
 

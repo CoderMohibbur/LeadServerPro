@@ -100,7 +100,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                                        class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -281,27 +282,27 @@
                 });
             });
             // Handle Delete Button Clicks
-            $(document).on('click', '.delete-btn', function() {
-                var userId = $(this).data('id');
+            // $(document).on('click', '.delete-btn', function() {
+            //     var userId = $(this).data('id');
 
-                if (confirm('Are you sure you want to delete this user?')) {
-                    $.ajax({
-                        url: '/User/' + userId,
-                        type: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}' // Include CSRF token
-                        },
-                        success: function(response) {
-                            alert('User deleted successfully!');
-                            $('#UserTable').DataTable().ajax
-                                .reload(); // Reload the table data after deletion
-                        },
-                        error: function() {
-                            alert('An error occurred while deleting the user.');
-                        }
-                    });
-                }
-            });
+            //     if (confirm('Are you sure you want to delete this user?')) {
+            //         $.ajax({
+            //             url: '/User/' + userId,
+            //             type: 'DELETE',
+            //             data: {
+            //                 _token: '{{ csrf_token() }}' // Include CSRF token
+            //             },
+            //             success: function(response) {
+            //                 alert('User deleted successfully!');
+            //                 $('#UserTable').DataTable().ajax
+            //                     .reload(); // Reload the table data after deletion
+            //             },
+            //             error: function() {
+            //                 alert('An error occurred while deleting the user.');
+            //             }
+            //         });
+            //     }
+            // });
         });
     </script>
 
