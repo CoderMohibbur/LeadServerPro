@@ -118,7 +118,6 @@
                                             <th class="p-2.5">LinkedIn Link</th>
                                             <th class="p-2.5">Company Name</th>
                                             <th class="p-2.5">Contact Name</th>
-                                            <th class="p-2.5">Full Name</th>
                                             <th class="p-2.5">First Name</th>
                                             <th class="p-2.5">Last Name</th>
                                             <th class="p-2.5">Email</th>
@@ -143,7 +142,6 @@
                                             <th class="p-2.5">Industry</th>
                                             <th class="p-2.5">Revenue</th>
                                             <th class="p-2.5">Street</th>
-                                            <th class="p-2.5">Name Prefix</th>
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
                                             <th class="p-2.5">Sheet Name</th>
@@ -723,13 +721,13 @@
                 },
                 columns: [
                     {
-        data: null, // Use `null` as data is not tied to any column in the database
-        render: function (data, type, row, meta) {
-            return meta.row + 1; // meta.row starts from 0, so add 1 for 1-based indexing
-        },
-        orderable: false, // Disable sorting for the index column
-        searchable: false, // Disable searching for the index column
-    },
+                        data: null, // Use `null` as data is not tied to any column in the database
+                        render: function (data, type, row, meta) {
+                            return meta.row + 1; // meta.row starts from 0, so add 1 for 1-based indexing
+                        },
+                        orderable: false, // Disable sorting for the index column
+                        searchable: false, // Disable searching for the index column
+                    },
                     {
                         data: 'linkedin_link'
                     },
@@ -738,12 +736,6 @@
                     },
                     {
                         data: 'contact_name'
-                    },
-                    {
-                        data: 'name_prefix'
-                    },
-                    {
-                        data: 'full_name'
                     },
                     {
                         data: 'first_name'
