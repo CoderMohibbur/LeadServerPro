@@ -23,8 +23,11 @@
                     </div>
                 </a>
 
-                <!-- Total Client Card -->
-                <a href="/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
+
+
+                @if (auth()->user()->hasRole('admin'))
+                 <!-- Total Client Card -->
+                 <a href="/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
                     <div class="flex items-center gap-4">
                         <div class="bg-white p-2 rounded-full shadow">
                             <svg class="w-8 h-8 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -37,6 +40,23 @@
                         </div>
                     </div>
                 </a>
+            @else
+                 <!-- Total Client Card -->
+                 <a href="/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white p-2 rounded-full shadow">
+                            <svg class="w-8 h-8 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-semibold text-white">Support Ticket</h1>
+                            <p class="text-2xl font-bold text-white">{{ $tickets }}</p>
+                        </div>
+                    </div>
+                </a>
+            @endif
+
 
                 <!-- Total Sheet Card -->
                 <a href="/sheets" class="block transition-transform transform hover:-translate-y-2 bg-green-500 shadow-lg rounded-lg p-6 hover:bg-green-600">

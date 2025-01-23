@@ -22,6 +22,8 @@ class TicketController extends Controller
 
         // Fetch all tickets
         $tickets = Ticket::all();
+        $tickets = Ticket::count();
+
 
         // Log the number of tickets fetched
         Log::info('Number of tickets found: ' . $tickets->count());
