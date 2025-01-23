@@ -55,11 +55,11 @@
                     </div> --}}
 
                     <!-- Modal toggle -->
-                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    {{-- <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
                         type="button">
                         Upload
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -115,7 +115,6 @@
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
                                             <th class="p-2.5">Updated At</th>
-                                            <th class="p-2.5">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -615,7 +614,7 @@
             const dataTable = $('#dataTable').DataTable({
                 processing: true,
                 responsive: true,
-                autoWidth: true,
+                autoWidth: false,
                 scrollX: true,
                 scrollY: "75vh",
                 scrollCollapse: true,
@@ -802,16 +801,6 @@
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
-                    },
-                    {
-                        data: 'id', // The ID will be used for Edit, Show, Delete actions
-                        render: function(data, type, row) {
-                            return `
-                                <button type="button" data-id="${data}" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
-                            `;
-                        },
-                        orderable: false, // Disable sorting for the action column
-                        searchable: false // Disable searching for the action column
                     }
 
                 ],
@@ -977,7 +966,9 @@
 <style>
     .dataTable th,
     .dataTable td {
-        white-space: nowrap;
+        white-space: nowrap;       /* Prevent text from wrapping */
+        overflow: hidden;          /* Hide overflowing text */
+        text-overflow: ellipsis;   /* Add ellipsis (...) for hidden text */
     }
 
     /* table.dataTable>thead>tr:first-child>th {

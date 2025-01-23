@@ -59,7 +59,7 @@ class TicketController extends Controller
         // Redirect with a success message
         if ($request->user()->hasRole('admin')) {
             // Redirect to the admin tickets index route with a success message
-            return redirect()->route('admin.tickets.index')->with('success', 'Ticket created successfully!');
+            return redirect()->route('tickets.index')->with('success', 'Ticket created successfully!');
         } elseif ($request->user()->hasRole('user')) {
             // Redirect to the client tickets index route with a success message
             return redirect()->route('client.tickets.index')->with('success', 'Ticket created successfully!');
@@ -125,7 +125,7 @@ class TicketController extends Controller
         return redirect()->route('tickets.index')->with('success', 'Ticket deleted successfully!');
     }
 
-    public function answer($id)
+    public function answer(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
         $messages = $ticket->messages;
@@ -139,7 +139,17 @@ class TicketController extends Controller
         ]);
 
         $ticket = Ticket::findOrFail($id);
-        return view('tickets.answer', compact('ticket', 'messages'));
+
+
+        if ($request->user()->hasRole('admin|manager')) {
+            return view('tickets.answer', compact('ticket', 'messages'));
+
+        } elseif ($request->user()->hasRole('user')) {
+            return view('tickets.answer', compact('ticket', 'messages'));
+        } else {
+            // Code for other roles or unauthorized access
+            return response()->json(['message' => 'Access Denied.','leadcount'], 403);
+        }
     }
 
     public function updateAnswer(Request $request, $id)
@@ -192,7 +202,14 @@ class TicketController extends Controller
         $message->message = $request->message;
         $message->save();
 
-        return redirect()->route('tickets.show', $ticket->id);
+        if ($request->user()->hasRole('admin|manager')) {
+            return redirect()->route('tickets.show', $ticket->id);
+        } elseif ($request->user()->hasRole('user')) {
+            return redirect()->route('client.tickets.show', $ticket->id);
+        } else {
+            // Code for other roles or unauthorized access
+            return response()->json(['message' => 'Access Denied.','leadcount'], 403);
+        }
     }
     public function ticketindex()
     {
