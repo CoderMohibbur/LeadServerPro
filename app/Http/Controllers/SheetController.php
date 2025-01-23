@@ -568,7 +568,7 @@ class SheetController extends Controller
                 'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
                 'rating' => ['rating'],
                 'sheet_name' => ['sheet_name'],
-                'job_link' => ['joblink', 'JobLink', 'job_link'],
+                'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
                 'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
                 'checked_by' => ['checkedby', 'checked by', 'checked_by'],
                 'review' => ['review','review_by']

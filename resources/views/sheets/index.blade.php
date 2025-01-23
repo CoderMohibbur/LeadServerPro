@@ -4,13 +4,16 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight text-left">
                 {{ __('All Sheets List') }}
             </h2>
-            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
-                type="button">
-                Upload
-            </button>
-        </div>
+            @if (auth()->user()->hasRole('admin|manager'))
+                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
+                    type="button">
+                    Upload
+                </button>
+            @else
+            @endif
 
+        </div>
     </x-slot>
 
     <div class="p-4 sm:ml-64">
@@ -48,6 +51,7 @@
             <table id="sheetTable" class="table-auto w-full border-collapse ">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Sheet Name</th>
                         <th>File</th>
                         <th>Working Date</th>
@@ -56,19 +60,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sheets as $sheet)
+                    @foreach ($sheets as $index => $sheet)
                         <tr class="dark:bg-gray-900">
-
+                            <td>
+                                {{ $loop->index + 1 }}
+                            </td>
                             <td class="px-4 py-2  dark:text-gray-300">
                                 <a href="{{ route(auth()->user()->hasRole('admin') ? 'leads.bySheet' : 'client.leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
-                                    class="text-blue-500 hover:underline dark:text-blue-400">
+                                    class="text-blue-500 dark:text-blue-400">
                                     {{ $sheet->sheet_name }}
                                 </a>
                             </td>
                             <td class="px-4 py-2  dark:text-gray-300">
                                 @if ($sheet->file)
                                     <a href="{{ asset('storage/' . $sheet->file) }}" target="_blank"
-                                        class="text-blue-500 hover:underline dark:text-blue-400">
+                                        class="text-blue-500 dark:text-blue-400">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white inline-block mr-2"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" fill="none" viewBox="0 0 24 24">
@@ -96,6 +102,8 @@
                                 @endif
                             </td>
                             <td class="px-4 py-2  dark:text-gray-300">
+
+                                @if (auth()->user()->hasRole('admin'))
                                 <form action="{{ route('sheets.destroy', $sheet) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
@@ -103,6 +111,12 @@
                                         class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                         onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                 </form>
+                                @else
+                                    <a href="{{ route(auth()->user()->hasRole('admin') ? 'leads.bySheet' : 'client.leads.bySheet', $sheet->id) }}?sheet_id={{ $sheet->id }}"
+                                        class=" text-white dark:text-white rounded-xl bg-yellow-500 px-2 py-1">
+                                        View
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -191,15 +205,15 @@
                                      class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
                                     <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
                                         @foreach ($users as $user)
-                                            <li x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
+                                            <li x-show="search === '' || '{{ $user->name }} - {{ $user->username }}'.toLowerCase().includes(search.toLowerCase())">
                                                 <a href="#"
                                                    class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                                                    @click.prevent="
-                                                        selectedUser = '{{ $user->name }}';
+                                                        selectedUser = '{{ $user->name }} - {{ $user->username }}';
                                                         selectedUserId = '{{ $user->id }}';
                                                         search = selectedUser;  // Update the input field with the selected name
                                                         open = false;">
-                                                    {{ $user->name }}
+                                                        {{ $user->name }} - {{ $user->username }}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -245,7 +259,7 @@
             $(document).ready(function() {
                 const table = $('#sheetTable').DataTable({
                     processing: true,
-                    responsive: true,
+                    responsive: false,
                     autoWidth: false,
                     scrollX: true,
                     layout: {

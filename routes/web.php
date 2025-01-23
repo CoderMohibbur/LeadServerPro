@@ -20,7 +20,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::resource('User', controller: UserController::class);
+    Route::resource('/User', controller: UserController::class);
     Route::post('/update-status/{id}', [UserController::class, 'updateStatus'])->name('update.status');
     Route::get('/users/data', [UserController::class, 'getUsers'])->name(name: 'users.data');
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
@@ -29,18 +29,18 @@ Route::middleware([
     Route::get('/role-management', [RoleManagementController::class, 'index'])->name('role.management');
     Route::post('/role-management/update', [RoleManagementController::class, 'update'])->name('role.update');
     Route::resource('sheets', controller: SheetController::class);
-    Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
-    Route::get('tickets/create', [TicketController::class, 'create'])->name('tickets.create');
-    Route::post('tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('/tickets', [TicketController::class, 'ticketstore'])->name('tickets.store');
     Route::get('/tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
-    Route::resource('tickets', TicketController::class);
+    // Route::resource('tickets', TicketController::class);
     // Route::get('tickets/{ticket}/answer', [TicketController::class, 'answer'])->name('tickets.answer');
     // Route::put('tickets/{ticket}/answer', [TicketController::class, 'updateAnswer'])->name('tickets.updateAnswer');
     Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
     // TicketController Show
-    Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+    // Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
     // Answer Store
     Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('tickets.storeAnswer');
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
@@ -79,6 +79,10 @@ Route::prefix('client')->middleware(['role:user'])->group(function () {
     Route::resource('lead-server', DataController::class);
     Route::get('/leads/data', [DataController::class, 'dataServer'])->name('leads.data');
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('client.leads.bySheet');
+    Route::get('tickets/{id}/answer', [TicketController::class, 'answer'])->name('client.tickets.answer');
+    Route::post('tickets/{ticket}/answer', [TicketController::class, 'storeAnswer'])->name('client.tickets.storeAnswer');
+    Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('client.tickets.show');
+
     // Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
 });
 

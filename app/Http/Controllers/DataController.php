@@ -17,7 +17,7 @@ class DataController extends Controller
     // Display the list of leads
     public function index(Request $request)
     {
-        if ($request->user()->hasRole('admin')) {
+        if ($request->user()->hasRole('admin|manager')) {
             $leadcount = Lead::count();
             $leads = Lead::paginate(10);
             $categories = Lead::all();
@@ -25,6 +25,7 @@ class DataController extends Controller
             return view('leadServer.index2', compact('leads', 'categories', 'users','leadcount'));
         } elseif ($request->user()->hasRole('user')) {
             // $leads = Lead::all(); // Paginate the leads data
+            $leadcount = Lead::count();
             $leads = Lead::paginate(10);
             $categories = Lead::all();
             $users = User::all();

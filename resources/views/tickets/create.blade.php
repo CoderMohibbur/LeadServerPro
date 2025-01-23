@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route(auth()->user()->hasRole('Admin') ? 'admin.tickets.store' : 'client.tickets.store') }}" method="POST">
+                <form action="{{ route(auth()->user()->hasRole('admin') ? 'tickets.store' : 'client.tickets.store') }}" method="POST">
                     @csrf
 
                     <div>
