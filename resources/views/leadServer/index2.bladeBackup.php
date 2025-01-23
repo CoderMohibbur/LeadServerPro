@@ -14,7 +14,16 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('css/tagify.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
+    {{-- <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script> --}}
+
+
 
     <!-- Styles -->
     @livewireStyles
@@ -39,6 +48,7 @@
                     <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Lead Lists') }}
                     </h1>
+
                     <!-- Center Section (Navbar) -->
                     <nav class="hidden md:flex items-center justify-between">
                         <ul
@@ -74,6 +84,14 @@
                                     Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
                                 </a>
                             </li>
+                            {{-- <li>
+                                <form action="{{ route('updateFilterValues') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" 
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-4 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Update Filter Values</button>
+                                </form>
+                            </li> --}}
                         </ul>
                     </nav>
                     <!-- Right Section (Button) -->
@@ -238,6 +256,11 @@
                                     </ul>
                                 </div>
 
+                                {{-- <!-- Selected User -->
+                                <div x-show="selectedUser" class="mt-2 text-gray-600 dark:text-gray-300">
+                                    <p>Selected User: <span x-text="selectedUser"></span></p>
+                                </div> --}}
+
                                 <!-- Hidden Input for Form Submission -->
                                 <input type="hidden" name="user_id" :value="selectedUserId">
 
@@ -268,7 +291,349 @@
     </div>
 
     @livewireScripts
-    <script src="{{ asset('js/tagify.js') }}"></script>
+
+    {{-- <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const dataTable = $('#dataTable').DataTable({
+                responsive: true,
+                autoWidth: true,
+                scrollX: true,
+                scrollY: "75vh", // Corrected property name
+                scrollCollapse: true,
+                ajax: {
+                    url: '/leads/data',
+                    type: 'GET'
+                    // type: 'GET',
+                    // data: function(d) {
+                    //     // Collect selected categories
+                    //     d.category_id = [];
+                    //     $('input[name="category_id[]"]:checked').each(function() {
+                    //         d.category_id.push($(this).val());
+                    //     });
+
+                    //     d.brand_id = [];
+                    //     $('input[name="brand_id[]"]:checked').each(function() {
+                    //         d.brand_id.push($(this).val());
+                    //     });
+
+                    //     d.linkedin_link = [];
+                    //     $('input[name="linkedin_link[]"]:checked').each(function() {
+                    //         d.linkedin_link.push($(this).val());
+                    //     });
+
+                    //     d.company_name = [];
+                    //     $('input[name="company_name[]"]:checked').each(function() {
+                    //         d.company_name.push($(this).val());
+                    //     });
+
+                    //     d.contact_name = [];
+                    //     $('input[name="contact_name[]"]:checked').each(function() {
+                    //         d.contact_name.push($(this).val());
+                    //     });
+
+                    //     d.name_prefix = [];
+                    //     $('input[name="name_prefix[]"]:checked').each(function() {
+                    //         d.name_prefix.push($(this).val());
+                    //     });
+
+                    //     d.full_name = [];
+                    //     $('input[name="full_name[]"]:checked').each(function() {
+                    //         d.full_name.push($(this).val());
+                    //     });
+
+                    //     d.first_name = [];
+                    //     $('input[name="first_name[]"]:checked').each(function() {
+                    //         d.first_name.push($(this).val());
+                    //     });
+
+                    //     d.last_name = [];
+                    //     $('input[name="last_name[]"]:checked').each(function() {
+                    //         d.last_name.push($(this).val());
+                    //     });
+
+                    //     d.email = [];
+                    //     $('input[name="email[]"]:checked').each(function() {
+                    //         d.email.push($(this).val());
+                    //     });
+
+                    //     d.title_position = [];
+                    //     $('input[name="title_position[]"]:checked').each(function() {
+                    //         d.title_position.push($(this).val());
+                    //     });
+
+                    //     d.person_location = [];
+                    //     $('input[name="person_location[]"]:checked').each(function() {
+                    //         d.person_location.push($(this).val());
+                    //     });
+
+                    //     d.full_address = [];
+                    //     $('input[name="full_address[]"]:checked').each(function() {
+                    //         d.full_address.push($(this).val());
+                    //     });
+
+                    //     d.company_phone = [];
+                    //     $('input[name="company_phone[]"]:checked').each(function() {
+                    //         d.company_phone.push($(this).val());
+                    //     });
+
+                    //     d.company_head_count = [];
+                    //     $('input[name="company_head_count[]"]:checked').each(function() {
+                    //         d.company_head_count.push($(this).val());
+                    //     });
+
+                    //     d.country = [];
+                    //     $('input[name="country[]"]:checked').each(function() {
+                    //         d.country.push($(this).val());
+                    //     });
+
+                    //     d.city = [];
+                    //     $('input[name="city[]"]:checked').each(function() {
+                    //         d.city.push($(this).val());
+                    //     });
+
+                    //     d.state = [];
+                    //     $('input[name="state[]"]:checked').each(function() {
+                    //         d.state.push($(this).val());
+                    //     });
+
+                    //     d.tag = [];
+                    //     $('input[name="tag[]"]:checked').each(function() {
+                    //         d.tag.push($(this).val());
+                    //     });
+
+                    //     d.source_link = [];
+                    //     $('input[name="source_link[]"]:checked').each(function() {
+                    //         d.source_link.push($(this).val());
+                    //     });
+
+                    //     d.middle_name = [];
+                    //     $('input[name="middle_name[]"]:checked').each(function() {
+                    //         d.middle_name.push($(this).val());
+                    //     });
+
+                    //     d.sur_name = [];
+                    //     $('input[name="sur_name[]"]:checked').each(function() {
+                    //         d.sur_name.push($(this).val());
+                    //     });
+
+                    //     d.gender = [];
+                    //     $('input[name="gender[]"]:checked').each(function() {
+                    //         d.gender.push($(this).val());
+                    //     });
+
+                    //     d.personal_phone = [];
+                    //     $('input[name="personal_phone[]"]:checked').each(function() {
+                    //         d.personal_phone.push($(this).val());
+                    //     });
+
+                    //     d.employee_range = [];
+                    //     $('input[name="employee_range[]"]:checked').each(function() {
+                    //         d.employee_range.push($(this).val());
+                    //     });
+
+                    //     d.company_website = [];
+                    //     $('input[name="company_website[]"]:checked').each(function() {
+                    //         d.company_website.push($(this).val());
+                    //     });
+
+                    //     d.company_linkedin_link = [];
+                    //     $('input[name="company_linkedin_link[]"]:checked').each(function() {
+                    //         d.company_linkedin_link.push($(this).val());
+                    //     });
+
+                    //     d.company_hq_address = [];
+                    //     $('input[name="company_hq_address[]"]:checked').each(function() {
+                    //         d.company_hq_address.push($(this).val());
+                    //     });
+
+                    //     d.industry = [];
+                    //     $('input[name="industry[]"]:checked').each(function() {
+                    //         d.industry.push($(this).val());
+                    //     });
+
+                    //     d.revenue = [];
+                    //     $('input[name="revenue[]"]:checked').each(function() {
+                    //         d.revenue.push($(this).val());
+                    //     });
+
+                    //     d.street = [];
+                    //     $('input[name="street[]"]:checked').each(function() {
+                    //         d.street.push($(this).val());
+                    //     });
+
+                    //     d.zip_code = [];
+                    //     $('input[name="zip_code[]"]:checked').each(function() {
+                    //         d.zip_code.push($(this).val());
+                    //     });
+
+                    //     d.rating = [];
+                    //     $('input[name="rating[]"]:checked').each(function() {
+                    //         d.rating.push($(this).val());
+                    //     });
+
+                    //     d.sheet_name = [];
+                    //     $('input[name="sheet_name[]"]:checked').each(function() {
+                    //         d.sheet_name.push($(this).val());
+                    //     });
+
+                    //     d.job_link = [];
+                    //     $('input[name="job_link[]"]:checked').each(function() {
+                    //         d.job_link.push($(this).val());
+                    //     });
+
+                    //     d.job_role = [];
+                    //     $('input[name="job_role[]"]:checked').each(function() {
+                    //         d.job_role.push($(this).val());
+                    //     });
+
+                    //     d.checked_by = [];
+                    //     $('input[name="checked_by[]"]:checked').each(function() {
+                    //         d.checked_by.push($(this).val());
+                    //     });
+
+                    //     d.review = [];
+                    //     $('input[name="review[]"]:checked').each(function() {
+                    //         d.review.push($(this).val());
+                    //     });
+                    //     console.log('Categories:', d.category_id);
+                    //     console.log('Brands:', d.brand_id);
+                    }
+                },
+                columns: [{data: 'id'},{data: 'linkedin_link'},
+                        {data: 'company_name'},
+                        {data: 'contact_name'},
+                        {data: 'name_prefix'},
+                        {data: 'full_name'},
+                        {data: 'first_name'},
+                        {data: 'last_name'},
+                        {data: 'email'},
+                        {data: 'title_position'},
+                        {data: 'person_location'},
+                        {data: 'full_address'},
+                        {data: 'company_phone'},
+                        {data: 'company_head_count'},
+                        {data: 'country'},
+                        {data: 'city'},
+                        {data: 'state'},
+                        {data: 'tag'},
+                        {data: 'source_link'},
+                        {data: 'middle_name'},
+                        {data: 'sur_name'},
+                        {data: 'gender'},
+                        {data: 'personal_phone'},
+                        {data: 'employee_range'},
+                        {data: 'company_website'},
+                        {data: 'company_linkedin_link'},
+                        {data: 'company_hq_address'},
+                        {data: 'industry'},
+                        {data: 'revenue'},
+                        {data: 'street'},
+                        {data: 'zip_code'},
+                        {data: 'rating'},
+                        {data: 'sheet_name'},
+                        {data: 'job_link'},
+                        {data: 'job_role'},
+                        {data: 'checked_by'},
+                        {data: 'review'},
+                        {data: 'created_at',
+                            render: function(data) {
+                                return moment(data).format(
+                                    'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                            }
+                        },
+                        {data: 'updated_at',
+                            render: function(data) {
+                                return moment(data).format(
+                                    'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
+                            }
+                        }
+                ],
+
+                layout: {
+                    topEnd: ['search'],
+                    topStart: {
+                        pageLength: true,
+                        buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5', 'colvis', 'print']
+                    }
+                },
+                initComplete: function() {
+                    var columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
+                    var api = this.api();
+
+                    // Create a new search row and prepend it to the thead
+                    var searchRow = $('<tr></tr>');
+                    $(api.table().header()).prepend(searchRow);
+
+                    // Loop through all columns
+                    api.columns().every(function(index) {
+                        var column = this;
+
+                        if (columnsToSearch.includes(index)) {
+                            // Add an input to searchable columns
+                            var title = $(column.header()).text(); // Get column header text
+                            $('<th><input type="text" placeholder="Search ' + title +
+                                    '" style="width:100%;" /></th>')
+                                .appendTo(searchRow)
+                                .find('input')
+                                .on('keyup change clear', function() {
+                                    if (column.search() !== this.value) {
+                                        column.search(this.value).draw();
+                                    }
+                                });
+                        } else {
+                            // Add an empty cell for non-searchable columns
+                            $('<th></th>').appendTo(searchRow);
+                        }
+                    });
+                }
+            });
+            $(document).on('change',
+              'input[name="category_id[]"],
+                input[name="brand_id[]"],
+                input[name="linkedin_link[]"],
+                input[name="company_name[]"],
+                input[name="contact_name[]"],
+                input[name="name_prefix[]"],
+                input[name="full_name[]"],
+                input[name="first_name[]"],
+                input[name="last_name[]"],
+                input[name="email[]"],
+                input[name="title_position[]"],
+                input[name="person_location[]"],
+                input[name="full_address[]"],
+                input[name="company_phone[]"],
+                input[name="company_head_count[]"],
+                input[name="country[]"],
+                input[name="city[]"],
+                input[name="state[]"],
+                input[name="tag[]"],
+                input[name="source_link[]"],
+                input[name="middle_name[]"],
+                input[name="sur_name[]"],
+                input[name="gender[]"],
+                input[name="personal_phone[]"],
+                input[name="employee_range[]"],
+                input[name="company_website[]"],
+                input[name="company_linkedin_link[]"],
+                input[name="company_hq_address[]"],
+                input[name="industry[]"],
+                input[name="revenue[]"],
+                input[name="street[]"],
+                input[name="zip_code[]"],
+                input[name="rating[]"],
+                input[name="sheet_name[]"],
+                input[name="job_link[]"],
+                input[name="job_role[]"],
+                input[name="checked_by[]"],
+                input[name="review[]"]',
+                function() {
+                    dataTable.ajax.reload();
+                }
+            );
+
+        });
+    </script> --}}
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             // Extract URL parameters
@@ -298,6 +663,13 @@
                     url: '/leads/data',
                     type: 'GET',
                     data: function(d) {
+                        // // Collect sheet_id and user_id dynamically
+                        // ['sheetIdFilter', 'userIdFilter'].forEach((filterId) => {
+                        //     const value = $(`#${filterId}`).val();
+                        //     if (value) {
+                        //         d[filterId.replace('Filter', '').toLowerCase()] = value; // Add sheet_id or user_id dynamically
+                        //     }
+                        // });
 
                         // Include sheet_id in the request payload
                         const sheetId = $('#sheetIdFilter').val();
@@ -310,32 +682,38 @@
                         if (userId) {
                             d.user_id = userId;
                         }
-
-                        // Collect values from Tagify inputs
-                        // $('#filtersContainer .tagify').each(function() {
-                        //     const tagify = $(this).data(
-                        //         'tagify'); // Retrieve the Tagify instance
-                        //     if (tagify) {
-                        //         const columnName = $(this).attr(
-                        //             'name'); // Use the input's name as the column
-                        //         d[columnName] = tagify.value.map(tag => tag
-                        //             .value); // Add Tagify values as an array
-                        //     }
-                        // });
-
-                        // Process all '.tagify' inputs within '#filtersContainer'
-                        $('#filtersContainer .tagify').each(function() {
-                            const tagify = $(this).data('tagify'); // Retrieve the Tagify instance
-                            if (tagify) {
-                                const columnName = $(this).attr('name'); // Use the input's name as the column
-                                d[columnName] = Array.isArray(tagify.value)
-                                    ? tagify.value.map(tag => tag.value) // Safely map tag values
-                                    : []; // Default to an empty array if tagify.value is not valid
+                        // Ensure the Sheet ID input exists and retrieve its value
+                        // const sheetId = $('#sheetIdFilter').val();
+                        // if (sheetId) {
+                        //     d.sheet_id = sheetId; // Add sheet_id to the DataTable's request payload
+                        // } else {
+                        //     d.sheet_id = null; // Default to null if no Sheet ID is provided
+                        // }
+                        // Dynamically collect selected filter values
+                        $('#filtersContainer input[type="checkbox"]:checked').each(function() {
+                            const columnName = $(this).attr('name').replace('[]',
+                                ''); // Remove [] from the name
+                            if (!d[columnName]) {
+                                d[
+                                    columnName
+                                ] = []; // Initialize array for the column if not already set
                             }
+                            d[columnName].push($(this)
+                                .val()); // Add selected value to the column array
                         });
 
-                        // Log the result for debugging
-                        console.log(d);
+                        // Collect values from Tagify inputs
+                        $('#filtersContainer .tagify').each(function() {
+                            const tagify = $(this).data(
+                                'tagify'); // Retrieve the Tagify instance
+                            if (tagify) {
+                                const columnName = $(this).attr(
+                                    'name'); // Use the input's name as the column
+                                d[columnName] = tagify.value.map(tag => tag
+                                    .value); // Add Tagify values as an array
+                            }
+                        });
+                        console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
                 columns: [{
@@ -527,6 +905,27 @@
                 initComplete: function() {
                     const api = this.api();
 
+                    // Initialize Tagify for all inputs with the "tagify" class in filtersContainer
+                    // $('#filtersContainer .tagify').each(function() {
+                    //     const input = this;
+                    //     const tagify = new Tagify(input);
+                    //     $(input).data('tagify',
+                    //     tagify); // Attach the Tagify instance to the input
+
+                    //     // Handle Tagify events
+                    //     tagify.on('add', (e) => {
+                    //         console.log(`Tag added for input [${input.id}]:`, e.detail
+                    //             .data);
+                    //         dataTable.ajax.reload(); // Reload DataTable on tag addition
+                    //     });
+
+                    //     tagify.on('remove', (e) => {
+                    //         console.log(`Tag removed for input [${input.id}]:`, e.detail
+                    //             .data);
+                    //         dataTable.ajax.reload(); // Reload DataTable on tag removal
+                    //     });
+                    // });
+
                     $('#filtersContainer .tagify').each(function() {
                         const input = this;
                         const columnName = $(input).attr(
@@ -572,29 +971,33 @@
                         tagify.on('remove', () => {
                             $('#dataTable').DataTable().ajax.reload();
                         });
-                        // // Add a button to remove all tags
-                        // document.getElementById('removeAllTagsButton').addEventListener('click', function () {
-                        //     tagify.removeAllTags(); // Remove all tags
-                        //     $('#dataTable').DataTable().ajax.reload(); // Reload DataTable
-                        // });
-                        // Add an event listener to the button
-                        document.getElementById('removeAllTagsButton').addEventListener('click', function () {
-                            // Remove all tags
-                            tagify.removeAllTags();
-                            $('#dataTable').DataTable().ajax.reload(); // Reload DataTable
-                            // Reset DataTable search field (e.g., dt-search-0)
-                            const searchField = document.querySelector('#dt-search-0'); // Replace #dt-search-0 with the correct selector
-                            if (searchField) {
-                                searchField.value = ''; // Clear the search field value
-                                searchField.dispatchEvent(new Event('input')); // Trigger input event for search
-                            }
-                            // Reload the DataTable
-                            $('#dataTable').DataTable().search('').draw(); // Clear and redraw the table
-                        });
-
                     });
 
-                    // Generates an array [1, 2, ..., 36]
+                    // Search Row for Filterable Columns
+                    // const columnsToSearch = [1, 2, 3, 5, 6]; // Indices of columns to include (0-based)
+                    // const searchRow = $('<tr></tr>');
+                    // $(api.table().header()).prepend(searchRow);
+
+                    // api.columns().every(function(index) {
+                    //     const column = this;
+
+                    //     if (columnsToSearch.includes(index)) {
+                    //         // Add an input to searchable columns
+                    //         const title = $(column.header()).text();
+                    //         $('<th><input type="text" placeholder="Search ' + title +
+                    //                 '" style="width:100%;" /></th>')
+                    //             .appendTo(searchRow)
+                    //             .find('input')
+                    //             .on('keyup change clear', function() {
+                    //                 if (column.search() !== this.value) {
+                    //                     column.search(this.value).draw();
+                    //                 }
+                    //             });
+                    //     } else {
+                    //         $('<th></th>').appendTo(searchRow);
+                    //     }
+                    // });
+                    // const columnsToSearch = [1, 2, 3, 5, 4, 6]; // Indices of columns to include (0-based)
                     const columnsToSearch = Array.from({
                         length: 36
                     }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
@@ -650,6 +1053,7 @@
                     });
                 }
             });
+
         });
     </script>
 </body>
@@ -663,6 +1067,10 @@
         text-overflow: ellipsis;
         /* Add ellipsis (...) for hidden text */
     }
+
+    /* table.dataTable>thead>tr:first-child>th {
+        background: transparent !important;
+    } */
 
     thead input {
         border-radius: 5px !important;

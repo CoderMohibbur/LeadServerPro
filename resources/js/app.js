@@ -38,6 +38,7 @@ import 'datatables.net-buttons/js/buttons.colVis.min.js'; // Column visibility b
 // Import Flowbite (if needed)
 import 'flowbite';
 
+
     // Initialize Tagify
 
 // $('#UserTable').DataTable({
