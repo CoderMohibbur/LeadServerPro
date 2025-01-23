@@ -90,16 +90,16 @@
             // Set user details in the modal
             document.getElementById('modalUserId').value = userId;
             document.getElementById('modalUserName').textContent = userName;
-    
+
             // Reset checkboxes
             document.querySelectorAll('[id^=roleCheckbox_]').forEach(checkbox => checkbox.checked = false);
-    
+
             // Check the user's current roles
             userRoles.forEach(roleId => {
                 const checkbox = document.getElementById(`roleCheckbox_${roleId}`);
                 if (checkbox) checkbox.checked = true;
             });
-    
+
             // Show modal
             const modal = document.getElementById('editRoleModal');
             if (modal.classList.contains('hidden')) {
@@ -107,16 +107,16 @@
                 modal.classList.add('flex');
             }
         }
-    
+
         function closeEditModal() {
             const modal = document.getElementById('editRoleModal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-    
+
         window.addEventListener('DOMContentLoaded', () => {
             $('#role-management-table').DataTable();
         });
     </script>
-    
+
 </x-app-layout>
