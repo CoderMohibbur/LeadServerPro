@@ -18,7 +18,7 @@ class UserController extends Controller
     }
     public function getUsers()
     {
-        $users = User::select(columns: ['id', 'name', 'email', 'created_at', 'is_approved']);
+        $users = User::select(columns: ['id', 'name', 'email', 'username' ,'created_at', 'is_approved']);
         return DataTables::of($users)->make(true);
     }
     public function create()
@@ -30,7 +30,8 @@ class UserController extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'unique:users,email',
+                'username' => 'unique:users,username|max:255',
                 'password' => 'required|min:6',
                 'country' => 'nullable|string|max:255',
                 'company_name' => 'nullable|string|max:255',
@@ -41,6 +42,7 @@ class UserController extends Controller
             User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'username' => $validated['username'],
                 'password' => bcrypt($validated['password']),
                 'country' => $validated['country'] ?? null,
                 'company_name' => $validated['company_name'] ?? null,
@@ -50,7 +52,6 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'User created successfully!');
         } catch (\Exception $e) {
-            // এরর মেসেজ নিয়ে ফিরে যান
             return redirect()->back()->withErrors(['error' => 'Something went wrong: ' . $e->getMessage()]);
         }
     }
@@ -140,6 +141,19 @@ class UserController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function validateEmail(Request $request)
+    {
+        $exists = User::where('email', $request->email)->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
+    public function validateUsername(Request $request)
+    {
+        $exists = User::where('username', $request->username)->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
 
 }
 

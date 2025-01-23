@@ -12,7 +12,7 @@
             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                 class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
                 type="button">
-                Upload
+                Create
             </button>
         </div>
     </x-slot>
@@ -20,6 +20,25 @@
 
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+            @if (session('success'))
+                <div class="px-4 py-3 mb-4 rounded relative border text-sm
+                    bg-green-100 border-green-400 text-green-700
+                    dark:bg-green-900 dark:border-green-700 dark:text-green-300"
+                    role="alert">
+                    <strong class="font-bold">Success!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+
+            @if ($errors->has('error'))
+                <div class="px-4 py-3 mb-4 rounded relative border text-sm
+                        bg-red-100 border-red-400 text-red-700
+                        dark:bg-red-900 dark:border-red-700 dark:text-red-300"
+                    role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ $errors->first('error') }}</span>
+                </div>
+            @endif
 
             {{-- <div id="custom-buttons" class="custom-buttons mb-4"></div> <!-- Custom Buttons Container --> --}}
 
@@ -30,6 +49,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>User Name</th>
                     <th>Created At</th>
                     <th>Status</th>
                     <th style="text-align: center;">Action</th>
@@ -85,11 +105,25 @@
 
                             <!-- Email -->
                             <div>
-                                <label for="email"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                                <input id="email" name="email" type="email" placeholder="example@mail.com"
+                                <label for="username"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">User Name</label>
+                                <input id="username" name="username" type="text" placeholder="User Name"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
+                                    <span class="text-red-500 text-sm"></span> 
+                                @error('username')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="email"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                                <input id="email" name="email" type="text" placeholder="example@mail.com"
+                                    class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                                    >
+                                    <span class="text-red-500 text-sm"></span> 
                                 @error('email')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -102,6 +136,8 @@
                                 <input id="password" name="password" type="password" placeholder="******"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
+                                    <span class="text-red-500 text-sm"></span> 
+
                                 @error('password')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -116,6 +152,7 @@
                                     placeholder="******"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
+                                    <span class="text-red-500 text-sm"></span> 
                                 @error('password_confirmation')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -148,7 +185,7 @@
                                     Name</label>
                                 <input id="company_name" name="company_name" type="text" placeholder="Company Name"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                                    required>
+                                    >
                                 @error('company_name')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -162,7 +199,7 @@
                                 <input id="linkedin_url" name="linkedin_url" type="url"
                                     placeholder="https://www.linkedin.com/in/example"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                                    required>
+                                    >
                                 @error('linkedin_url')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -175,7 +212,7 @@
                                     Number</label>
                                 <input id="phone_number" name="phone_number" type="tel" placeholder="+1234567890"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                                    required>
+                                    >
                                 @error('phone_number')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -187,12 +224,6 @@
                                 class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                                 {{ __('Create') }}
                             </button>
-                            {{-- <button
-                                type="button"
-                                onclick="window.location.href='{{ route('User.index') }}'"
-                                class="px-5 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                                Back to List
-                            </button> --}}
                         </div>
                     </form>
                 </div>
@@ -222,7 +253,10 @@
                         data: 'email',
                         name: 'email'
                     },
-
+                    {
+                        data: 'username',
+                        name: 'username'
+                    },
                     {
                         data: 'created_at',
                         render: function(data) {
@@ -325,5 +359,70 @@
                 console.error('Error:', error);
             });
         }
+        document.addEventListener('DOMContentLoaded', function () {
+            // Email uniqueness check
+            document.getElementById('email').addEventListener('input', function () {
+                const email = this.value;
+                if (email) {
+                    fetch('/validate-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({ email }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            const emailError = document.querySelector('#email ~ span');
+                            if (data.exists) {
+                                emailError.textContent = 'This email is already taken.';
+                                emailError.classList.add('text-red-500');
+                            } else {
+                                emailError.textContent = '';
+                            }
+                        });
+                }
+            });
+
+            // Username uniqueness check
+            document.getElementById('username').addEventListener('input', function () {
+                const username = this.value;
+                if (username) {
+                    fetch('/validate-username', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({ username }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            const usernameError = document.querySelector('#username ~ span');
+                            if (data.exists) {
+                                usernameError.textContent = 'This username is already taken.';
+                                usernameError.classList.add('text-red-500');
+                            } else {
+                                usernameError.textContent = '';
+                            }
+                        });
+                }
+            });
+
+            // Password match validation
+            document.getElementById('password_confirmation').addEventListener('input', function () {
+                const password = document.getElementById('password').value;
+                const confirmPassword = this.value;
+                const passwordError = document.querySelector('#password_confirmation ~ span');
+                if (password !== confirmPassword) {
+                    passwordError.textContent = 'Passwords do not match.';
+                    passwordError.classList.add('text-red-500');
+                } else {
+                    passwordError.textContent = '';
+                }
+            });
+        });
+
     </script>
 </x-app-layout>

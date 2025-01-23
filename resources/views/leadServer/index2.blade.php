@@ -84,20 +84,16 @@
                                     Current Lead:<span class="ml-2 text-lg font-bold">{{$leadcount}}</span>
                                 </a>
                             </li>
+                            {{-- <li>
+                                <form action="{{ route('updateFilterValues') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" 
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-4 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Update Filter Values</button>
+                                </form>
+                            </li> --}}
                         </ul>
-
-                        <!-- Total Lead Section -->
-
-
-
-
                     </nav>
-
-
-
-
-
-
                     <!-- Right Section (Button) -->
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -664,7 +660,7 @@
                 responsive: true,
                 autoWidth: false,
                 scrollX: true,
-                scrollY: "75vh",
+                scrollY: "50vh",
                 scrollCollapse: true,
                 pageLength: 25, // Default number of rows per page
                 lengthMenu: [25, 50, 100, 200], // Dropdown options for rows per page
