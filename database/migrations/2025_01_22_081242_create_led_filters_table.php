@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email', 320)->nullable()->unique();
             $table->string('title_position')->nullable()->unique();
             $table->string('person_location')->nullable()->unique();
-            $table->text('full_address')->nullable()->unique();
+            $table->string('full_address', 255)->nullable()->unique();
             $table->string('company_phone')->nullable()->unique();
             $table->string('company_head_count')->nullable()->unique();
             $table->string('country')->nullable()->unique();
@@ -48,7 +48,7 @@ return new class extends Migration
             $table->string('job_link', 512)->nullable()->unique();
             $table->string('job_role')->nullable()->unique();
             $table->string('checked_by')->nullable()->unique();
-            $table->text('review')->nullable()->unique();
+            $table->string('review', 255)->nullable()->unique();
             $table->timestamps();
         });
     }

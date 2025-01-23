@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Sheet;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -65,60 +66,111 @@ class DataController extends Controller
             });
         }
 
+        // // Apply other filters dynamically
+        // foreach ($request->all() as $column => $values) {
+        //     if (is_array($values) && !empty($values)) {
+        //         // Apply whereIn filter for columns with selected values
+        //         $query->whereIn($column, $values);
+        //     }
+        // }
+
         // Apply other filters dynamically
         foreach ($request->all() as $column => $values) {
             if (is_array($values) && !empty($values)) {
-                // Apply whereIn filter for columns with selected values
-                $query->whereIn($column, $values);
+                // Apply like filter for columns with selected values
+                foreach ($values as $value) {
+                    $query->orWhere($column, 'like', '%' . $value . '%');
+                }
             }
         }
+
+
         $query->take(500);
         // Return the filtered data to DataTables
         return DataTables::of($query)->make(true);
     }
 
-
-    public function getFilterValues()
+    public function updateFilterValues()
     {
-        return response()->json([
-            'linkedin_link' => Lead::distinct()->pluck('linkedin_link')->filter(),
-            'company_name' => Lead::distinct()->pluck('company_name')->filter(),
-            'contact_name' => Lead::distinct()->pluck('contact_name')->filter(),
-            'name_prefix' => Lead::distinct()->pluck('name_prefix')->filter(),
-            'full_name' => Lead::distinct()->pluck('full_name')->filter(),
-            'first_name' => Lead::distinct()->pluck('first_name')->filter(),
-            'last_name' => Lead::distinct()->pluck('last_name')->filter(),
-            'email' => Lead::distinct()->pluck('email')->filter(),
-            'title_position' => Lead::distinct()->pluck('title_position')->filter(),
-            'person_location' => Lead::distinct()->pluck('person_location')->filter(),
-            'full_address' => Lead::distinct()->pluck('full_address')->filter(),
-            'company_phone' => Lead::distinct()->pluck('company_phone')->filter(),
-            'company_head_count' => Lead::distinct()->pluck('company_head_count')->filter(),
-            'country' => Lead::distinct()->pluck('country')->filter(),
-            'city' => Lead::distinct()->pluck('city')->filter(),
-            'state' => Lead::distinct()->pluck('state')->filter(),
-            'tag' => Lead::distinct()->pluck('tag')->filter(),
-            'source_link' => Lead::distinct()->pluck('source_link')->filter(),
-            'middle_name' => Lead::distinct()->pluck('middle_name')->filter(),
-            'sur_name' => Lead::distinct()->pluck('sur_name')->filter(),
-            'gender' => Lead::distinct()->pluck('gender')->filter(),
-            'personal_phone' => Lead::distinct()->pluck('personal_phone')->filter(),
-            'employee_range' => Lead::distinct()->pluck('employee_range')->filter(),
-            'company_website' => Lead::distinct()->pluck('company_website')->filter(),
-            'company_linkedin_link' => Lead::distinct()->pluck('company_linkedin_link')->filter(),
-            'company_hq_address' => Lead::distinct()->pluck('company_hq_address')->filter(),
-            'industry' => Lead::distinct()->pluck('industry')->filter(),
-            'revenue' => Lead::distinct()->pluck('revenue')->filter(),
-            'street' => Lead::distinct()->pluck('street')->filter(),
-            'zip_code' => Lead::distinct()->pluck('zip_code')->filter(),
-            'rating' => Lead::distinct()->pluck('rating')->filter(),
-            'sheet_name' => Lead::distinct()->pluck('sheet_name')->filter(),
-            'job_link' => Lead::distinct()->pluck('job_link')->filter(),
-            'job_role' => Lead::distinct()->pluck('job_role')->filter(),
-            'checked_by' => Lead::distinct()->pluck('checked_by')->filter(),
-            'review' => Lead::distinct()->pluck('review')->filter(),
-        ]);
+        $filters = [
+            'linkedin_link', 'company_name', 'contact_name', 'name_prefix', 'full_name',
+            'first_name', 'last_name', 'email', 'title_position', 'person_location',
+            'full_address', 'company_phone', 'company_head_count', 'country', 'city',
+            'state', 'tag', 'source_link', 'middle_name', 'sur_name', 'gender',
+            'personal_phone', 'employee_range', 'company_website', 'company_linkedin_link',
+            'company_hq_address', 'industry', 'revenue', 'street', 'zip_code', 'rating',
+            'sheet_name', 'job_link', 'job_role', 'checked_by', 'review',
+        ];
+
+        foreach ($filters as $filter) {
+            $distinctValues = Lead::distinct()->pluck($filter)->filter();
+            DB::table('filter_values')->updateOrInsert(
+                ['filter_key' => $filter],
+                ['filter_values' => $distinctValues->values(), 'updated_at' => now()]
+            );
+        }
     }
+
+    // public function getFilterValues()
+    // {
+    //     $filterData = DB::table('filter_values')->get()->pluck('filter_values', 'filter_key');
+    //     return response()->json($filterData);
+    // }
+
+    public function getFilterValues(Request $request)
+    {
+        $term = $request->get('term');
+        $column = $request->get('column');
+        $results = Lead::where($column, 'LIKE', "%$term%")
+            ->distinct()
+            ->limit(20) // Limit results
+            ->pluck($column);
+
+        return response()->json($results);
+    }
+
+
+    // public function getFilterValues()
+    // {
+    //     return response()->json([
+    //         'linkedin_link' => Lead::distinct()->pluck('linkedin_link')->filter(),
+    //         'company_name' => Lead::distinct()->pluck('company_name')->filter(),
+    //         'contact_name' => Lead::distinct()->pluck('contact_name')->filter(),
+    //         'name_prefix' => Lead::distinct()->pluck('name_prefix')->filter(),
+    //         'full_name' => Lead::distinct()->pluck('full_name')->filter(),
+    //         'first_name' => Lead::distinct()->pluck('first_name')->filter(),
+    //         'last_name' => Lead::distinct()->pluck('last_name')->filter(),
+    //         'email' => Lead::distinct()->pluck('email')->filter(),
+    //         'title_position' => Lead::distinct()->pluck('title_position')->filter(),
+    //         'person_location' => Lead::distinct()->pluck('person_location')->filter(),
+    //         'full_address' => Lead::distinct()->pluck('full_address')->filter(),
+    //         'company_phone' => Lead::distinct()->pluck('company_phone')->filter(),
+    //         'company_head_count' => Lead::distinct()->pluck('company_head_count')->filter(),
+    //         'country' => Lead::distinct()->pluck('country')->filter(),
+    //         'city' => Lead::distinct()->pluck('city')->filter(),
+    //         'state' => Lead::distinct()->pluck('state')->filter(),
+    //         'tag' => Lead::distinct()->pluck('tag')->filter(),
+    //         'source_link' => Lead::distinct()->pluck('source_link')->filter(),
+    //         'middle_name' => Lead::distinct()->pluck('middle_name')->filter(),
+    //         'sur_name' => Lead::distinct()->pluck('sur_name')->filter(),
+    //         'gender' => Lead::distinct()->pluck('gender')->filter(),
+    //         'personal_phone' => Lead::distinct()->pluck('personal_phone')->filter(),
+    //         'employee_range' => Lead::distinct()->pluck('employee_range')->filter(),
+    //         'company_website' => Lead::distinct()->pluck('company_website')->filter(),
+    //         'company_linkedin_link' => Lead::distinct()->pluck('company_linkedin_link')->filter(),
+    //         'company_hq_address' => Lead::distinct()->pluck('company_hq_address')->filter(),
+    //         'industry' => Lead::distinct()->pluck('industry')->filter(),
+    //         'revenue' => Lead::distinct()->pluck('revenue')->filter(),
+    //         'street' => Lead::distinct()->pluck('street')->filter(),
+    //         'zip_code' => Lead::distinct()->pluck('zip_code')->filter(),
+    //         'rating' => Lead::distinct()->pluck('rating')->filter(),
+    //         'sheet_name' => Lead::distinct()->pluck('sheet_name')->filter(),
+    //         'job_link' => Lead::distinct()->pluck('job_link')->filter(),
+    //         'job_role' => Lead::distinct()->pluck('job_role')->filter(),
+    //         'checked_by' => Lead::distinct()->pluck('checked_by')->filter(),
+    //         'review' => Lead::distinct()->pluck('review')->filter(),
+    //     ]);
+    // }
 
 
     // public function dataServer(Request $request)

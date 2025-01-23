@@ -56,6 +56,9 @@ Route::middleware([
     Route::resource('lead-server', DataController::class);
     Route::get('/leads/sheet/{sheetId}', [SheetController::class, 'leadsBySheet'])->name('leads.bySheet');
     Route::get('/leads/user/{userId}', [SheetController::class, 'leadsByUser'])->name('leads.byUser');
+    Route::post('/update-filter-values', [DataController::class, 'updateFilterValues'])->name('updateFilterValues');
+    Route::post('/validate-email', [UserController::class, 'validateEmail']);
+    Route::post('/validate-username', [UserController::class, 'validateUsername']);
 });
 
 Route::middleware([
