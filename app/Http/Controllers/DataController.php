@@ -91,6 +91,43 @@ class DataController extends Controller
         return DataTables::of($query)->make(true);
     }
 
+    // public function dataServer(Request $request)
+    // {
+    //     $query = Lead::query();
+    
+    //     if ($request->hasAny(['sheet_id', 'user_id'])) {
+    //         $query->when($request->filled('sheet_id'), function ($q) use ($request) {
+    //             $q->where('sheets_id', $request->sheet_id);
+    //         });
+    
+    //         $query->when($request->filled('user_id'), function ($q) use ($request) {
+    //             $q->whereHas('sheet', function ($subQuery) use ($request) {
+    //                 $subQuery->where('user_id', $request->user_id);
+    //             });
+    //         });
+    //     }
+    
+    //     // Apply other filters dynamically
+    //     foreach ($request->all() as $column => $values) {
+    //         if (is_array($values) && !empty($values)) {
+    //             foreach ($values as $value) {
+    //                 $query->orWhere($column, 'like', '%' . $value . '%');
+    //             }
+    //         }
+    //     }
+    
+    //     // Handle dynamic pagination
+    //     $start = $request->input('start', 0); // Defaults to 0 if not provided
+    //     $length = $request->input('length', 25); // Defaults to 25 if not provided
+    
+    //     $query->offset($start)->limit($length);
+    
+    //     // Return the filtered data to DataTables
+    //     return DataTables::of($query)->make(true);
+    // }
+    
+
+
     public function updateFilterValues()
     {
         $filters = [
@@ -111,67 +148,6 @@ class DataController extends Controller
             );
         }
     }
-
-    // public function getFilterValues()
-    // {
-    //     $filterData = DB::table('filter_values')->get()->pluck('filter_values', 'filter_key');
-    //     return response()->json($filterData);
-    // }
-
-    // public function getFilterValues(Request $request)
-    // {
-    //     $term = $request->get('term');
-    //     $column = $request->get('column');
-    //     $results = Lead::where($column, 'LIKE', "%$term%")
-    //         ->distinct()
-    //         ->limit(20) // Limit results
-    //         ->pluck($column);
-
-    //     return response()->json($results);
-    // }
-
-
-    // public function getFilterValues()
-    // {
-    //     return response()->json([
-    //         'linkedin_link' => Lead::distinct()->select('linkedin_link')->take(20)->get()->map(fn($item) => $item->linkedin_link)->filter(),
-    //         'company_name' => Lead::distinct()->select('company_name')->take(20)->get()->map(fn($item) => $item->company_name)->filter(),
-    //         'contact_name' => Lead::distinct()->select('contact_name')->take(20)->get()->map(fn($item) => $item->contact_name)->filter(),
-    //         // 'name_prefix' => Lead::distinct()->select('name_prefix')->take(20)->get()->map(fn($item) => $item->name_prefix)->filter(),
-    //         'full_name' => Lead::distinct()->select('full_name')->take(20)->get()->map(fn($item) => $item->full_name)->filter(),
-    //         'first_name' => Lead::distinct()->select('first_name')->take(20)->get()->map(fn($item) => $item->first_name)->filter(),
-    //         'last_name' => Lead::distinct()->select('last_name')->take(20)->get()->map(fn($item) => $item->last_name)->filter(),
-    //         'email' => Lead::distinct()->select('email')->take(20)->get()->map(fn($item) => $item->email)->filter(),
-    //         // 'title_position' => Lead::distinct()->select('title_position')->take(20)->get()->map(fn($item) => $item->title_position)->filter(),
-    //         'person_location' => Lead::distinct()->select('person_location')->take(20)->get()->map(fn($item) => $item->person_location)->filter(),
-    //         'full_address' => Lead::distinct()->select('full_address')->take(20)->get()->map(fn($item) => $item->full_address)->filter(),
-    //         // 'company_phone' => Lead::distinct()->select('company_phone')->take(20)->get()->map(fn($item) => $item->company_phone)->filter(),
-    //         // 'company_head_count' => Lead::distinct()->select('company_head_count')->take(20)->get()->map(fn($item) => $item->company_head_count)->filter(),
-    //         // 'country' => Lead::distinct()->select('country')->take(20)->get()->map(fn($item) => $item->country)->filter(),
-    //         'city' => Lead::distinct()->select('city')->take(20)->get()->map(fn($item) => $item->city)->filter(),
-    //         // 'state' => Lead::distinct()->select('state')->take(20)->get()->map(fn($item) => $item->state)->filter(),
-    //         'tag' => Lead::distinct()->select('tag')->take(20)->get()->map(fn($item) => $item->tag)->filter(),
-    //         'source_link' => Lead::distinct()->select('source_link')->take(20)->get()->map(fn($item) => $item->source_link)->filter(),
-    //         // 'middle_name' => Lead::distinct()->select('middle_name')->take(20)->get()->map(fn($item) => $item->middle_name)->filter(),
-    //         // 'sur_name' => Lead::distinct()->select('sur_name')->take(20)->get()->map(fn($item) => $item->sur_name)->filter(),
-    //         // 'gender' => Lead::distinct()->select('gender')->take(20)->get()->map(fn($item) => $item->gender)->filter(),
-    //         'personal_phone' => Lead::distinct()->select('personal_phone')->take(20)->get()->map(fn($item) => $item->personal_phone)->filter(),
-    //         // 'employee_range' => Lead::distinct()->select('employee_range')->take(20)->get()->map(fn($item) => $item->employee_range)->filter(),
-    //         'company_website' => Lead::distinct()->select('company_website')->take(20)->get()->map(fn($item) => $item->company_website)->filter(),
-    //         'company_linkedin_link' => Lead::distinct()->select('company_linkedin_link')->take(20)->get()->map(fn($item) => $item->company_linkedin_link)->filter(),
-    //         'company_hq_address' => Lead::distinct()->select('company_hq_address')->take(20)->get()->map(fn($item) => $item->company_hq_address)->filter(),
-    //         'industry' => Lead::distinct()->select('industry')->take(20)->get()->map(fn($item) => $item->industry)->filter(),
-    //         // 'revenue' => Lead::distinct()->select('revenue')->take(20)->get()->map(fn($item) => $item->revenue)->filter(),
-    //         // 'street' => Lead::distinct()->select('street')->take(20)->get()->map(fn($item) => $item->street)->filter(),
-    //         'zip_code' => Lead::distinct()->select('zip_code')->take(20)->get()->map(fn($item) => $item->zip_code)->filter(),
-    //         // 'rating' => Lead::distinct()->select('rating')->take(20)->get()->map(fn($item) => $item->rating)->filter(),
-    //         'sheet_name' => Lead::distinct()->select('sheet_name')->take(20)->get()->map(fn($item) => $item->sheet_name)->filter(),
-    //         'job_link' => Lead::distinct()->select('job_link')->take(20)->get()->map(fn($item) => $item->job_link)->filter(),
-    //         // 'job_role' => Lead::distinct()->select('job_role')->take(20)->get()->map(fn($item) => $item->job_role)->filter(),
-    //         // 'checked_by' => Lead::distinct()->select('checked_by')->take(20)->get()->map(fn($item) => $item->checked_by)->filter(),
-    //         // 'review' => Lead::distinct()->select('review')->take(20)->get()->map(fn($item) => $item->review)->filter(),
-    //     ]);
-    // }
     
     public function getFilterValues()
     {
@@ -200,32 +176,6 @@ class DataController extends Controller
         return response()->json($data);
     }
     
-    
-    
-
-
-    // public function dataServer(Request $request)
-    // {
-    //     $clientId = $request->input('client_id');
-    //     $sheetId = $request->input('sheet_id');
-
-    //     // Validate the parameters if needed
-    //     if (!$clientId || !$sheetId) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => 'client_id and sheet_id are required.'
-    //         ], 400);
-    //     }
-
-    //     // Filter leads based on client_id and sheet_id
-    //     $leads = Lead::where('client_id', $clientId)
-    //                  ->where('sheet_id', $sheetId)
-    //                  ->get();
-
-    //     return DataTables::of($leads)->toJson();
-    // }
-
-
     // Filter leads based on search criteria
     public function filter(Request $request)
     {

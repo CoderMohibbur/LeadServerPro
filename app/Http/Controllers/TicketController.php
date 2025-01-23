@@ -17,16 +17,14 @@ class TicketController extends Controller
      */
     public function index()
     {
-        // Log that the tickets page was accessed
-        Log::info('Tickets page accessed.');
 
         // Fetch all tickets
         $tickets = Ticket::all();
-        $tickets = Ticket::count();
+        // $tickets = Ticket::count();
 
 
         // Log the number of tickets fetched
-        Log::info('Number of tickets found: ' . $tickets->count());
+        // Log::info('Number of tickets found: ' . $tickets->count());
 
         // Return view with tickets
         return view('tickets.index', compact('tickets'));
