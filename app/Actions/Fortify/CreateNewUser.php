@@ -38,6 +38,7 @@ class CreateNewUser implements CreatesNewUsers
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'username' => null,
             'password' => Hash::make($input['password']),
             'country' => $input['country'] ?? null,
             'company_name' => $input['company_name'] ?? null,
@@ -45,6 +46,7 @@ class CreateNewUser implements CreatesNewUsers
             'linkedin_url' => $input['linkedin_url'] ?? null,
             'is_approved' => false, // Automatically set to false
         ]);
+        
 
         // Assign the default "Customer" role to the new user
         // $user->assignRole('user'); // Ensure the "Customer" role exists in your database

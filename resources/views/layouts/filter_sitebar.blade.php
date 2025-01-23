@@ -1,15 +1,14 @@
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-30 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidebar" >
+    aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <!-- Sidebar Content -->
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route(auth()->user()->hasRole('admin') ? 'sheets.index' : 'client.sheets.index') }}"
                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" 
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                        viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5 12h14M5 12l4-4m-4 4 4 4" />
                     </svg>
@@ -41,31 +40,6 @@
                 </div> --}}
 
                 <div id="filtersContainer">
-                    {{-- <div>
-                        <label for="filter_company_name"
-                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Company Name
-                        </label>
-                        <input type="text" name="company_name" id="company_name" placeholder="Type and Select"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div>
-
-                    <div>
-                        <label for="filter_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Email
-                        </label>
-                        <input type="text" name="email" id="email" placeholder="Type and Select"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div>
-
-                    <div>
-                        <label for="full_address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Full Address
-                        </label>
-                        <input type="text" name="full_address" id="full_address" placeholder="Type and Select"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
-
                     <div>
                         <label for="linkedin_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Linkedin Link
@@ -88,7 +62,7 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    {{-- <div>
+                    <div class="hidden">
                         <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             First Name
                         </label>
@@ -96,7 +70,7 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    <div>
+                    <div class="hidden">
                         <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Last Name
                         </label>
@@ -104,13 +78,13 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    <div>
+                    <div class="hidden">
                         <label for="full_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Full Name
                         </label>
                         <input type="text" name="full_name" id="full_name" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
+                    </div>
 
                     <div>
                         <label for="person_location" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -120,13 +94,13 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    {{-- <div>
+                    <div class="hidden">
                         <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             City
                         </label>
                         <input type="text" name="city" id="city" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
+                    </div>
                     <div>
                         <label for="tag" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Tag
@@ -135,28 +109,32 @@
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
 
-                    {{-- <div>
+                    <div class="hidden">
                         <label for="source_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Source Link
                         </label>
                         <input type="text" name="source_link" id="source_link" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
-                    {{-- <div>
-                        <label for="personal_phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    </div>
+                    <div class="hidden">
+                        <label for="personal_phone"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Personal Phone
                         </label>
-                        <input type="text" name="personal_phone" id="personal_phone" placeholder="Type and Select"
-                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
-                    <div>
-                        <label for="company_website" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Company Website
-                        </label>
-                        <input type="text" name="company_website" id="company_website" placeholder="Type and Select"
+                        <input type="text" name="personal_phone" id="personal_phone"
+                            placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    {{-- <div>
+                    <div>
+                        <label for="company_website"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Company Website
+                        </label>
+                        <input type="text" name="company_website" id="company_website"
+                            placeholder="Type and Select"
+                            class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
+                    </div>
+                    <div class="hidden">
                         <label for="company_linkedin_link"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Company Linkedin Link
@@ -164,7 +142,7 @@
                         <input type="text" name="company_linkedin_link" id="company_linkedin_link"
                             placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
+                    </div>
                     <div>
                         <label for="company_hq_address"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -174,13 +152,13 @@
                             placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    {{-- <div>
+                    <div class="hidden">
                         <label for="zip_code" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Zip Code
                         </label>
                         <input type="text" name="zip_code" id="zip_code" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
+                    </div>
                     <div>
                         <label for="job_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Job Link
@@ -188,15 +166,18 @@
                         <input type="text" name="job_link" id="job_link" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
                     </div>
-                    {{-- <div>
+                    <div class="hidden">
                         <label for="sheet_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Sheet Name
                         </label>
                         <input type="text" name="sheet_name" id="sheet_name" placeholder="Type and Select"
                             class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 tagify">
-                    </div> --}}
-
+                    </div>
                 </div>
+                <button id="removeAllTagsButton"
+                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-gray-700 transition">
+                    Remove All Tags
+                </button>
                 <input type="text" id="sheetIdFilter" class="form-input hidden" placeholder="Enter Sheet ID"
                     readonly />
                 <input type="text" id="userIdFilter" class="form-input hidden" placeholder="Enter User ID"
@@ -270,9 +251,7 @@
                         })
                         .catch(error => console.error('Error fetching filter values:', error));
                 </script> --}}
-
             </div>
-
         </div>
     </div>
 </aside>
