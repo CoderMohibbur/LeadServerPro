@@ -20,7 +20,7 @@
         <!-- Filter Section -->
         <div class="flex flex-col md:flex-row ">
             <!-- Filter Column -->
-            <div class="w-full md:w-2/2 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg space-y-6">
+            <div class="w-full md:w-2/2 space-y-6">
                 {{-- <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Title
                 </label>
@@ -175,7 +175,7 @@
                     </div>
                 </div>
                 <button id="removeAllTagsButton"
-                    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-gray-700 transition">
+                    class="block mx-auto my-2.5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-gray-700 transition">
                     Remove All Tags
                 </button>
                 <input type="text" id="sheetIdFilter" class="form-input hidden" placeholder="Enter Sheet ID"
