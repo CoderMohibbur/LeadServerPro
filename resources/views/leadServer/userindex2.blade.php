@@ -14,16 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script> --}}
-    {{-- <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script> --}}
-
-
+    <link rel="stylesheet" href="{{ asset('css/tagify.css') }}">
 
     <!-- Styles -->
     @livewireStyles
@@ -250,7 +241,6 @@
             <!-- Modal body -->
         </div>
     </div>
-
     @livewireScripts
 
     {{-- <script>
@@ -594,7 +584,7 @@
 
         });
     </script> --}}
-
+    <script src="{{ asset('js/tagify.js') }}"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             // Extract URL parameters
@@ -802,7 +792,6 @@
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
                         }
                     }
-
                 ],
 
                 layout: {
@@ -906,8 +895,9 @@
                     //         $('<th></th>').appendTo(searchRow);
                     //     }
                     // });
-                    const columnsToSearch = [1, 2, 3, 5, 4,
-                    6]; // Indices of columns to include (0-based)
+                    const columnsToSearch = Array.from({
+                        length: 36
+                    }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
 
                     // Add a second row for search filters
                     const tableHeader = $(api.table().header());

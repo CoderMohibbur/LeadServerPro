@@ -93,14 +93,14 @@ public function store(Request $request)
         $dbColumns = array_map('strtolower', $dbColumns);
 
         $headerMap = [
-            'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin', 'linkedin_link'],
+            'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin', 'linkedin_link', 'LinkedIn Link'],
             'company_name' => ['company', 'company name', 'company_name'],
             'contact_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'contact_name'],
             'name_prefix' => ['namePrefix', 'name_prefix'],
             'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
-            'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
-            'last_name' => ['last name', 'lname', 'lastName'],
-            'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email'],
+            'first_name' => ['first name', 'fname', 'firstName', 'first_name', 'First Name'],
+            'last_name' => ['last name', 'lname', 'lastName', 'Last Name'],
+            'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email', 'Email'],
             'phone' => ['phone number', 'phone', 'contact phone'],
             'title_position' => ['Title', 'titlePosition'],
             'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
@@ -120,7 +120,7 @@ public function store(Request $request)
             'company_website' => ['Company Website', 'Website', 'Web Link', 'WebLink ', 'companyWebsite', 'company_website'],
             'company_linkedin_link' => ['companyLinkedinLink','company_linkedin','company linkedin', 'company_linkedin_link'],
             'company_hq_address' => ['company hq address', 'hq address', 'company hq', 'company_hq', 'company address', 'company_hq_address', 'job_location'],
-            'industry' => ['industry'],
+            'industry' => ['industry', 'Industry'],
             'revenue' => ['revenue'],
             'street' => ['street'],
             'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
