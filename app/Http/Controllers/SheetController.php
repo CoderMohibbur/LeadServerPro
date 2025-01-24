@@ -100,7 +100,7 @@ public function store(Request $request)
             'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
             'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
             'last_name' => ['last name', 'lname', 'lastName'],
-            'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email'],
+            'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email','Business Email'],
             'phone' => ['phone number', 'phone', 'contact phone'],
             'title_position' => ['Title', 'titlePosition'],
             'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
@@ -126,7 +126,7 @@ public function store(Request $request)
             'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
             'rating' => ['rating'],
             'sheet_name' => ['sheet_name'],
-            'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
+            'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link','Job Posting Source Link'],
             'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
             'checked_by' => ['checkedby', 'checked by', 'checked_by'],
             'review' => ['review','review_by']
