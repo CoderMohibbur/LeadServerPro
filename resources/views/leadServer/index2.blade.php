@@ -106,19 +106,21 @@
                                             <th class="p-2.5">Last Name</th>
                                             <th class="p-2.5">Email</th>
                                             <th class="p-2.5">Title Position</th>
+                                            <th class="p-2.5">Personal Phone</th>
+                                            <th class="p-2.5">Country</th>
+                                            <th class="p-2.5">Job Link</th>
+                                            <th class="p-2.5">Job Role</th>
+                                            <th class="p-2.5">Tag</th>
                                             <th class="p-2.5">Person Location</th>
                                             <th class="p-2.5">Full Address</th>
                                             <th class="p-2.5">Company Phone</th>
                                             <th class="p-2.5">Company Head Count</th>
-                                            <th class="p-2.5">Country</th>
                                             <th class="p-2.5">City</th>
                                             <th class="p-2.5">State</th>
-                                            <th class="p-2.5">Tag</th>
                                             <th class="p-2.5">Source Link</th>
                                             <th class="p-2.5">Middle Name</th>
                                             <th class="p-2.5">Sur Name</th>
                                             <th class="p-2.5">Gender</th>
-                                            <th class="p-2.5">Personal Phone</th>
                                             <th class="p-2.5">Employee Range</th>
                                             <th class="p-2.5">Company Website</th>
                                             <th class="p-2.5">Company LinkedIn Link</th>
@@ -129,8 +131,6 @@
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
                                             <th class="p-2.5">Sheet Name</th>
-                                            <th class="p-2.5">Job Link</th>
-                                            <th class="p-2.5">Job Role</th>
                                             <th class="p-2.5">Checked By</th>
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
@@ -375,6 +375,28 @@
                         width: "150px"
                     },
                     {
+                        data: 'personal_phone',
+                        width: "150px"
+                    },
+                    {
+                        data: 'country',
+                        width: "150px"
+                    },
+                    {
+                        data: 'job_link',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'job_role',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'tag',
+                        width: "150px"
+                    },
+                    {
                         data: 'person_location',
                         width: "150px"
 
@@ -393,10 +415,7 @@
                         data: 'company_head_count',
                         width: "150px"
                     },
-                    {
-                        data: 'country',
-                        width: "150px"
-                    },
+
                     {
                         data: 'city',
                         width: "150px"
@@ -406,10 +425,7 @@
                         width: "150px"
 
                     },
-                    {
-                        data: 'tag',
-                        width: "150px"
-                    },
+
                     {
                         data: 'source_link',
                         width: "150px"
@@ -427,10 +443,7 @@
                         data: 'gender',
                         width: "150px"
                     },
-                    {
-                        data: 'personal_phone',
-                        width: "150px"
-                    },
+
                     {
                         data: 'employee_range',
                         width: "150px"
@@ -471,14 +484,7 @@
                         data: 'sheet_name',
                         width: "150px"
                     },
-                    {
-                        data: 'job_link',
-                        width: "150px"
-                    },
-                    {
-                        data: 'job_role',
-                        width: "150px"
-                    },
+
                     {
                         data: 'checked_by',
                         width: "150px"
