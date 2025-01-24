@@ -9,7 +9,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <!-- Total Lead Card -->
-                <a href="/lead-server" class="block transition-transform transform hover:-translate-y-2 bg-blue-500 shadow-lg rounded-lg p-6 hover:bg-blue-600">
+                @if (auth()->user()->hasRole('admin'))
+                    <a href="/lead-server" class="block transition-transform transform hover:-translate-y-2 bg-blue-500 shadow-lg rounded-lg p-6 hover:bg-blue-600">
+                @else
+                    <a href="/client/lead-server" class="block transition-transform transform hover:-translate-y-2 bg-blue-500 shadow-lg rounded-lg p-6 hover:bg-blue-600">
+                @endif
                     <div class="flex items-center gap-4">
                         <div class="bg-white p-2 rounded-full shadow">
                             <svg class="w-8 h-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -42,7 +46,11 @@
                 </a>
             @else
                  <!-- Total Client Card -->
+                 @if (auth()->user()->hasRole('admin'))
                  <a href="/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
+                    @else
+                    <a href="/client/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
+                     @endif
                     <div class="flex items-center gap-4">
                         <div class="bg-white p-2 rounded-full shadow">
                             <svg class="w-8 h-8 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +67,11 @@
 
 
                 <!-- Total Sheet Card -->
+                @if (auth()->user()->hasRole('admin'))
                 <a href="/sheets" class="block transition-transform transform hover:-translate-y-2 bg-green-500 shadow-lg rounded-lg p-6 hover:bg-green-600">
+                    @else
+            <a href="/client/sheets" class="block transition-transform transform hover:-translate-y-2 bg-green-500 shadow-lg rounded-lg p-6 hover:bg-green-600">
+                @endif
                     <div class="flex items-center gap-4">
                         <div class="bg-white p-2 rounded-full shadow">
                             <svg class="w-8 h-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">

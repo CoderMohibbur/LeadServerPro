@@ -74,6 +74,8 @@
                                     Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
                                 </a>
                             </li>
+
+                            
                         </ul>
                     </nav>
                     <!-- Right Section (Button) -->
