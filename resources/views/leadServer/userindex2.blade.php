@@ -51,7 +51,16 @@
                         type="button">
                         Upload
                     </button> --}}
+
+
+
                 </div>
+                <li class="flex justify-end items-center">
+                    <a href=""
+                       class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
+                    </a>
+                </li>
             </div>
         </div>
 
@@ -668,7 +677,12 @@
                     }
                 },
                 columns: [{
-                        data: 'id'
+                    data: null, // Use `null` as data is not tied to any column in the database
+                        render: function(data, type, row, meta) {
+                            return meta.row +
+                            1; // meta.row starts from 0, so add 1 for 1-based indexing
+                        },
+                        width: "50px"
                     },
                     {
                         data: 'linkedin_link'
