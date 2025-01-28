@@ -34,7 +34,7 @@
         <!-- Page Heading -->
         <div class="p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-                <div class=" flex items-center">
+                <div class=" flex justify-between items-center">
                     <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         {{ __('Lead Lists') }}
                     </h1>
@@ -51,16 +51,14 @@
                         type="button">
                         Upload
                     </button> --}}
-
-
-
+                    <li class="flex justify-end items-center">
+                        <a href=""
+                           class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
+                        </a>
+                    </li>
                 </div>
-                <li class="flex justify-end items-center">
-                    <a href=""
-                       class="inline-block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
-                    </a>
-                </li>
+
             </div>
         </div>
 
@@ -615,7 +613,7 @@
                 responsive: true,
                 autoWidth: false,
                 scrollX: true,
-                scrollY: "75vh",
+                scrollY: "50vh",
                 scrollCollapse: true,
                 pageLength: 25, // Default number of rows per page
                 lengthMenu: [25, 50, 100, 200], // Dropdown options for rows per page

@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,6 +19,8 @@ class DataController extends Controller
     // Display the list of leads
     public function index(Request $request)
     {
+        $user = Auth::user(); // Explicitly retrieve the authenticated user
+
         if ($request->user()->hasRole('admin|manager')) {
             $leadcount = Lead::count();
             $leads = Lead::paginate(10);
@@ -26,7 +29,9 @@ class DataController extends Controller
             return view('leadServer.index2', compact('leads', 'users','leadcount'));
         } elseif ($request->user()->hasRole('user')) {
             // $leads = Lead::all(); // Paginate the leads data
-            $leadcount = Lead::count();
+            $leadcount = Lead::whereHas('sheet', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->count();
             $leads = Lead::paginate(10);
             // $categories = Lead::all();
             $users = User::all();
