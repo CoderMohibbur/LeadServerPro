@@ -691,8 +691,14 @@
                         console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
+<<<<<<< HEAD
                 columns: [{
                         data: null, // Use `null` as data is not tied to any column in the database
+=======
+                columns: [
+                    {
+                    data: null, // Use `null` as data is not tied to any column in the database
+>>>>>>> 27909da5cadc10858fe2093ef64fc7d6ef43414d
                         render: function(data, type, row, meta) {
                             return meta.row +
                             1; // meta.row starts from 0, so add 1 for 1-based indexing
