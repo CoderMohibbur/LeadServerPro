@@ -210,46 +210,139 @@
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div x-data="{ open: false, search: '', selectedUser: '', selectedUserId: '' }" class="relative">
+                            <!-- Select User -->
+                            <div class="relative">
                                 <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>
-
+                                
                                 <!-- Input for search -->
-                                <input type="text" x-model="search" @focus="open = true" @click="open = true"
-                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
-                                    placeholder="Search User..." autocomplete="off">
-
+                                <input 
+                                    type="text" 
+                                    id="user_search" 
+                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2" 
+                                    placeholder="Search User..." 
+                                    autocomplete="off"
+                                    oninput="filterUsers(event)" 
+                                    onclick="openDropdown()"
+                                    onkeydown="handleKeyboardNavigation(event)">
+                                
                                 <!-- Dropdown Menu -->
-                                <div x-show="open" @click.outside="open = false"
-                                    class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
-                                    <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
-                                        @foreach ($users as $user)
-                                            <li
-                                                x-show="search === '' || '{{ $user->name }} - {{ $user->username }}'.toLowerCase().includes(search.toLowerCase())">
-                                                <a href="#"
-                                                    class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                                                    @click.prevent="
-                                                        selectedUser = '{{ $user->name }} - {{ $user->username }}';
-                                                        selectedUserId = '{{ $user->id }}';
-                                                        search = selectedUser;  // Update the input field with the selected name
-                                                        open = false;">
-                                                    {{ $user->name }} - {{ $user->username }}
-                                                </a>
-                                            </li>
-                                        @endforeach
+                                <div 
+                                    id="dropdown_menu" 
+                                    class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10 hidden">
+                                    <ul id="user_list" class="py-1 text-sm text-gray-700 dark:text-gray-300">
+                                        <!-- User options will be dynamically inserted here -->
                                     </ul>
                                 </div>
-
+                            
+                                <!-- Message if no users found -->
+                                <div id="no_results" class="hidden absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md z-10">
+                                    <p class="px-4 py-2 text-gray-500 dark:text-gray-400">No users found</p>
+                                </div>
+                            
                                 <!-- Hidden Input for Form Submission -->
-                                <input type="hidden" name="user_id" :value="selectedUserId">
-
+                                <input type="hidden" name="user_id" id="selected_user_id">
+                            
                                 <!-- Error handling -->
-                                @error('user_id')
-                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
-                                @enderror
+                                <div id="error_message" class="text-red-500 text-sm mt-1 hidden">An error occurred</div>
                             </div>
-
-
+                            
+                            <script>
+                                const users = @json($users); // The user data from the backend
+                                let filteredUsers = [...users.slice(0, 10)]; // Show the first 10 users by default
+                                let activeIndex = -1;
+                            
+                                // Filter users based on search input
+                                function filterUsers(event) {
+                                    const search = event.target.value.toLowerCase();
+                                    if (search.trim() === "") {
+                                        filteredUsers = [...users.slice(0, 10)]; // Default to the first 10 users
+                                    } else {
+                                        filteredUsers = users.filter(user =>
+                                            `${user.name} - ${user.username}`.toLowerCase().includes(search)
+                                        );
+                                    }
+                                    activeIndex = -1; // Reset active index
+                                    updateDropdown();
+                                }
+                            
+                                // Open the dropdown
+                                function openDropdown() {
+                                    if (filteredUsers.length === 0) {
+                                        // If no filtering has been done, show the first 10 users
+                                        filteredUsers = [...users.slice(0, 10)];
+                                    }
+                                    document.getElementById("dropdown_menu").classList.remove("hidden");
+                                    document.getElementById("no_results").classList.add("hidden");
+                                    updateDropdown();
+                                }
+                            
+                                // Close the dropdown
+                                function closeDropdown() {
+                                    document.getElementById("dropdown_menu").classList.add("hidden");
+                                }
+                            
+                                // Update the dropdown menu with filtered users
+                                function updateDropdown() {
+                                    const dropdownMenu = document.getElementById("dropdown_menu");
+                                    const userList = document.getElementById("user_list");
+                                    const noResults = document.getElementById("no_results");
+                            
+                                    // Clear the current list
+                                    userList.innerHTML = "";
+                            
+                                    if (filteredUsers.length === 0) {
+                                        dropdownMenu.classList.add("hidden");
+                                        noResults.classList.remove("hidden");
+                                        return;
+                                    }
+                            
+                                    dropdownMenu.classList.remove("hidden");
+                                    noResults.classList.add("hidden");
+                            
+                                    // Add users to the dropdown
+                                    filteredUsers.slice(0, 10).forEach((user, index) => {
+                                        const li = document.createElement("li");
+                                        li.className = `block px-4 py-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${
+                                            index === activeIndex ? "bg-gray-200 dark:bg-gray-700" : ""
+                                        }`;
+                                        li.textContent = `${user.name} - ${user.username}`;
+                                        li.onclick = () => selectUser(index);
+                                        userList.appendChild(li);
+                                    });
+                                }
+                            
+                                // Handle keyboard navigation
+                                function handleKeyboardNavigation(event) {
+                                    if (filteredUsers.length === 0) return;
+                            
+                                    if (event.key === "ArrowDown") {
+                                        activeIndex = (activeIndex + 1) % filteredUsers.length;
+                                    } else if (event.key === "ArrowUp") {
+                                        activeIndex = (activeIndex - 1 + filteredUsers.length) % filteredUsers.length;
+                                    } else if (event.key === "Enter") {
+                                        if (activeIndex >= 0) {
+                                            selectUser(activeIndex);
+                                        }
+                                    }
+                            
+                                    updateDropdown();
+                                }
+                            
+                                // Select a user from the dropdown
+                                function selectUser(index) {
+                                    const user = filteredUsers[index];
+                                    document.getElementById("user_search").value = `${user.name} - ${user.username}`;
+                                    document.getElementById("selected_user_id").value = user.id;
+                                    closeDropdown();
+                                }
+                            
+                                // Close the dropdown when clicking outside
+                                document.addEventListener("click", (event) => {
+                                    if (!event.target.closest(".relative")) {
+                                        closeDropdown();
+                                    }
+                                });
+                            </script>
                         </div>
 
                         <div>
@@ -327,12 +420,15 @@
 
                         // Process all '.tagify' inputs within '#filtersContainer'
                         $('#filtersContainer .tagify').each(function() {
-                            const tagify = $(this).data('tagify'); // Retrieve the Tagify instance
+                            const tagify = $(this).data(
+                            'tagify'); // Retrieve the Tagify instance
                             if (tagify) {
-                                const columnName = $(this).attr('name'); // Use the input's name as the column
-                                d[columnName] = Array.isArray(tagify.value)
-                                    ? tagify.value.map(tag => tag.value) // Safely map tag values
-                                    : []; // Default to an empty array if tagify.value is not valid
+                                const columnName = $(this).attr(
+                                'name'); // Use the input's name as the column
+                                d[columnName] = Array.isArray(tagify.value) ?
+                                    tagify.value.map(tag => tag.value) // Safely map tag values
+                                    :
+                                    []; // Default to an empty array if tagify.value is not valid
                             }
                         });
 
@@ -344,7 +440,7 @@
                         data: null, // Use `null` as data is not tied to any column in the database
                         render: function(data, type, row, meta) {
                             return meta.row +
-                            1; // meta.row starts from 0, so add 1 for 1-based indexing
+                                1; // meta.row starts from 0, so add 1 for 1-based indexing
                         },
                         width: "50px"
                     },
@@ -586,19 +682,24 @@
                         //     $('#dataTable').DataTable().ajax.reload(); // Reload DataTable
                         // });
                         // Add an event listener to the button
-                        document.getElementById('removeAllTagsButton').addEventListener('click', function () {
-                            // Remove all tags
-                            tagify.removeAllTags();
-                            $('#dataTable').DataTable().ajax.reload(); // Reload DataTable
-                            // Reset DataTable search field (e.g., dt-search-0)
-                            const searchField = document.querySelector('#dt-search-0'); // Replace #dt-search-0 with the correct selector
-                            if (searchField) {
-                                searchField.value = ''; // Clear the search field value
-                                searchField.dispatchEvent(new Event('input')); // Trigger input event for search
-                            }
-                            // Reload the DataTable
-                            $('#dataTable').DataTable().search('').draw(); // Clear and redraw the table
-                        });
+                        document.getElementById('removeAllTagsButton').addEventListener('click',
+                            function() {
+                                // Remove all tags
+                                tagify.removeAllTags();
+                                $('#dataTable').DataTable().ajax
+                            .reload(); // Reload DataTable
+                                // Reset DataTable search field (e.g., dt-search-0)
+                                const searchField = document.querySelector(
+                                '#dt-search-0'); // Replace #dt-search-0 with the correct selector
+                                if (searchField) {
+                                    searchField.value = ''; // Clear the search field value
+                                    searchField.dispatchEvent(new Event(
+                                    'input')); // Trigger input event for search
+                                }
+                                // Reload the DataTable
+                                $('#dataTable').DataTable().search('')
+                            .draw(); // Clear and redraw the table
+                            });
 
                     });
 
@@ -660,6 +761,7 @@
             });
         });
     </script>
+
 </body>
 <style>
     .dataTable th,

@@ -21,16 +21,16 @@ class DataController extends Controller
         if ($request->user()->hasRole('admin|manager')) {
             $leadcount = Lead::count();
             $leads = Lead::paginate(10);
-            $categories = Lead::all();
+            // $categories = Lead::all();
             $users = User::all();
-            return view('leadServer.index2', compact('leads', 'categories', 'users','leadcount'));
+            return view('leadServer.index2', compact('leads', 'users','leadcount'));
         } elseif ($request->user()->hasRole('user')) {
             // $leads = Lead::all(); // Paginate the leads data
             $leadcount = Lead::count();
             $leads = Lead::paginate(10);
-            $categories = Lead::all();
+            // $categories = Lead::all();
             $users = User::all();
-            return view('leadServer.userindex2', compact('leads', 'categories', 'users','leadcount'));
+            return view('leadServer.userindex2', compact('leads', 'users','leadcount'));
         } else {
             // Code for other roles or unauthorized access
             return response()->json(['message' => 'Access Denied.','leadcount'], 403);
