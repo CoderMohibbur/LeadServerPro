@@ -76,7 +76,7 @@
                                 <table id="dataTable" class="dataTable table-auto border-collapse w-full">
                                     <thead>
                                         <tr>
-                                            <th class="p-2.5">ID</th>
+                                            <th class="p-2.5">#</th>
                                             <th class="p-2.5">LinkedIn Link</th>
                                             <th class="p-2.5">Company Name</th>
                                             <th class="p-2.5">Contact Name</th>
@@ -197,7 +197,7 @@
                                     class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
                                     placeholder="Search User..." autocomplete="off">
 
-                                <!-- Dropdown Menu -->
+                                   <!-- Dropdown Menu -->
                                 <div x-show="open" @click.outside="open = false"
                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
                                     <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
@@ -677,7 +677,12 @@
                     }
                 },
                 columns: [{
-                        data: 'id'
+                        data: null, // Use `null` as data is not tied to any column in the database
+                        render: function(data, type, row, meta) {
+                            return meta.row +
+                            1; // meta.row starts from 0, so add 1 for 1-based indexing
+                        },
+                        width: "50px"
                     },
                     {
                         data: 'linkedin_link'

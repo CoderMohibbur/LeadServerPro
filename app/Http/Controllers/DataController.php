@@ -94,19 +94,19 @@ class DataController extends Controller
     // public function dataServer(Request $request)
     // {
     //     $query = Lead::query();
-    
+
     //     if ($request->hasAny(['sheet_id', 'user_id'])) {
     //         $query->when($request->filled('sheet_id'), function ($q) use ($request) {
     //             $q->where('sheets_id', $request->sheet_id);
     //         });
-    
+
     //         $query->when($request->filled('user_id'), function ($q) use ($request) {
     //             $q->whereHas('sheet', function ($subQuery) use ($request) {
     //                 $subQuery->where('user_id', $request->user_id);
     //             });
     //         });
     //     }
-    
+
     //     // Apply other filters dynamically
     //     foreach ($request->all() as $column => $values) {
     //         if (is_array($values) && !empty($values)) {
@@ -115,17 +115,17 @@ class DataController extends Controller
     //             }
     //         }
     //     }
-    
+
     //     // Handle dynamic pagination
     //     $start = $request->input('start', 0); // Defaults to 0 if not provided
     //     $length = $request->input('length', 25); // Defaults to 25 if not provided
-    
+
     //     $query->offset($start)->limit($length);
-    
+
     //     // Return the filtered data to DataTables
     //     return DataTables::of($query)->make(true);
     // }
-    
+
 
 
     public function updateFilterValues()
@@ -148,17 +148,17 @@ class DataController extends Controller
             );
         }
     }
-    
+
     public function getFilterValues()
     {
         $fields = [
-            'linkedin_link', 'company_name', 'contact_name', 'full_name', 
-            'first_name', 'last_name', 'email', 'person_location', 
-            'full_address', 'city', 'tag', 'source_link', 'personal_phone', 
-            'company_website', 'company_linkedin_link', 'company_hq_address', 
+            'linkedin_link', 'company_name', 'contact_name', 'full_name',
+            'first_name', 'last_name', 'email', 'person_location',
+            'full_address', 'city', 'tag', 'source_link', 'personal_phone',
+            'company_website', 'company_linkedin_link', 'company_hq_address',
             'industry', 'zip_code', 'sheet_name', 'job_link'
         ];
-    
+
         $data = [];
         foreach ($fields as $field) {
             $data[$field] = Lead::distinct()
@@ -166,16 +166,16 @@ class DataController extends Controller
                 ->take(20)
                 ->filter()
                 ->toArray();
-    
+
             // Reindex to ensure consistency (convert associative arrays to plain arrays)
             $data[$field] = array_values($data[$field]);
         }
-    
+
         // Log::info('Filter Values:', $data);
-    
+
         return response()->json($data);
     }
-    
+
     // Filter leads based on search criteria
     public function filter(Request $request)
     {

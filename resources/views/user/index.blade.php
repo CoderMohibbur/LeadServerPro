@@ -110,7 +110,7 @@
                                 <input id="username" name="username" type="text" placeholder="User Name"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
-                                    <span class="text-red-500 text-sm"></span> 
+                                    <span class="text-red-500 text-sm"></span>
                                 @error('username')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -123,7 +123,7 @@
                                 <input id="email" name="email" type="text" placeholder="example@mail.com"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     >
-                                    <span class="text-red-500 text-sm"></span> 
+                                    <span class="text-red-500 text-sm"></span>
                                 @error('email')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
@@ -136,7 +136,7 @@
                                 <input id="password" name="password" type="password" placeholder="******"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
-                                    <span class="text-red-500 text-sm"></span> 
+                                    <span class="text-red-500 text-sm"></span>
 
                                 @error('password')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -152,7 +152,7 @@
                                     placeholder="******"
                                     class="mt-2 block w-full p-3 border border-gray-300 rounded-lg text-gray-900 dark:text-gray-200 dark:bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
                                     required>
-                                    <span class="text-red-500 text-sm"></span> 
+                                    <span class="text-red-500 text-sm"></span>
                                 @error('password_confirmation')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror

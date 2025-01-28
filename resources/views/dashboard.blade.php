@@ -49,7 +49,7 @@
                  @if (auth()->user()->hasRole('admin'))
                  <a href="/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
                     @else
-                    <a href="/client/User" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
+                    <a href="/client/tickets" class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
                      @endif
                     <div class="flex items-center gap-4">
                         <div class="bg-white p-2 rounded-full shadow">
