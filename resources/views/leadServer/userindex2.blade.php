@@ -677,7 +677,11 @@
                     }
                 },
                 columns: [{
+<<<<<<< HEAD
                         data: null, // Use `null` as data is not tied to any column in the database
+=======
+                    data: null, // Use `null` as data is not tied to any column in the database
+>>>>>>> 22e0dc25943a701ba2132184f1bedc0e227789d0
                         render: function(data, type, row, meta) {
                             return meta.row +
                             1; // meta.row starts from 0, so add 1 for 1-based indexing
