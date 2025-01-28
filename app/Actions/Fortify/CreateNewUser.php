@@ -31,14 +31,14 @@ class CreateNewUser implements CreatesNewUsers
             'country' => 'nullable|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:20',
-            'linkedin_url' => 'nullable|url',
+            'username' => 'required|string',
         ])->validate();
 
         // Create the user
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
-            'username' => null,
+            'username' => $input['username'],
             'password' => Hash::make($input['password']),
             'country' => $input['country'] ?? null,
             'company_name' => $input['company_name'] ?? null,
