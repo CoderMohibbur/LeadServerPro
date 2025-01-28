@@ -189,7 +189,7 @@
                                 @enderror
                             </div>
 
-                            <div x-data="{ open: false, search: '', selectedUser: '', selectedUserId: '' }" class="relative">
+                            <div x-data="userDropdown()" class="relative">
                                 <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>
 
                                 <!-- Input for search -->
@@ -197,21 +197,18 @@
                                     class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
                                     placeholder="Search User..." autocomplete="off">
 
-                                   <!-- Dropdown Menu -->
+                                <!-- Dropdown Menu -->
                                 <div x-show="open" @click.outside="open = false"
                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10">
                                     <ul class="w-full py-1 text-sm text-gray-700 dark:text-gray-300">
                                         @foreach ($users as $user)
                                             <li
                                                 x-show="search === '' || '{{ $user->name }}'.toLowerCase().includes(search.toLowerCase())">
-                                                <a href="#"
-                                                    class="block px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                                                    @click.prevent="
-                                                    selectedUser = '{{ $user->name }}';
-                                                    selectedUserId = '{{ $user->id }}';
-                                                    open = false;">
+                                                <button type="button"
+                                                    class="w-full text-left px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                                    @click="selectUser('{{ $user->name }}', '{{ $user->id }}')">
                                                     {{ $user->name }}
-                                                </a>
+                                                </button>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -230,6 +227,24 @@
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <script>
+                                function userDropdown() {
+                                    return {
+                                        open: false,
+                                        search: '',
+                                        selectedUser: '{{ $users->first()->name ?? '' }}', // Default selected user
+                                        selectedUserId: '{{ $users->first()->id ?? '' }}',  // Default selected user ID
+                                        selectUser(name, id) {
+                                            this.selectedUser = name;
+                                            this.selectedUserId = id;
+                                            this.open = false;
+                                        }
+                                    };
+                                }
+                            </script>
+
+
 
 
                         </div>
@@ -677,11 +692,7 @@
                     }
                 },
                 columns: [{
-<<<<<<< HEAD
                         data: null, // Use `null` as data is not tied to any column in the database
-=======
-                    data: null, // Use `null` as data is not tied to any column in the database
->>>>>>> 22e0dc25943a701ba2132184f1bedc0e227789d0
                         render: function(data, type, row, meta) {
                             return meta.row +
                             1; // meta.row starts from 0, so add 1 for 1-based indexing
