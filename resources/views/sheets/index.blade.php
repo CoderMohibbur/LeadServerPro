@@ -29,8 +29,18 @@
                             <span class="block sm:inline">{{ session('success') }}</span>
                         </div>
                     @endif
-
+                
+                    @if (session('error'))
+                        <div class="px-4 py-3 mb-4 rounded relative border text-sm
+                               bg-red-100 border-red-400 text-red-700
+                               dark:bg-red-900 dark:border-red-700 dark:text-red-300"
+                            role="alert">
+                            <strong class="font-bold">Error!</strong>
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
                 </div>
+                
                 <div class=" flex space-x-4">
                     <div>
                         <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start

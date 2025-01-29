@@ -132,7 +132,6 @@
                                             <th class="p-2.5">Street</th>
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
-                                            <th class="p-2.5">Sheet Name</th>
                                             <th class="p-2.5">Checked By</th>
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
@@ -571,11 +570,6 @@
                         width: "150px"
                     },
                     {
-                        data: 'sheet_name',
-                        width: "150px"
-                    },
-
-                    {
                         data: 'checked_by',
                         width: "150px"
                     },
@@ -690,7 +684,7 @@
                     });
 
                     // Generates an array [1, 2, ..., 36]
-                    const columnsToSearch = Array.from({ length: 36 }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
+                    const columnsToSearch = Array.from({ length: 35 }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
 
                     // Add a second row for search filters
                     const tableHeader = $(api.table().header());
