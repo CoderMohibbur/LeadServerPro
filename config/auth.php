@@ -64,6 +64,8 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
             'username_field' => 'username',
+            'email_field' => 'email',
+
         ],
 
         // 'users' => [

@@ -541,13 +541,13 @@ class SheetControllerBackup extends Controller
                 'name_prefix' => ['namePrefix', 'name_prefix'],
                 'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
                 'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
-                'last_name' => ['last name', 'lname', 'lastName'],
+                'last_name' => ['last name', 'lname', 'lastName', 'last_name'],
                 'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email'],
                 'phone' => ['phone number', 'phone', 'contact phone'],
-                'title_position' => ['Title', 'titlePosition'],
-                'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
-                'full_address' => ['fullAddress', 'Address '],
-                'company_phone' => ['companyphone', 'Phone Number'],
+                'title_position' => ['Title', 'titlePosition', 'title_position'],
+                'person_location' => ['personalLocation', 'location', 'personal location','personal address', 'Job Location','job_location', 'person_location'],
+                'full_address' => ['fullAddress', 'Address', 'full_address'],
+                'company_phone' => ['companyphone', 'company_phone'],
                 'company_head_count' => ['Number of Employees', '# of Employees', 'Head Count', 'companyHeadCount', '#of Employees', 'company_head_count','#of_employee', '#_of_employee'],
                 'country' => ['country'],
                 'city' => ['city'],
@@ -595,9 +595,9 @@ class SheetControllerBackup extends Controller
 
             // foreach ($headers as $header) {
             //     $normalized = strtolower(str_replace([' ', '-', '.'], '_', trim($header)));
-            
+
             //     $mappedHeader = null;
-            
+
             //     // Match normalized headers with aliases in the headerMap
             //     foreach ($headerMap as $key => $aliases) {
             //         if (in_array($header, $aliases, true) || in_array($normalized, $aliases, true)) {
@@ -605,14 +605,14 @@ class SheetControllerBackup extends Controller
             //             break;
             //         }
             //     }
-            
+
             //     $normalizedHeaders[] = $mappedHeader ?: $normalized; // Use the original normalized header as a fallback
             // }
             foreach ($headers as $header) {
                 $normalized = strtolower(str_replace([' ', '-', '.'], '_', trim($header)));
-            
+
                 $mappedHeader = null;
-            
+
                 // Match normalized headers with aliases in the headerMap
                 foreach ($headerMap as $key => $aliases) {
                     if (in_array($header, $aliases, true) || in_array($normalized, $aliases, true)) {
@@ -620,11 +620,11 @@ class SheetControllerBackup extends Controller
                         break;
                     }
                 }
-            
+
                 // Use the normalized header as a fallback if no mapping is found
                 $normalizedHeaders[] = $mappedHeader ?: $normalized;
             }
-            
+
 
             $existingEmails = DB::table('leads')->pluck('email')->toArray();
             $data = [];
