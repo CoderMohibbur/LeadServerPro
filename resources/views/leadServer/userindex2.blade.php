@@ -78,25 +78,25 @@
                                             <th class="p-2.5">LinkedIn Link</th>
                                             <th class="p-2.5">Company Name</th>
                                             <th class="p-2.5">Contact Name</th>
-                                            <th class="p-2.5">Name Prefix</th>
-                                            <th class="p-2.5">Full Name</th>
                                             <th class="p-2.5">First Name</th>
                                             <th class="p-2.5">Last Name</th>
                                             <th class="p-2.5">Email</th>
                                             <th class="p-2.5">Title Position</th>
+                                            <th class="p-2.5">Personal Phone</th>
+                                            <th class="p-2.5">Country</th>
+                                            <th class="p-2.5">Job Link</th>
+                                            <th class="p-2.5">Job Role</th>
+                                            <th class="p-2.5">Tag</th>
                                             <th class="p-2.5">Person Location</th>
                                             <th class="p-2.5">Full Address</th>
                                             <th class="p-2.5">Company Phone</th>
                                             <th class="p-2.5">Company Head Count</th>
-                                            <th class="p-2.5">Country</th>
                                             <th class="p-2.5">City</th>
                                             <th class="p-2.5">State</th>
-                                            <th class="p-2.5">Tag</th>
                                             <th class="p-2.5">Source Link</th>
                                             <th class="p-2.5">Middle Name</th>
                                             <th class="p-2.5">Sur Name</th>
                                             <th class="p-2.5">Gender</th>
-                                            <th class="p-2.5">Personal Phone</th>
                                             <th class="p-2.5">Employee Range</th>
                                             <th class="p-2.5">Company Website</th>
                                             <th class="p-2.5">Company LinkedIn Link</th>
@@ -107,12 +107,11 @@
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
                                             <th class="p-2.5">Sheet Name</th>
-                                            <th class="p-2.5">Job Link</th>
-                                            <th class="p-2.5">Job Role</th>
                                             <th class="p-2.5">Checked By</th>
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
                                             <th class="p-2.5">Updated At</th>
+                                            <th class="p-2.5">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -674,137 +673,189 @@
                         console.log('Filters being sent:', d); // Debug log for verification
                     }
                 },
-                columns: [
-                    {
-                    data: null, // Use `null` as data is not tied to any column in the database
+                columns: [{
+                        data: null, // Use `null` as data is not tied to any column in the database
                         render: function(data, type, row, meta) {
                             return meta.row +
-                            1; // meta.row starts from 0, so add 1 for 1-based indexing
+                                1; // meta.row starts from 0, so add 1 for 1-based indexing
                         },
                         width: "50px"
                     },
                     {
-                        data: 'linkedin_link'
+                        data: 'linkedin_link',
+                        width: "150px"
                     },
                     {
-                        data: 'company_name'
+                        data: 'company_name',
+                        width: "150px"
                     },
                     {
-                        data: 'contact_name'
+                        data: 'contact_name',
+                        width: "150px"
                     },
                     {
-                        data: 'name_prefix'
+                        data: 'first_name',
+                        width: "150px"
                     },
                     {
-                        data: 'full_name'
+                        data: 'last_name',
+                        width: "150px"
                     },
                     {
-                        data: 'first_name'
+                        data: 'email',
+                        width: "150px"
                     },
                     {
-                        data: 'last_name'
+                        data: 'title_position',
+                        width: "150px"
                     },
                     {
-                        data: 'email'
+                        data: 'personal_phone',
+                        width: "150px"
                     },
                     {
-                        data: 'title_position'
+                        data: 'country',
+                        width: "150px"
                     },
                     {
-                        data: 'person_location'
+                        data: 'job_link',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'job_role',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'tag',
+                        width: "150px"
                     },
                     {
-                        data: 'full_address'
+                        data: 'person_location',
+                        width: "150px"
+
                     },
                     {
-                        data: 'company_phone'
+                        data: 'full_address',
+                        width: "150px"
+
                     },
                     {
-                        data: 'company_head_count'
+                        data: 'company_phone',
+                        width: "150px"
+
                     },
                     {
-                        data: 'country'
+                        data: 'company_head_count',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'city',
+                        width: "150px"
                     },
                     {
-                        data: 'city'
+                        data: 'state',
+                        width: "150px"
+
+                    },
+
+                    {
+                        data: 'source_link',
+                        width: "150px"
                     },
                     {
-                        data: 'state'
+                        data: 'middle_name',
+                        width: "150px"
                     },
                     {
-                        data: 'tag'
+                        data: 'sur_name',
+                        width: "150px"
+
                     },
                     {
-                        data: 'source_link'
+                        data: 'gender',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'employee_range',
+                        width: "150px"
                     },
                     {
-                        data: 'middle_name'
+                        data: 'company_website',
+                        width: "150px"
                     },
                     {
-                        data: 'sur_name'
+                        data: 'company_linkedin_link',
+                        width: "150px"
                     },
                     {
-                        data: 'gender'
+                        data: 'company_hq_address',
+                        width: "150px"
                     },
                     {
-                        data: 'personal_phone'
+                        data: 'industry',
+                        width: "150px"
                     },
                     {
-                        data: 'employee_range'
+                        data: 'revenue',
+                        width: "150px"
                     },
                     {
-                        data: 'company_website'
+                        data: 'street',
+                        width: "150px"
                     },
                     {
-                        data: 'company_linkedin_link'
+                        data: 'zip_code',
+                        width: "150px"
                     },
                     {
-                        data: 'company_hq_address'
+                        data: 'rating',
+                        width: "150px"
                     },
                     {
-                        data: 'industry'
+                        data: 'sheet_name',
+                        width: "150px"
+                    },
+
+                    {
+                        data: 'checked_by',
+                        width: "150px"
                     },
                     {
-                        data: 'revenue'
-                    },
-                    {
-                        data: 'street'
-                    },
-                    {
-                        data: 'zip_code'
-                    },
-                    {
-                        data: 'rating'
-                    },
-                    {
-                        data: 'sheet_name'
-                    },
-                    {
-                        data: 'job_link'
-                    },
-                    {
-                        data: 'job_role'
-                    },
-                    {
-                        data: 'checked_by'
-                    },
-                    {
-                        data: 'review'
+                        data: 'review',
+                        width: "150px"
                     },
                     {
                         data: 'created_at',
                         render: function(data) {
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
-                        }
+                        },
+                        width: "150px"
                     },
                     {
                         data: 'updated_at',
                         render: function(data) {
                             return moment(data).format(
                                 'DD-MMM-YYYY h:mm A'); // e.g., 26-Dec-2024 06:34 AM
-                        }
+                        },
+                        width: "150px"
+                    },
+                    {
+                        data: 'id', // The ID will be used for Edit, Show, Delete actions
+                        render: function(data, type, row) {
+                            return `
+                                <button type="button" data-id="${data}" class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-1 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                            `;
+                        },
+                        orderable: false, // Disable sorting for the action column
+                        searchable: false, // Disable searching for the action column
+                        width: "100px"
                     }
+
                 ],
 
                 layout: {

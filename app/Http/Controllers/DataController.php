@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -91,10 +92,92 @@ class DataController extends Controller
             }
         }
 
-        $query->take(500);
+        $query->take(5000);
         // Return the filtered data to DataTables
         return DataTables::of($query)->make(true);
     }
+
+    // public function dataServer(Request $request)
+    // {
+    //     $query = Lead::query();
+    
+    //     // Apply specific filters
+    //     if ($request->filled('sheet_id')) {
+    //         $query->where('sheets_id', $request->sheet_id);
+    //     }
+    
+    //     if ($request->filled('user_id')) {
+    //         $query->whereHas('sheet', function ($subQuery) use ($request) {
+    //             $subQuery->where('user_id', $request->user_id);
+    //         });
+    //     }
+    
+    //     // Apply dynamic filters
+    //     foreach ($request->all() as $column => $values) {
+    //         if (is_array($values) && !empty($values) && Schema::hasColumn('leads', $column)) {
+    //             foreach ($values as $value) {
+    //                 if (is_scalar($value)) {
+    //                     $query->orWhere($column, 'like', '%' . $value . '%');
+    //                 }
+    //             }
+    //         }
+    //     }
+    
+    //     // Handle DataTables pagination parameters
+    //     $start = $request->get('start', 0);
+    //     $length = $request->get('length', 25);
+    
+    //     // Select only necessary columns
+    //     $query->select([
+    //         'id',
+    //         'linkedin_link',
+    //         'company_name',
+    //         'contact_name',
+    //         'first_name',
+    //         'last_name',
+    //         'email',
+    //         'title_position',
+    //         'personal_phone',
+    //         'country',
+    //         'job_link',
+    //         'job_role',
+    //         'tag',
+    //         'person_location',
+    //         'full_address',
+    //         'company_phone',
+    //         'company_head_count',
+    //         'city',
+    //         'state',
+    //         'source_link',
+    //         'middle_name',
+    //         'sur_name',
+    //         'gender',
+    //         'employee_range',
+    //         'company_website',
+    //         'company_linkedin_link',
+    //         'company_hq_address',
+    //         'industry',
+    //         'revenue',
+    //         'street',
+    //         'zip_code',
+    //         'rating',
+    //         'sheet_name',
+    //         'checked_by',
+    //         'review',
+    //         'created_at',
+    //         'updated_at',
+    //     ]);
+    
+    //     // Paginate the query
+    //     $query->skip($start)->take($length);
+    
+    //     // Return the filtered data to DataTables
+    //     return DataTables::of($query)
+    //         ->with('draw', $request->get('draw'))
+    //         ->make(true);
+    // }
+    
+
 
     // public function dataServer(Request $request)
     // {

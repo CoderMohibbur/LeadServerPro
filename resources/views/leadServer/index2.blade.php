@@ -382,6 +382,7 @@
             }
             const dataTable = $('#dataTable').DataTable({
                 processing: true,
+                // serverSide: true, // Enable server-side processing
                 responsive: true,
                 autoWidth: false,
                 scrollX: true,
@@ -392,6 +393,9 @@
                 ajax: {
                     url: '/leads/data',
                     type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: function(d) {
 
                         // Include sheet_id in the request payload
@@ -405,18 +409,6 @@
                         if (userId) {
                             d.user_id = userId;
                         }
-
-                        // Collect values from Tagify inputs
-                        // $('#filtersContainer .tagify').each(function() {
-                        //     const tagify = $(this).data(
-                        //         'tagify'); // Retrieve the Tagify instance
-                        //     if (tagify) {
-                        //         const columnName = $(this).attr(
-                        //             'name'); // Use the input's name as the column
-                        //         d[columnName] = tagify.value.map(tag => tag
-                        //             .value); // Add Tagify values as an array
-                        //     }
-                        // });
 
                         // Process all '.tagify' inputs within '#filtersContainer'
                         $('#filtersContainer .tagify').each(function() {
@@ -676,42 +668,33 @@
                         tagify.on('remove', () => {
                             $('#dataTable').DataTable().ajax.reload();
                         });
-                        // // Add a button to remove all tags
-                        // document.getElementById('removeAllTagsButton').addEventListener('click', function () {
-                        //     tagify.removeAllTags(); // Remove all tags
-                        //     $('#dataTable').DataTable().ajax.reload(); // Reload DataTable
-                        // });
-                        // Add an event listener to the button
-                        document.getElementById('removeAllTagsButton').addEventListener('click',
-                            function() {
-                                // Remove all tags
-                                tagify.removeAllTags();
-                                $('#dataTable').DataTable().ajax
-                            .reload(); // Reload DataTable
-                                // Reset DataTable search field (e.g., dt-search-0)
-                                const searchField = document.querySelector(
-                                '#dt-search-0'); // Replace #dt-search-0 with the correct selector
-                                if (searchField) {
-                                    searchField.value = ''; // Clear the search field value
-                                    searchField.dispatchEvent(new Event(
-                                    'input')); // Trigger input event for search
-                                }
-                                // Reload the DataTable
-                                $('#dataTable').DataTable().search('')
-                            .draw(); // Clear and redraw the table
-                            });
 
+                        // Add a button to remove all tags
+                        document.getElementById('removeAllTagsButton').addEventListener('click', function () {
+                            // Remove all tags
+                            tagify.removeAllTags();
+                            
+                            // Reload the DataTable
+                            $('#dataTable').DataTable().ajax.reload(); 
+                            
+                            // Clear and reset DataTable search field (if any exists)
+                            const searchField = document.querySelector('#dt-search-0'); // Replace #dt-search-0 with the correct selector
+                            if (searchField) {
+                                searchField.value = ''; // Clear the search field value
+                                searchField.dispatchEvent(new Event('input')); // Trigger input event for search
+                            }
+
+                            // Clear all DataTable filters and redraw the table
+                            $('#dataTable').DataTable().search('').draw();
+                        });
                     });
 
                     // Generates an array [1, 2, ..., 36]
-                    const columnsToSearch = Array.from({
-                        length: 36
-                    }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
+                    const columnsToSearch = Array.from({ length: 36 }, (_, i) => i + 1); // Generates an array [1, 2, ..., 36]
 
                     // Add a second row for search filters
                     const tableHeader = $(api.table().header());
-                    const searchRow = $(
-                        '<tr class="search-row"></tr>'); // Add a class for easier styling
+                    const searchRow = $('<tr class="search-row"></tr>'); // Add a class for easier styling
                     tableHeader.append(searchRow); // Append as the second row
 
                     api.columns().every(function(index) {
@@ -720,18 +703,16 @@
                         if (columnsToSearch.includes(index)) {
                             // Create a search input for searchable columns
                             const title = $(column.header()).text(); // Get column title
-                            $('<th><input type="text" placeholder=""style="width:100%;padding: 1px;"/></th>')
+                            $('<th><input type="text" placeholder="" style="width:100%;padding: 1px;"/></th>')
                                 .appendTo(searchRow)
                                 .find('input')
                                 .on('keyup change clear', function() {
                                     if (column.search() !== this.value) {
-                                        column.search(this.value)
-                                            .draw(); // Trigger filtering
+                                        column.search(this.value).draw(); // Trigger filtering
                                     }
                                 });
                         } else {
-                            $('<th></th>').appendTo(
-                                searchRow); // Add an empty cell for non-searchable columns
+                            $('<th></th>').appendTo(searchRow); // Add an empty cell for non-searchable columns
                         }
                     });
 

@@ -58,154 +58,154 @@ class SheetController extends Controller
         return view('sheets.create', compact('users'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file|mimes:csv,txt',
-            'sheet_name' => 'required|string|max:255',
-            'sheet_working_date' => 'required|date',
-            'user_id' => 'required|exists:users,id',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|file|mimes:csv,txt',
+    //         'sheet_name' => 'required|string|max:255',
+    //         'sheet_working_date' => 'required|date',
+    //         'user_id' => 'required|exists:users,id',
+    //     ]);
 
-        $filePath = null;
+    //     $filePath = null;
 
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('sheets', 'public');
-        }
+    //     if ($request->hasFile('file')) {
+    //         $filePath = $request->file('file')->store('sheets', 'public');
+    //     }
 
-        $sheet = new Sheet();
-        $sheet->file = $filePath;
-        $sheet->sheet_name = $request->sheet_name;
-        $sheet->sheet_working_date = $request->sheet_working_date;
-        $sheet->user_id = $request->user_id;
-        $sheet->save();
+    //     $sheet = new Sheet();
+    //     $sheet->file = $filePath;
+    //     $sheet->sheet_name = $request->sheet_name;
+    //     $sheet->sheet_working_date = $request->sheet_working_date;
+    //     $sheet->user_id = $request->user_id;
+    //     $sheet->save();
 
-        $totalRows = 0;
-        $skippedRows = 0;
+    //     $totalRows = 0;
+    //     $skippedRows = 0;
 
-        if ($request->file('file')->getClientOriginalExtension() === 'csv') {
-            $fullPath = Storage::disk('public')->path($filePath);
-            $csv = Reader::createFromPath($fullPath, 'r');
-            $csv->setHeaderOffset(0);
+    //     if ($request->file('file')->getClientOriginalExtension() === 'csv') {
+    //         $fullPath = Storage::disk('public')->path($filePath);
+    //         $csv = Reader::createFromPath($fullPath, 'r');
+    //         $csv->setHeaderOffset(0);
 
-            // Fetch database columns dynamically
-            $dbColumns = Schema::getColumnListing('leads'); // Replace 'leads' with your table name
-            $dbColumns = array_map('strtolower', $dbColumns);
+    //         // Fetch database columns dynamically
+    //         $dbColumns = Schema::getColumnListing('leads'); // Replace 'leads' with your table name
+    //         $dbColumns = array_map('strtolower', $dbColumns);
 
-            $headerMap = [
-                'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin', 'linkedin_link', 'LinkedIn Link'],
-                'company_name' => ['company', 'company name', 'company_name'],
-                'contact_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'contact_name'],
-                'name_prefix' => ['namePrefix', 'name_prefix'],
-                'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
-                'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
-                'last_name' => ['last name', 'lname', 'lastName'],
-                'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email','Business Email'],
-                'phone' => ['phone number', 'phone', 'contact phone'],
-                'title_position' => ['Title', 'titlePosition'],
-                'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
-                'full_address' => ['fullAddress', 'Address '],
-                'company_phone' => ['companyphone', 'Phone Number'],
-                'company_head_count' => ['Number of Employees', '# of Employees', 'Head Count', 'companyHeadCount', '#of Employees', 'company_head_count','#of_employee', '#_of_employee'],
-                'country' => ['country'],
-                'city' => ['city'],
-                'state' => ['state'],
-                'tag' => ['tag'],
-                'source_link' => ['sourceLink', 'source_link'],
-                'middle_name' => ['middleName', 'middle_name'],
-                'sur_name' => ['sureName', 'sur_name'],
-                'gender' => ['gender'],
-                'personal_phone' => ['personalPhone', 'personal_phone', 'phone'],
-                'employee_range' => ['employeeRange', 'employee_range'],
-                'company_website' => ['Company Website', 'Website', 'Web Link', 'WebLink ', 'companyWebsite', 'company_website'],
-                'company_linkedin_link' => ['companyLinkedinLink','company_linkedin','company linkedin', 'company_linkedin_link'],
-                'company_hq_address' => ['company hq address', 'hq address', 'company hq', 'company_hq', 'company address', 'company_hq_address', 'job_location'],
-                'industry' => ['industry', 'Industry'],
-                'revenue' => ['revenue'],
-                'street' => ['street'],
-                'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
-                'rating' => ['rating'],
-                'sheet_name' => ['sheet_name'],
-                'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
-                'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
-                'checked_by' => ['checkedby', 'checked by', 'checked_by'],
-                'review' => ['review','review_by']
-            ];
+    //         $headerMap = [
+    //             'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin', 'linkedin_link', 'LinkedIn Link'],
+    //             'company_name' => ['company', 'company name', 'company_name'],
+    //             'contact_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'contact_name'],
+    //             'name_prefix' => ['namePrefix', 'name_prefix'],
+    //             'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
+    //             'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
+    //             'last_name' => ['last name', 'lname', 'lastName'],
+    //             'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email','Business Email'],
+    //             'phone' => ['phone number', 'phone', 'contact phone'],
+    //             'title_position' => ['Title', 'titlePosition'],
+    //             'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
+    //             'full_address' => ['fullAddress', 'Address '],
+    //             'company_phone' => ['companyphone', 'Phone Number'],
+    //             'company_head_count' => ['Number of Employees', '# of Employees', 'Head Count', 'companyHeadCount', '#of Employees', 'company_head_count','#of_employee', '#_of_employee'],
+    //             'country' => ['country'],
+    //             'city' => ['city'],
+    //             'state' => ['state'],
+    //             'tag' => ['tag'],
+    //             'source_link' => ['sourceLink', 'source_link'],
+    //             'middle_name' => ['middleName', 'middle_name'],
+    //             'sur_name' => ['sureName', 'sur_name'],
+    //             'gender' => ['gender'],
+    //             'personal_phone' => ['personalPhone', 'personal_phone', 'phone'],
+    //             'employee_range' => ['employeeRange', 'employee_range'],
+    //             'company_website' => ['Company Website', 'Website', 'Web Link', 'WebLink ', 'companyWebsite', 'company_website'],
+    //             'company_linkedin_link' => ['companyLinkedinLink','company_linkedin','company linkedin', 'company_linkedin_link'],
+    //             'company_hq_address' => ['company hq address', 'hq address', 'company hq', 'company_hq', 'company address', 'company_hq_address', 'job_location'],
+    //             'industry' => ['industry', 'Industry'],
+    //             'revenue' => ['revenue'],
+    //             'street' => ['street'],
+    //             'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
+    //             'rating' => ['rating'],
+    //             'sheet_name' => ['sheet_name'],
+    //             'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
+    //             'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
+    //             'checked_by' => ['checkedby', 'checked by', 'checked_by'],
+    //             'review' => ['review','review_by']
+    //         ];
 
-            $headers = $csv->getHeader();
-            $normalizedHeaders = [];
-            $excludedHeaders = []; // Track excluded headers
+    //         $headers = $csv->getHeader();
+    //         $normalizedHeaders = [];
+    //         $excludedHeaders = []; // Track excluded headers
 
-            foreach ($headers as $header) {
-                $normalized = strtolower(str_replace([' ', '-', '.'], '_', trim($header)));
+    //         foreach ($headers as $header) {
+    //             $normalized = strtolower(str_replace([' ', '-', '.'], '_', trim($header)));
 
-                $mappedHeader = null;
+    //             $mappedHeader = null;
 
-                // Match normalized headers with aliases in the headerMap
-                foreach ($headerMap as $key => $aliases) {
-                    if (in_array($header, $aliases, true) || in_array($normalized, $aliases, true)) {
-                        $mappedHeader = $key;
-                        break;
-                    }
-                }
+    //             // Match normalized headers with aliases in the headerMap
+    //             foreach ($headerMap as $key => $aliases) {
+    //                 if (in_array($header, $aliases, true) || in_array($normalized, $aliases, true)) {
+    //                     $mappedHeader = $key;
+    //                     break;
+    //                 }
+    //             }
 
-                // Use the normalized header as a fallback if no mapping is found
-                $normalizedHeader = $mappedHeader ?: $normalized;
+    //             // Use the normalized header as a fallback if no mapping is found
+    //             $normalizedHeader = $mappedHeader ?: $normalized;
 
-                // Check if the header exists in the database schema
-                if (in_array($normalizedHeader, $dbColumns)) {
-                    $normalizedHeaders[] = $normalizedHeader;
-                } else {
-                    $excludedHeaders[] = $header;
-                }
-            }
+    //             // Check if the header exists in the database schema
+    //             if (in_array($normalizedHeader, $dbColumns)) {
+    //                 $normalizedHeaders[] = $normalizedHeader;
+    //             } else {
+    //                 $excludedHeaders[] = $header;
+    //             }
+    //         }
 
-            $existingEmails = DB::table('leads')->pluck('email')->toArray();
-            $data = [];
+    //         $existingEmails = DB::table('leads')->pluck('email')->toArray();
+    //         $data = [];
 
-            foreach ($csv->getRecords() as $record) {
-                $totalRows++;
+    //         foreach ($csv->getRecords() as $record) {
+    //             $totalRows++;
 
-                // Skip rows with duplicate emails
-                if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
-                    $skippedRows++;
-                    continue;
-                }
+    //             // Skip rows with duplicate emails
+    //             if (!empty($record['email']) && in_array($record['email'], $existingEmails)) {
+    //                 $skippedRows++;
+    //                 continue;
+    //             }
 
-                $mappedRecord = [];
-                foreach ($normalizedHeaders as $index => $dbColumn) {
-                    $value = $record[$headers[$index]] ?? null; // Use the original header for indexing
-                    $mappedRecord[$dbColumn] = $value;
-                }
+    //             $mappedRecord = [];
+    //             foreach ($normalizedHeaders as $index => $dbColumn) {
+    //                 $value = $record[$headers[$index]] ?? null; // Use the original header for indexing
+    //                 $mappedRecord[$dbColumn] = $value;
+    //             }
 
-                $mappedRecord['sheets_id'] = $sheet->id;
-                $mappedRecord['created_at'] = now();
-                $mappedRecord['updated_at'] = now();
+    //             $mappedRecord['sheets_id'] = $sheet->id;
+    //             $mappedRecord['created_at'] = now();
+    //             $mappedRecord['updated_at'] = now();
 
-                $data[] = $mappedRecord;
+    //             $data[] = $mappedRecord;
 
-                // Batch insert when data reaches 1000 rows
-                if (count($data) === 1000) {
-                    DB::table('leads')->insert($data);
-                    $data = [];
-                }
-            }
+    //             // Batch insert when data reaches 1000 rows
+    //             if (count($data) === 1000) {
+    //                 DB::table('leads')->insert($data);
+    //                 $data = [];
+    //             }
+    //         }
 
-            // Insert remaining data
-            if (!empty($data)) {
-                DB::table('leads')->insert($data);
-            }
-        }
+    //         // Insert remaining data
+    //         if (!empty($data)) {
+    //             DB::table('leads')->insert($data);
+    //         }
+    //     }
 
-        $excludedColumnsMessage = !empty($excludedHeaders)
-            ? ' The following columns were excluded as they do not match the database schema: ' . implode(', ', $excludedHeaders) . '.'
-            : '';
+    //     $excludedColumnsMessage = !empty($excludedHeaders)
+    //         ? ' The following columns were excluded as they do not match the database schema: ' . implode(', ', $excludedHeaders) . '.'
+    //         : '';
 
-        return redirect()->route('sheets.index')->with(
-            'success',
-            "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.$excludedColumnsMessage"
-        );
-    }
+    //     return redirect()->route('sheets.index')->with(
+    //         'success',
+    //         "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.$excludedColumnsMessage"
+    //     );
+    // }
 
 
 
@@ -321,7 +321,164 @@ class SheetController extends Controller
     //     return redirect()->route('sheets.index')->with('success', "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.");
     // }
 
-
+    public function store(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt',
+            'sheet_name' => 'required|string|max:255',
+            'sheet_working_date' => 'required|date',
+            'user_id' => 'required|exists:users,id',
+        ]);
+    
+        $filePath = null;
+    
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('sheets', 'public');
+        }
+    
+        $sheet = new Sheet();
+        $sheet->file = $filePath;
+        $sheet->sheet_name = $request->sheet_name;
+        $sheet->sheet_working_date = $request->sheet_working_date;
+        $sheet->user_id = $request->user_id;
+        $sheet->save();
+    
+        $totalRows = 0;
+        $skippedRows = 0;
+    
+        if ($request->file('file')->getClientOriginalExtension() === 'csv') {
+            $fullPath = Storage::disk('public')->path($filePath);
+            $csv = Reader::createFromPath($fullPath, 'r');
+            $csv->setHeaderOffset(0);
+    
+            // Fetch database columns dynamically
+            $dbColumns = Schema::getColumnListing('leads'); // Replace 'leads' with your table name
+            $dbColumns = array_map('strtolower', $dbColumns);
+    
+            $headerMap = [
+                'linkedin_link' => ['linkedin link', 'linkedin', 'personal linkedin', 'linkedin_link', 'LinkedIn Link'],
+                'company_name' => ['company', 'company name', 'company_name'],
+                'contact_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'contact_name'],
+                'name_prefix' => ['namePrefix', 'name_prefix'],
+                'full_name' => ['Contact Name', 'fullName', 'FullName', 'Fullname', 'full name', 'full_name'],
+                'first_name' => ['first name', 'fname', 'firstName', 'first_name'],
+                'last_name' => ['last name', 'lname', 'lastName'],
+                'email' => ['email address', 'email', 'Email Address', 'emailAddress', 'Buisness Email', 'buisness email','Business Email', 'Business Email Address', 'business_email_address'],
+                'phone' => ['phone number', 'phone', 'contact phone'],
+                'title_position' => ['Title', 'titlePosition'],
+                'person_location' => ['personalLocation', 'location', 'personal location','personal address'],
+                'full_address' => ['fullAddress', 'Address '],
+                'company_phone' => ['companyphone', 'Phone Number'],
+                'company_head_count' => ['Number of Employees', '# of Employees', 'Head Count', 'companyHeadCount', '#of Employees', 'company_head_count','#of_employee', '#_of_employee'],
+                'country' => ['country'],
+                'city' => ['city'],
+                'state' => ['state'],
+                'tag' => ['tag'],
+                'source_link' => ['sourceLink', 'source_link'],
+                'middle_name' => ['middleName', 'middle_name'],
+                'sur_name' => ['sureName', 'sur_name'],
+                'gender' => ['gender'],
+                'personal_phone' => ['personalPhone', 'personal_phone', 'phone'],
+                'employee_range' => ['employeeRange', 'employee_range'],
+                'company_website' => ['Company Website', 'Website', 'Web Link', 'WebLink ', 'companyWebsite', 'company_website'],
+                'company_linkedin_link' => ['companyLinkedinLink','company_linkedin','company linkedin', 'company_linkedin_link'],
+                'company_hq_address' => ['company hq address', 'hq address', 'company hq', 'company_hq', 'company address', 'company_hq_address', 'job_location'],
+                'industry' => ['industry', 'Industry'],
+                'revenue' => ['revenue'],
+                'street' => ['street'],
+                'zip_code' => ['zip', 'zip code','zipcode', 'zip_code'],
+                'rating' => ['rating'],
+                'sheet_name' => ['sheet_name'],
+                'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
+                'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
+                'checked_by' => ['checkedby', 'checked by', 'checked_by'],
+                'review' => ['review','review_by']
+            ];
+    
+            $headers = $csv->getHeader();
+            $normalizedHeaders = [];
+            $excludedHeaders = []; // Track excluded headers
+    
+            foreach ($headers as $header) {
+                $normalized = strtolower(str_replace([' ', '-', '.'], '_', trim($header)));
+    
+                $mappedHeader = null;
+    
+                // Match normalized headers with aliases in the headerMap
+                foreach ($headerMap as $key => $aliases) {
+                    if (in_array($header, $aliases, true) || in_array($normalized, $aliases, true)) {
+                        $mappedHeader = $key;
+                        break;
+                    }
+                }
+    
+                // Use the normalized header as a fallback if no mapping is found
+                $normalizedHeader = $mappedHeader ?: $normalized;
+    
+                // Check if the header exists in the database schema
+                if (in_array($normalizedHeader, $dbColumns)) {
+                    $normalizedHeaders[] = $normalizedHeader;
+                } else {
+                    $excludedHeaders[] = $header;
+                }
+            }
+    
+            $existingEmails = DB::table('leads')->pluck('email')->map(function ($email) {
+                return strtolower(trim($email)); // Normalize existing emails
+            })->toArray();
+    
+            $data = [];
+    
+            foreach ($csv->getRecords() as $record) {
+                $totalRows++;
+    
+                $email = isset($record['email']) ? strtolower(trim($record['email'])) : null; // Normalize email from the record
+    
+                // Skip rows with duplicate emails
+                if (!empty($email) && in_array($email, $existingEmails)) {
+                    $skippedRows++;
+                    continue;
+                }
+    
+                $mappedRecord = [];
+                foreach ($normalizedHeaders as $index => $dbColumn) {
+                    $value = $record[$headers[$index]] ?? null; // Use the original header for indexing
+                    $mappedRecord[$dbColumn] = $value;
+                }
+    
+                $mappedRecord['sheets_id'] = $sheet->id;
+                $mappedRecord['created_at'] = now();
+                $mappedRecord['updated_at'] = now();
+    
+                $data[] = $mappedRecord;
+    
+                // Add the email to the existingEmails array to prevent future duplicates in this batch
+                if (!empty($email)) {
+                    $existingEmails[] = $email;
+                }
+    
+                // Batch insert when data reaches 1000 rows
+                if (count($data) === 1000) {
+                    DB::table('leads')->insert($data);
+                    $data = [];
+                }
+            }
+    
+            // Insert remaining data
+            if (!empty($data)) {
+                DB::table('leads')->insert($data);
+            }
+        }
+    
+        $excludedColumnsMessage = !empty($excludedHeaders)
+            ? ' The following columns were excluded as they do not match the database schema: ' . implode(', ', $excludedHeaders) . '.'
+            : '';
+    
+        return redirect()->route('sheets.index')->with(
+            'success',
+            "Sheet created successfully! Total rows: $totalRows, Skipped rows: $skippedRows.$excludedColumnsMessage"
+        );
+    }
 
     public function index()
     {
