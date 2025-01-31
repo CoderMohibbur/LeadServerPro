@@ -467,17 +467,22 @@ class SheetController extends Controller
 
     public function destroy(Sheet $sheet)
     {
-        // Check if the file exists and delete it from storage if necessary
         if ($sheet->file) {
-            Storage::delete($sheet->file);
+            // ফাইলের সম্পূর্ণ পাথ বের করো
+            $fullPath = storage_path('app/public/' . $sheet->file);
+    
+            // ফাইল এক্সিস্ট করলে `unlink()` দিয়ে ডিলিট করো
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
         }
-
-        // Delete the sheet record from the database
+    
+        // ডাটাবেস থেকে রেকর্ড ডিলিট
         $sheet->delete();
-
-        // Redirect back to the sheets list with a success message
+    
         return redirect()->route('sheets.index')->with('success', 'Sheet deleted successfully.');
     }
+    
     public function edit(Sheet $sheet)
     {
         // Fetch all users and pass them to the view
