@@ -345,23 +345,49 @@ class SheetController extends Controller
                 }
                 return redirect()->route('sheets.index')->with('error', 'Sheet must contain an email column. Upload failed.');
             }
-            
 
-            Log::info('Header Processing Information:', $headerDebugInfo);
-            Log::info('Normalized Headers:', $normalizedHeaders);
-            Log::info('Excluded Headers:', $excludedHeaders);
+
+            // Log::info('Header Processing Information:', $headerDebugInfo);
+            // Log::info('Normalized Headers:', $normalizedHeaders);
+            // Log::info('Excluded Headers:', $excludedHeaders);
 
             $existingEmails = DB::table('leads')->pluck('email')->map(fn($email) => strtolower(trim($email)))->toArray();
+
+            // $existingEmails = DB::table('leads')->pluck('email')
+            // ->map(fn($email) => strtolower(trim($email)))
+            // ->flip()
+            // ->toArray();
+
             $data = [];
 
             foreach ($csv->getRecords() as $record) {
                 $totalRows++;
-                $email = isset($record['email']) ? strtolower(trim($record['email'])) : null;
-
-                if (!empty($email) && in_array($email, $existingEmails)) {
+                // $email = isset($record['email']) ? strtolower(trim($record['email'])) : null;
+                $emailColumn = array_search('email', $normalizedHeaders);
+                // $email = $emailColumn !== false ? strtolower(trim($record[$headers[$emailColumn]] ?? '')) : null;
+                $email = $emailColumn !== false ? strtolower(trim($record[$headers[$emailColumn]] ?? '')) : null;
+                
+                // Skip rows where email is null or empty
+                if (empty($email) || in_array($email, $existingEmails, true)) {
                     $skippedRows++;
                     continue;
                 }
+
+
+                
+                // Log::info('CSV Headers:', $headers);
+
+                // if (!empty($email)) {
+                //     $email = strtolower(trim($email)); // Normalize email before checking
+                
+                //     Log::info('Checking email existence:', ['email' => $email]); 
+                
+                //     if (DB::table('leads')->whereRaw('LOWER(email) = ?', [$email])->exists()) {
+                //         Log::info('Duplicate email found, skipping row:', ['email' => $email]);
+                //         $skippedRows++;
+                //         continue;
+                //     }
+                // }
 
                 $mappedRecord = [];
                 foreach ($headerIndexMap as $index => $dbColumn) {
@@ -391,7 +417,8 @@ class SheetController extends Controller
             }
         }
 
-        if ($totalRows === 0) {
+        // if ($totalRows === 0) {
+        if ($totalRows === 0 || $totalRows === $skippedRows) {
             if (isset($sheet)) {
                 $sheet->delete(); // Delete sheet entry if it was created
             }
@@ -411,7 +438,7 @@ class SheetController extends Controller
         );
     }
 
-    
+
     public function index()
     {
         // Retrieve all sheets and display them
