@@ -51,20 +51,21 @@
                             </li>
                             <li>
                                 <a href="/User"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    User Management
-                                </a>
+                                class="block text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-orange-400 dark:hover:bg-orange-500 dark:focus:ring-orange-700">
+                                User Management
+                            </a>
+
                             </li>
                             <li>
                                 <a href="/sheets"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Sheet List
+                                class="block text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-cyan-400 dark:hover:bg-cyan-500 dark:focus:ring-cyan-700">
+                                Sheet List
                                 </a>
                             </li>
                             <li>
                                 <a href="/tickets"
-                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Support Ticket
+                                class="block text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800">
+                                Support Ticket
                                 </a>
                             </li>
 
@@ -72,6 +73,7 @@
                                 <a href="/lead-server"
                                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Current Lead:<span class="ml-2 text-lg font-bold">{{ $leadcount }}</span>
+
                                 </a>
                             </li>
 
@@ -132,7 +134,7 @@
                                             <th class="p-2.5">Street</th>
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
-                                            <th class="p-2.5">Checked By</th>
+                                            {{-- <th class="p-2.5">Checked By</th> --}}
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
                                             <th class="p-2.5">Updated At</th>
@@ -209,47 +211,61 @@
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+
+
+                          <!-- sheet_link -->
+
+                            <div>
+                                <label for="sheet_link" class="block text-gray-700 dark:text-gray-300">Sheet
+                                    Link</label>
+                                <input type="text" id="sheet_link" name="sheet_link"
+                                    value="{{ old('sheet_link') }}" required
+                                    class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                                @error('sheet_link')
+                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!-- Select User -->
                             <div class="relative">
                                 <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>
-                                
+
                                 <!-- Input for search -->
-                                <input 
-                                    type="text" 
-                                    id="user_search" 
-                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2" 
-                                    placeholder="Search User..." 
+                                <input
+                                    type="text"
+                                    id="user_search"
+                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
+                                    placeholder="Search User..."
                                     autocomplete="off"
-                                    oninput="filterUsers(event)" 
+                                    oninput="filterUsers(event)"
                                     onclick="openDropdown()"
                                     onkeydown="handleKeyboardNavigation(event)">
-                                
+
                                 <!-- Dropdown Menu -->
-                                <div 
-                                    id="dropdown_menu" 
+                                <div
+                                    id="dropdown_menu"
                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10 hidden">
                                     <ul id="user_list" class="py-1 text-sm text-gray-700 dark:text-gray-300">
                                         <!-- User options will be dynamically inserted here -->
                                     </ul>
                                 </div>
-                            
+
                                 <!-- Message if no users found -->
                                 <div id="no_results" class="hidden absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md z-10">
                                     <p class="px-4 py-2 text-gray-500 dark:text-gray-400">No users found</p>
                                 </div>
-                            
+
                                 <!-- Hidden Input for Form Submission -->
                                 <input type="hidden" name="user_id" id="selected_user_id">
-                            
+
                                 <!-- Error handling -->
                                 <div id="error_message" class="text-red-500 text-sm mt-1 hidden">An error occurred</div>
                             </div>
-                            
+
                             <script>
                                 const users = @json($users); // The user data from the backend
                                 let filteredUsers = [...users.slice(0, 10)]; // Show the first 10 users by default
                                 let activeIndex = -1;
-                            
+
                                 // Filter users based on search input
                                 function filterUsers(event) {
                                     const search = event.target.value.toLowerCase();
@@ -263,7 +279,7 @@
                                     activeIndex = -1; // Reset active index
                                     updateDropdown();
                                 }
-                            
+
                                 // Open the dropdown
                                 function openDropdown() {
                                     if (filteredUsers.length === 0) {
@@ -274,30 +290,30 @@
                                     document.getElementById("no_results").classList.add("hidden");
                                     updateDropdown();
                                 }
-                            
+
                                 // Close the dropdown
                                 function closeDropdown() {
                                     document.getElementById("dropdown_menu").classList.add("hidden");
                                 }
-                            
+
                                 // Update the dropdown menu with filtered users
                                 function updateDropdown() {
                                     const dropdownMenu = document.getElementById("dropdown_menu");
                                     const userList = document.getElementById("user_list");
                                     const noResults = document.getElementById("no_results");
-                            
+
                                     // Clear the current list
                                     userList.innerHTML = "";
-                            
+
                                     if (filteredUsers.length === 0) {
                                         dropdownMenu.classList.add("hidden");
                                         noResults.classList.remove("hidden");
                                         return;
                                     }
-                            
+
                                     dropdownMenu.classList.remove("hidden");
                                     noResults.classList.add("hidden");
-                            
+
                                     // Add users to the dropdown
                                     filteredUsers.slice(0, 10).forEach((user, index) => {
                                         const li = document.createElement("li");
@@ -309,11 +325,11 @@
                                         userList.appendChild(li);
                                     });
                                 }
-                            
+
                                 // Handle keyboard navigation
                                 function handleKeyboardNavigation(event) {
                                     if (filteredUsers.length === 0) return;
-                            
+
                                     if (event.key === "ArrowDown") {
                                         activeIndex = (activeIndex + 1) % filteredUsers.length;
                                     } else if (event.key === "ArrowUp") {
@@ -323,10 +339,10 @@
                                             selectUser(activeIndex);
                                         }
                                     }
-                            
+
                                     updateDropdown();
                                 }
-                            
+
                                 // Select a user from the dropdown
                                 function selectUser(index) {
                                     const user = filteredUsers[index];
@@ -334,7 +350,7 @@
                                     document.getElementById("selected_user_id").value = user.id;
                                     closeDropdown();
                                 }
-                            
+
                                 // Close the dropdown when clicking outside
                                 document.addEventListener("click", (event) => {
                                     if (!event.target.closest(".relative")) {
@@ -569,10 +585,10 @@
                         data: 'rating',
                         width: "150px"
                     },
-                    {
-                        data: 'checked_by',
-                        width: "150px"
-                    },
+                    // {
+                    //     data: 'checked_by',
+                    //     width: "150px"
+                    // },
                     {
                         data: 'review',
                         width: "150px"
@@ -667,10 +683,10 @@
                         document.getElementById('removeAllTagsButton').addEventListener('click', function () {
                             // Remove all tags
                             tagify.removeAllTags();
-                            
+
                             // Reload the DataTable
-                            $('#dataTable').DataTable().ajax.reload(); 
-                            
+                            $('#dataTable').DataTable().ajax.reload();
+
                             // Clear and reset DataTable search field (if any exists)
                             const searchField = document.querySelector('#dt-search-0'); // Replace #dt-search-0 with the correct selector
                             if (searchField) {

@@ -107,7 +107,7 @@
                                             <th class="p-2.5">Zip Code</th>
                                             <th class="p-2.5">Rating</th>
                                             <th class="p-2.5">Sheet Name</th>
-                                            <th class="p-2.5">Checked By</th>
+                                            {{-- <th class="p-2.5">Checked By</th> --}}
                                             <th class="p-2.5">Review</th>
                                             <th class="p-2.5">Created At</th>
                                             <th class="p-2.5">Updated At</th>
@@ -820,10 +820,10 @@
                         width: "150px"
                     },
 
-                    {
-                        data: 'checked_by',
-                        width: "150px"
-                    },
+                    // {
+                    //     data: 'checked_by',
+                    //     width: "150px"
+                    // },
                     {
                         data: 'review',
                         width: "150px"

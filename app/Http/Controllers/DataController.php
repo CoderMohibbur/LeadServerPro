@@ -91,6 +91,7 @@ class DataController extends Controller
                 }
             }
         }
+        $query->orderBy('id', 'desc');
 
         $query->take(5000);
         // Return the filtered data to DataTables
@@ -100,18 +101,18 @@ class DataController extends Controller
     // public function dataServer(Request $request)
     // {
     //     $query = Lead::query();
-    
+
     //     // Apply specific filters
     //     if ($request->filled('sheet_id')) {
     //         $query->where('sheets_id', $request->sheet_id);
     //     }
-    
+
     //     if ($request->filled('user_id')) {
     //         $query->whereHas('sheet', function ($subQuery) use ($request) {
     //             $subQuery->where('user_id', $request->user_id);
     //         });
     //     }
-    
+
     //     // Apply dynamic filters
     //     foreach ($request->all() as $column => $values) {
     //         if (is_array($values) && !empty($values) && Schema::hasColumn('leads', $column)) {
@@ -122,11 +123,11 @@ class DataController extends Controller
     //             }
     //         }
     //     }
-    
+
     //     // Handle DataTables pagination parameters
     //     $start = $request->get('start', 0);
     //     $length = $request->get('length', 25);
-    
+
     //     // Select only necessary columns
     //     $query->select([
     //         'id',
@@ -167,16 +168,16 @@ class DataController extends Controller
     //         'created_at',
     //         'updated_at',
     //     ]);
-    
+
     //     // Paginate the query
     //     $query->skip($start)->take($length);
-    
+
     //     // Return the filtered data to DataTables
     //     return DataTables::of($query)
     //         ->with('draw', $request->get('draw'))
     //         ->make(true);
     // }
-    
+
 
 
     // public function dataServer(Request $request)
@@ -333,7 +334,7 @@ class DataController extends Controller
             'sheet_name' => 'nullable|string|max:255',
             'job_link' => 'nullable|string|max:1000',
             'job_role' => 'nullable|string|max:255',
-            'checked_by' => 'nullable|string|max:255',
+            // 'checked_by' => 'nullable|string|max:255',
             'review' => 'nullable|string|max:1000',
             'sheets_id' => 'nullable|integer|exists:sheets,id', // Foreign key validation
         ]);
@@ -377,7 +378,7 @@ class DataController extends Controller
             'sheet_name' => $request->sheet_name,
             'job_link' => $request->job_link,
             'job_role' => $request->job_role,
-            'checked_by' => $request->checked_by,
+            // 'checked_by' => $request->checked_by,
             'review' => $request->review,
             'sheets_id' => $request->sheets_id,
         ]);
@@ -426,7 +427,7 @@ class DataController extends Controller
             'sheet_name' => 'nullable|string|max:255',
             'job_link' => 'nullable|string|max:1000',
             'job_role' => 'nullable|string|max:255',
-            'checked_by' => 'nullable|string|max:255',
+            // 'checked_by' => 'nullable|string|max:255',
             'review' => 'nullable|string|max:1000',
             'sheets_id' => 'nullable|integer|exists:sheets,id',
         ]);
@@ -471,7 +472,7 @@ class DataController extends Controller
             $lead->sheet_name,
             $lead->job_link,
             $lead->job_role,
-            $lead->checked_by,
+            // $lead->checked_by,
             $lead->review,
             $lead->sheets_id,
         ];
@@ -521,7 +522,7 @@ class DataController extends Controller
                 'sheet_name',
                 'job_link',
                 'job_role',
-                'checked_by',
+                // 'checked_by',
                 'review',
                 'sheets_id',
             ]);
