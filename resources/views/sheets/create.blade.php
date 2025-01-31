@@ -43,6 +43,15 @@
                             <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
+{{-- 
+                    <div>
+                        <label for="sheet_name" class="block text-gray-700 dark:text-gray-300">yjku75y75yjk</label>
+                        <input type="text" id="sheet_name" name="sheet_name" value="{{ old('sheet_name') }}" required
+                            class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                        @error('sheet_name')
+                            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                        @enderror
+                    </div> --}}
 
                     <div x-data="{ open: false, search: '', selectedUser: '', selectedUserId: '' }" class="relative">
                         <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>

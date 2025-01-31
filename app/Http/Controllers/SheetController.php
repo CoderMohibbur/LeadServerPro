@@ -262,7 +262,7 @@ class SheetController extends Controller
                 'phone' => ['phone number', 'phone', 'contact phone'],
                 'title_position' => ['Title', 'titlePosition'],
                 'person_location' => ['personalLocation', 'location', 'personal location', 'personal address'],
-                'full_address' => ['fullAddress', 'Address '],
+                'full_address' => ['fullAddress', 'address','full_address','Address'],
                 'company_phone' => ['companyphone', 'Phone Number'],
                 'company_head_count' => ['Number of Employees', '# of Employees', 'Head Count', 'companyHeadCount', '#of Employees', 'company_head_count', '#of_employee', '#_of_employee'],
                 'country' => ['country'],
@@ -286,8 +286,8 @@ class SheetController extends Controller
                 'sheet_name' => ['sheet_name'],
                 'job_link' => ['joblink', 'JobLink', 'job_link', 'Job Posting Source Link'],
                 'job_role' => ['Job Role', 'Job Vacancy', 'job_role'],
-                'checked_by' => ['checkedby', 'checked by', 'checked_by'],
-                'review' => ['review', 'review_by']
+                // 'checked_by' => ['checkedby', 'checked by', 'checked_by'],
+                'review' => ['review', 'review_by','checked_by','checkedby', 'checked by', 'checked_by']
             ];
             $headers = $csv->getHeader();
 
@@ -345,7 +345,7 @@ class SheetController extends Controller
                 }
                 return redirect()->route('sheets.index')->with('error', 'Sheet must contain an email column. Upload failed.');
             }
-            
+
 
             Log::info('Header Processing Information:', $headerDebugInfo);
             Log::info('Normalized Headers:', $normalizedHeaders);
@@ -411,12 +411,14 @@ class SheetController extends Controller
         );
     }
 
-    
+
     public function index()
     {
         // Retrieve all sheets and display them
-        $sheets = Sheet::all();
+        $sheets = Sheet::all()->reverse();
         $users = User::all();
+        $sheet_link = "https://example.com/sheet.xlsx";
+
 
         return view('sheets.index', compact('sheets', 'users'));
     }
@@ -488,6 +490,13 @@ class SheetController extends Controller
             return response()->json(['message' => 'Access Denied.'], 403);
         }
     }
+    public function showSheet($id)
+{
+    $sheet = Sheet::find($id);
+    $sheet_link = $sheet->sheet_link;  // ডিফাইন করা হলো $sheet_link
+    return view('your-view', compact('sheet_link', 'sheet'));
+}
+
 }
 
 

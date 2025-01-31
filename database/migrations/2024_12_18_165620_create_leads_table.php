@@ -43,7 +43,7 @@ return new class extends Migration
             $table->string('revenue')->nullable();
             $table->string('street')->nullable();
             $table->string('zip_code')->nullable();
-            $table->string('rating')->nullable()->default('unrated');
+            $table->string('rating')->nullable();
             $table->string('sheet_name')->nullable();
             $table->string('job_link', 512)->nullable();
             $table->string('job_role')->nullable();
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->foreign('sheets_id')->references('id')->on('sheets')->onDelete('cascade'); // Foreign key
             $table->timestamps();
         });
-        
+
     }
 
     /**

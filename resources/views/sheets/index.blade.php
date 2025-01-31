@@ -5,11 +5,11 @@
                 {{ __('All Sheets List') }}
             </h2>
             @if (auth()->user()->hasRole('admin|manager'))
-                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                {{-- <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
                     type="button">
                     Upload
-                </button>
+                </button> --}}
             @else
             @endif
 
@@ -29,7 +29,7 @@
                             <span class="block sm:inline">{{ session('success') }}</span>
                         </div>
                     @endif
-                
+
                     @if (session('error'))
                         <div class="px-4 py-3 mb-4 rounded relative border text-sm
                                bg-red-100 border-red-400 text-red-700
@@ -40,7 +40,7 @@
                         </div>
                     @endif
                 </div>
-                
+
                 <div class=" flex space-x-4">
                     <div>
                         <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Start
@@ -66,6 +66,8 @@
                         <th>File</th>
                         <th>Working Date</th>
                         <th>Client Name</th>
+                        <th>Sheet link</th>
+
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -111,6 +113,18 @@
                                     <p>{{ $sheet->user->name }}</p>
                                 @endif
                             </td>
+                        </td>
+                        <!-- New Sheet Link Column -->
+                        <td class="px-4 py-2 dark:text-gray-300">
+                            @if($sheet->sheet_link)
+                                <a href="{{ $sheet->sheet_link }}" class="text-blue-500 hover:underline dark:text-blue-400">
+                                    Sheet View
+                                </a>
+                            @else
+                                No link available
+                            @endif
+                        </td>
+
                             <td class="px-4 py-2  dark:text-gray-300">
 
                                 @if (auth()->user()->hasRole('admin'))
@@ -196,48 +210,59 @@
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+                       <!-- sheet_link -->
 
+                            <div>
+                                <label for="sheet_link" class="block text-gray-700 dark:text-gray-300">Sheet
+                                    Link</label>
+                                <input type="text" id="sheet_link" name="sheet_link"
+                                    value="{{ old('sheet_link') }}" required
+                                    class="form-control w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 rounded-md shadow-sm">
+                                @error('sheet_link')
+                                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
                              <!-- Select User -->
                              <div class="relative">
                                 <label for="user_id" class="block text-gray-700 dark:text-gray-300">User</label>
-                                
+
                                 <!-- Input for search -->
-                                <input 
-                                    type="text" 
-                                    id="user_search" 
-                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2" 
-                                    placeholder="Search User..." 
+                                <input
+                                    type="text"
+                                    id="user_search"
+                                    class="w-full mt-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm p-2"
+                                    placeholder="Search User..."
                                     autocomplete="off"
-                                    oninput="filterUsers(event)" 
+                                    oninput="filterUsers(event)"
                                     onclick="openDropdown()"
                                     onkeydown="handleKeyboardNavigation(event)">
-                                
+
                                 <!-- Dropdown Menu -->
-                                <div 
-                                    id="dropdown_menu" 
+                                <div
+                                    id="dropdown_menu"
                                     class="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto rounded-md z-10 hidden">
                                     <ul id="user_list" class="py-1 text-sm text-gray-700 dark:text-gray-300">
                                         <!-- User options will be dynamically inserted here -->
                                     </ul>
                                 </div>
-                            
+
                                 <!-- Message if no users found -->
                                 <div id="no_results" class="hidden absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md z-10">
                                     <p class="px-4 py-2 text-gray-500 dark:text-gray-400">No users found</p>
                                 </div>
-                            
+
                                 <!-- Hidden Input for Form Submission -->
                                 <input type="hidden" name="user_id" id="selected_user_id">
-                            
+
                                 <!-- Error handling -->
                                 <div id="error_message" class="text-red-500 text-sm mt-1 hidden">An error occurred</div>
                             </div>
-                            
+
                             <script>
                                 const users = @json($users); // The user data from the backend
                                 let filteredUsers = [...users.slice(0, 10)]; // Show the first 10 users by default
                                 let activeIndex = -1;
-                            
+
                                 // Filter users based on search input
                                 function filterUsers(event) {
                                     const search = event.target.value.toLowerCase();
@@ -251,7 +276,7 @@
                                     activeIndex = -1; // Reset active index
                                     updateDropdown();
                                 }
-                            
+
                                 // Open the dropdown
                                 function openDropdown() {
                                     if (filteredUsers.length === 0) {
@@ -262,30 +287,30 @@
                                     document.getElementById("no_results").classList.add("hidden");
                                     updateDropdown();
                                 }
-                            
+
                                 // Close the dropdown
                                 function closeDropdown() {
                                     document.getElementById("dropdown_menu").classList.add("hidden");
                                 }
-                            
+
                                 // Update the dropdown menu with filtered users
                                 function updateDropdown() {
                                     const dropdownMenu = document.getElementById("dropdown_menu");
                                     const userList = document.getElementById("user_list");
                                     const noResults = document.getElementById("no_results");
-                            
+
                                     // Clear the current list
                                     userList.innerHTML = "";
-                            
+
                                     if (filteredUsers.length === 0) {
                                         dropdownMenu.classList.add("hidden");
                                         noResults.classList.remove("hidden");
                                         return;
                                     }
-                            
+
                                     dropdownMenu.classList.remove("hidden");
                                     noResults.classList.add("hidden");
-                            
+
                                     // Add users to the dropdown
                                     filteredUsers.slice(0, 10).forEach((user, index) => {
                                         const li = document.createElement("li");
@@ -297,11 +322,11 @@
                                         userList.appendChild(li);
                                     });
                                 }
-                            
+
                                 // Handle keyboard navigation
                                 function handleKeyboardNavigation(event) {
                                     if (filteredUsers.length === 0) return;
-                            
+
                                     if (event.key === "ArrowDown") {
                                         activeIndex = (activeIndex + 1) % filteredUsers.length;
                                     } else if (event.key === "ArrowUp") {
@@ -311,10 +336,10 @@
                                             selectUser(activeIndex);
                                         }
                                     }
-                            
+
                                     updateDropdown();
                                 }
-                            
+
                                 // Select a user from the dropdown
                                 function selectUser(index) {
                                     const user = filteredUsers[index];
@@ -322,7 +347,7 @@
                                     document.getElementById("selected_user_id").value = user.id;
                                     closeDropdown();
                                 }
-                            
+
                                 // Close the dropdown when clicking outside
                                 document.addEventListener("click", (event) => {
                                     if (!event.target.closest(".relative")) {
