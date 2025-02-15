@@ -16,8 +16,8 @@
                         <a href="/client/lead-server"
                             class="block transition-transform transform hover:-translate-y-2 bg-blue-500 shadow-lg rounded-lg p-6 hover:bg-blue-600">
                 @endif
-                <div class="flex items-center gap-4">
-                    <div class="bg-white p-2 rounded-full shadow">
+                <div class="flex justify-center gap-4">
+                    <div class="bg-white p-3 rounded-full shadow">
                         <svg class="w-8 h-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
@@ -25,9 +25,9 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <div>
-                        <h1 class="text-xl font-semibold text-white">Total Lead</h1>
-                        <p class="text-2xl font-bold text-white">{{ $leads }}</p>
+                    <div class="text-center">
+                        <h1 class="text-xl  font-semibold text-black mr-2">Total Lead</h1>
+                        <p class="text-2xl font-bold text-red mr-5 ">{{ $leads }}</p>
                     </div>
                 </div>
                 </a>
@@ -62,8 +62,8 @@
                             <a href="/client/User"
                                 class="block transition-transform transform hover:-translate-y-2 bg-purple-500 shadow-lg rounded-lg p-6 hover:bg-purple-600">
                     @endif
-                    <div class="flex items-center gap-4">
-                        <div class="bg-white p-2 rounded-full shadow">
+                    <div class="flex justify-center gap-4">
+                        <div class="bg-white p-3 rounded-full shadow">
                             <svg class="w-8 h-8 text-purple-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                 viewBox="0 0 24 24">
                                 <path fill-rule="evenodd"
@@ -71,7 +71,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <div>
+                        <div class="text-center">
                             <h1 class="text-xl font-semibold text-white">Support Ticket</h1>
                             <p class="text-2xl font-bold text-white">{{ $tickets }}</p>
                         </div>
@@ -86,8 +86,8 @@
                         <a href="/client/sheets"
                             class="block transition-transform transform hover:-translate-y-2 bg-green-500 shadow-lg rounded-lg p-6 hover:bg-green-600">
                 @endif
-                <div class="flex items-center gap-4">
-                    <div class="bg-white p-2 rounded-full shadow">
+                <div class="flex justify-center gap-4">
+                    <div class="bg-white p-3 rounded-full shadow">
                         <svg class="w-8 h-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
@@ -95,7 +95,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <h1 class="text-xl font-semibold text-white">Total Sheet</h1>
                         <p class="text-2xl font-bold text-white">{{ $sheets }}</p>
                     </div>
