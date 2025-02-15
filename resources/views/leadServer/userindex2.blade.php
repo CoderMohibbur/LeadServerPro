@@ -1065,6 +1065,9 @@
         --placeholder-color: #6e6e6e; /* Placeholder color for dark mode */
         --placeholder-color-focus: #6e6e6e; /* Placeholder color for dark mode */
     }
+    table.dataTable {
+        table-layout: fixed !important;
+    }
 </style>
 
 </html>

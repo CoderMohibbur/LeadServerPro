@@ -117,7 +117,7 @@
                         <!-- New Sheet Link Column -->
                         <td class="px-4 py-2 dark:text-gray-300">
                             @if($sheet->sheet_link)
-                                <a href="{{ $sheet->sheet_link }}" class="text-blue-500 hover:underline dark:text-blue-400">
+                                <a target="_blank" href="{{ $sheet->sheet_link }}" class="text-blue-500 hover:underline dark:text-blue-400">
                                     Sheet View
                                 </a>
                             @else
@@ -210,8 +210,7 @@
                                     <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-                       <!-- sheet_link -->
-
+                            <!-- sheet_link -->
                             <div>
                                 <label for="sheet_link" class="block text-gray-700 dark:text-gray-300">Sheet
                                     Link</label>

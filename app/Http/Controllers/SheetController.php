@@ -223,6 +223,7 @@ class SheetController extends Controller
             'file' => 'required|file|mimes:csv,txt',
             'sheet_name' => 'required|string|max:255',
             'sheet_working_date' => 'required|date',
+            'sheet_link' => 'string|max:255',
             'user_id' => 'required|exists:users,id',
         ]);
 
@@ -236,6 +237,7 @@ class SheetController extends Controller
         $sheet->file = $filePath;
         $sheet->sheet_name = $request->sheet_name;
         $sheet->sheet_working_date = $request->sheet_working_date;
+        $sheet->sheet_link = $request->sheet_link;
         $sheet->user_id = $request->user_id;
         $sheet->save();
 
@@ -346,22 +348,47 @@ class SheetController extends Controller
                 return redirect()->route('sheets.index')->with('error', 'Sheet must contain an email column. Upload failed.');
             }
 
-
-            Log::info('Header Processing Information:', $headerDebugInfo);
-            Log::info('Normalized Headers:', $normalizedHeaders);
-            Log::info('Excluded Headers:', $excludedHeaders);
+            // Log::info('Header Processing Information:', $headerDebugInfo);
+            // Log::info('Normalized Headers:', $normalizedHeaders);
+            // Log::info('Excluded Headers:', $excludedHeaders);
 
             $existingEmails = DB::table('leads')->pluck('email')->map(fn($email) => strtolower(trim($email)))->toArray();
+
+            // $existingEmails = DB::table('leads')->pluck('email')
+            // ->map(fn($email) => strtolower(trim($email)))
+            // ->flip()
+            // ->toArray();
+
             $data = [];
 
             foreach ($csv->getRecords() as $record) {
                 $totalRows++;
-                $email = isset($record['email']) ? strtolower(trim($record['email'])) : null;
-
-                if (!empty($email) && in_array($email, $existingEmails)) {
+                // $email = isset($record['email']) ? strtolower(trim($record['email'])) : null;
+                $emailColumn = array_search('email', $normalizedHeaders);
+                // $email = $emailColumn !== false ? strtolower(trim($record[$headers[$emailColumn]] ?? '')) : null;
+                $email = $emailColumn !== false ? strtolower(trim($record[$headers[$emailColumn]] ?? '')) : null;
+                
+                // Skip rows where email is null or empty
+                if (empty($email) || in_array($email, $existingEmails, true)) {
                     $skippedRows++;
                     continue;
                 }
+
+
+                
+                // Log::info('CSV Headers:', $headers);
+
+                // if (!empty($email)) {
+                //     $email = strtolower(trim($email)); // Normalize email before checking
+                
+                //     Log::info('Checking email existence:', ['email' => $email]); 
+                
+                //     if (DB::table('leads')->whereRaw('LOWER(email) = ?', [$email])->exists()) {
+                //         Log::info('Duplicate email found, skipping row:', ['email' => $email]);
+                //         $skippedRows++;
+                //         continue;
+                //     }
+                // }
 
                 $mappedRecord = [];
                 foreach ($headerIndexMap as $index => $dbColumn) {
@@ -391,7 +418,8 @@ class SheetController extends Controller
             }
         }
 
-        if ($totalRows === 0) {
+        // if ($totalRows === 0) {
+        if ($totalRows === 0 || $totalRows === $skippedRows) {
             if (isset($sheet)) {
                 $sheet->delete(); // Delete sheet entry if it was created
             }
@@ -439,17 +467,22 @@ class SheetController extends Controller
 
     public function destroy(Sheet $sheet)
     {
-        // Check if the file exists and delete it from storage if necessary
         if ($sheet->file) {
-            Storage::delete($sheet->file);
+            // ফাইলের সম্পূর্ণ পাথ বের করো
+            $fullPath = storage_path('app/public/' . $sheet->file);
+    
+            // ফাইল এক্সিস্ট করলে `unlink()` দিয়ে ডিলিট করো
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
         }
-
-        // Delete the sheet record from the database
+    
+        // ডাটাবেস থেকে রেকর্ড ডিলিট
         $sheet->delete();
-
-        // Redirect back to the sheets list with a success message
+    
         return redirect()->route('sheets.index')->with('success', 'Sheet deleted successfully.');
     }
+    
     public function edit(Sheet $sheet)
     {
         // Fetch all users and pass them to the view
