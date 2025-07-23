@@ -611,7 +611,7 @@
                 if (data.success) {
                     alert('Status updated successfully!');
                     // Reload the table to reflect changes
-                    $('#UserTable').DataTable().ajax.reload();
+                    $('#UserTable').DataTable().ajax.reload(null, false);
                 } else {
                     alert('Failed to update status!');
                 }
